@@ -97,7 +97,7 @@ def rampa ():
 def Obstaculo():
 
 
-    if UltrassonicoF.distance() <= 50:
+    if UltrassonicoF.distance() <= 60:
         timer.reset()
         while True:  # gira para esquerrda até que ache a linha com o sensor da direita
             seguir_Linha(1, 40)
