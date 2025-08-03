@@ -9,9 +9,9 @@ para desafios da **RoboCupJunior Rescue Line**, utilizando
 boas práticas de programação, versionamento de código e 
 colaboração em equipe.
 
-----------------------------------------------------------
+---
 
-## Sobre a equipe RoboBusters ##
+### Sobre a equipe RoboBusters 
 
 A **RoboBusters** é uma equipe de robótica educacional do 
 SESI Ananindeua - PA, com destaque estadual, nacional e internacional. 
@@ -19,19 +19,19 @@ Desenvolvemos projetos com foco em inovação, trabalho em equipe e
 aplicação prática da tecnologia em competições como a OBR e a RoboCup, 
 liga Rescue Line.
 
-----------------------------------------------------------
+---
 
-## Objetivo do Projeto ##
+### Objetivo do Projeto 
 
 Este repositório contém o código-fonte do robô programado com as bibliotecas 
 **Pybricks**, incluindo controle de motores, sensores e estratégias 
 inteligentes para navegação, identificação de obstáculos, resgate e
 seguimento preciso do trajeto de linha.
 
-----------------------------------------------------------
-## Objetivo deste Repositório ##
+---
+### Objetivo deste Repositório 
 
-Este projeto organiza toda a lógica de movimentação, resgate, tomada de decisões e sensores do robô. Aqui você encontra:
+**Este projeto organiza toda a lógica de movimentação, resgate, tomada de decisões e sensores do robô. Aqui você encontra:**
 
 - Código-fonte principal (`main.py`)
 - Módulos organizados em `utils/`
@@ -41,9 +41,9 @@ Este projeto organiza toda a lógica de movimentação, resgate, tomada de decis
 
 ----------------------------------------------------------
 
-## Como preparar um notebook do zero ##
+### Como preparar um notebook do zero
 
--Se você está usando um computador novo (apenas com VS Code instalado), siga os passos abaixo:
+**Se você está usando um computador novo (apenas com VS Code instalado), siga os passos abaixo:**
 
 ### 1. Instalar o Python 3.10 ou superior
 
@@ -54,12 +54,12 @@ Durante a instalação, marque a opção **"Add Python to PATH"**
 
 ### 2. Clonar este repositório
 
-Clone este repositório no VS Code via terminal:  
+**Clone este repositório no VS Code via terminal:**
   
    git clone https://github.com/RoboBusters-OBR/RB-REPOSITORIO.git
    cd RB-REPOSITORIO
 
-Clone este repositório no VS Code pelo VS Code: 
+**Clone este repositório no VS Code pelo VS Code:** 
    Abra o VS Code e pressione `Ctrl + Shift + P`, depois:
 
    1. Escolha **"Git: Clone"**
@@ -68,62 +68,62 @@ Clone este repositório no VS Code pelo VS Code:
 
 ----------------------------------------------------------
 
-## Como usar Git pelo terminal do VS Code - Passo a passo completo ##
+### Como usar Git pelo terminal do VS Code - Passo a passo completo
 
-### Requisitos
+**Requisitos**
 - Git instalado no seu computador.  
 - Projeto já iniciado com `git init` ou clonado com `git clone`.
 
---------------------------------
+----------------------------------------------------------
 
 ### 1. Abrir o terminal no VS Code
 - No VS Code, vá em **Terminal > Novo Terminal**  
 - Ou use o atalho: `` Ctrl + ` `` (crase)
 
----------------------------------
+----------------------------------------------------------
 
 
 ### 2. Verificar o status do repositório
 
-```bash
-git status
 
--------------------------------------------------------------
+"**git status**"
 
-## Comandos basicos de Git e como usar junto do GitHub ##
+----------------------------------------------------------
 
-# 1. Adicionar arquivos para o commit
-# Para adicionar todos os arquivos modificados:
-git add .
+## Comandos basicos de Git e como usar junto do GitHub 
 
-# Para adicionar um arquivo específico:
-git add nome_do_arquivo.py
+### -Para adicionar todos os arquivos modificados:
+*git add .*
 
-# 2. Fazer um commit (salvar as alterações localmente)
-# Com uma mensagem explicativa:
-git commit -m "Mensagem explicativa sobre a mudança"
+### -Para adicionar um arquivo específico:
+*git add nome_do_arquivo.py*
 
-# Exemplo:
-git commit -m "Corrige bug na função de seguir linha"
+### -Fazer um commit (salvar as alterações localmente) com uma mensagem explicativa:
+*git commit -m "Mensagem explicativa sobre a mudança"*
 
-# 3. Enviar as alterações para o GitHub (push)
-git push
+### -Exemplo:
+*git commit -m "Corrige bug na função de seguir linha"*
 
-# Se for a primeira vez enviando um branch, use:
-git push -u origin main
-# ou, se seu branch for master:
-git push -u origin master
+### -Enviar as alterações para o GitHub (push):
+*git push*
 
-# 4. Baixar atualizações do GitHub (pull)
-git pull
+### -Se for a primeira vez enviando um branch, use:
+*git push -u origin main*
 
-# 5. Visualizar o histórico de commits
-git log --oneline
+### -Ou, se seu branch for `master`:
+*git push -u origin master*
 
-# Fluxo típico de trabalho:
-# Sempre que modificar arquivos, execute:
-git status       # Verifica mudanças
-git add .        # Adiciona todas as mudanças ao staging
-git commit -m "Descrição do que mudou"  # Salva as mudanças localmente
-git push         # Envia as mudanças para o GitHub
+### -Baixar atualizações do GitHub (pull):
+*git pull*
 
+### -Visualizar o histórico de commits:
+*git log --oneline*
+
+### -Fluxo típico de trabalho — sempre que modificar arquivos, execute:
+-*git status*:        **Verifica mudanças**
+
+-*git add .*:         **Adiciona todas as mudanças ao staging**
+
+-*git commit -m "Descrição do que mudou"*: **Salva as mudanças localmente**
+
+-*git push*:         **Envia as mudanças para o GitHub**
