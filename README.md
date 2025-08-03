@@ -93,37 +93,37 @@ Durante a instalação, marque a opção **"Add Python to PATH"**
 ## Comandos basicos de Git e como usar junto do GitHub 
 
 ### -Para adicionar todos os arquivos modificados:
-**git add .*
+*git add .*
 
 ### -Para adicionar um arquivo específico:
-*git add nome_do_arquivo.py**
+*git add nome_do_arquivo.py*
 
 ### -Fazer um commit (salvar as alterações localmente) com uma mensagem explicativa:
-*git commit -m "Mensagem explicativa sobre a mudança"**
+*git commit -m "Mensagem explicativa sobre a mudança"*
 
 ### -Exemplo:
-*git commit -m "Corrige bug na função de seguir linha"**
+*git commit -m "Corrige bug na função de seguir linha"*
 
 ### -Enviar as alterações para o GitHub (push):
-*git push**
+*git push*
 
 ### -Se for a primeira vez enviando um branch, use:
-*git push -u origin main**
+*git push -u origin main*
 
 ### -Ou, se seu branch for `master`:
-*git push -u origin master**
+*git push -u origin master*
 
 ### -Baixar atualizações do GitHub (pull):
-*git pull**
+*git pull*
 
 ### -Visualizar o histórico de commits:
-*git log --oneline**
+*git log --oneline*
 
 ### -Fluxo típico de trabalho — sempre que modificar arquivos, execute:
--*git status**:        **Verifica mudanças**
+-*git status*:        **Verifica mudanças**
 
--*git add .**:         **Adiciona todas as mudanças ao staging**
+-*git add .*:         **Adiciona todas as mudanças ao staging**
 
--*git commit -m "Descrição do que mudou"**: **Salva as mudanças localmente**
+-*git commit -m "Descrição do que mudou"*: **Salva as mudanças localmente**
 
--*git push**:         **Envia as mudanças para o GitHub**
+-*git push*:         **Envia as mudanças para o GitHub**
