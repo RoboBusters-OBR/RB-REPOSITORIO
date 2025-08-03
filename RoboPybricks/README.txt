@@ -66,7 +66,7 @@ Durante a instalação, marque a opção **"Add Python to PATH"**
    2. Cole o link do seu repositório GitHub
    3. Abra a pasta clonada no VS Code
 
----
+----------------------------------------------------------
 
 ### Como usar Git pelo terminal do VS Code - Passo a passo completo
 
@@ -74,53 +74,56 @@ Durante a instalação, marque a opção **"Add Python to PATH"**
 - Git instalado no seu computador.  
 - Projeto já iniciado com `git init` ou clonado com `git clone`.
 
----
+----------------------------------------------------------
 
 ### 1. Abrir o terminal no VS Code
 - No VS Code, vá em **Terminal > Novo Terminal**  
 - Ou use o atalho: `` Ctrl + ` `` (crase)
 
----
+----------------------------------------------------------
 
 
 ### 2. Verificar o status do repositório
 
-bash
-git status
 
----
+"**git status**"
 
-### Comandos basicos de Git e como usar junto do GitHub 
+----------------------------------------------------------
 
-# Para adicionar todos os arquivos modificados:
-git add .
+## Comandos basicos de Git e como usar junto do GitHub 
 
-# Para adicionar um arquivo específico:
-git add nome_do_arquivo.py
+### -Para adicionar todos os arquivos modificados:
+*git add .*
 
-# Fazer um commit (salvar as alterações localmente) com uma mensagem explicativa:
-git commit -m "Mensagem explicativa sobre a mudança"
+### -Para adicionar um arquivo específico:
+*git add nome_do_arquivo.py*
 
-# Exemplo:
-git commit -m "Corrige bug na função de seguir linha"
+### -Fazer um commit (salvar as alterações localmente) com uma mensagem explicativa:
+*git commit -m "Mensagem explicativa sobre a mudança"*
 
-# Enviar as alterações para o GitHub (push):
-git push
+### -Exemplo:
+*git commit -m "Corrige bug na função de seguir linha"*
 
-# Se for a primeira vez enviando um branch, use:
-git push -u origin main
+### -Enviar as alterações para o GitHub (push):
+*git push*
 
-# Ou, se seu branch for `master`:
-git push -u origin master
+### -Se for a primeira vez enviando um branch, use:
+*git push -u origin main*
 
-# Baixar atualizações do GitHub (pull):
-git pull
+### -Ou, se seu branch for `master`:
+*git push -u origin master*
 
-# Visualizar o histórico de commits:
-git log --oneline
+### -Baixar atualizações do GitHub (pull):
+*git pull*
 
-# Fluxo típico de trabalho — sempre que modificar arquivos, execute:
-git status       # Verifica mudanças
-git add .        # Adiciona todas as mudanças ao staging
-git commit -m "Descrição do que mudou"  # Salva as mudanças localmente
-git push         # Envia as mudanças para o GitHub
+### -Visualizar o histórico de commits:
+*git log --oneline*
+
+### -Fluxo típico de trabalho — sempre que modificar arquivos, execute:
+-*git status*:        **Verifica mudanças**
+
+-*git add .*:         **Adiciona todas as mudanças ao staging**
+
+-*git commit -m "Descrição do que mudou"*: **Salva as mudanças localmente**
+
+-*git push*:         **Envia as mudanças para o GitHub**
