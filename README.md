@@ -92,31 +92,31 @@ git status
 
 ### Comandos basicos de Git e como usar junto do GitHub 
 
-# Para adicionar todos os arquivos modificados:
+## Para adicionar todos os arquivos modificados:
 git add .
 
-# Para adicionar um arquivo específico:
+## Para adicionar um arquivo específico:
 git add nome_do_arquivo.py
 
-# Fazer um commit (salvar as alterações localmente) com uma mensagem explicativa:
+## Fazer um commit (salvar as alterações localmente) com uma mensagem explicativa:
 git commit -m "Mensagem explicativa sobre a mudança"
 
-# Exemplo:
+## Exemplo:
 git commit -m "Corrige bug na função de seguir linha"
 
-# Enviar as alterações para o GitHub (push):
+## Enviar as alterações para o GitHub (push):
 git push
 
-# Se for a primeira vez enviando um branch, use:
+## Se for a primeira vez enviando um branch, use:
 git push -u origin main
 
-# Ou, se seu branch for `master`:
+## Ou, se seu branch for `master`:
 git push -u origin master
 
-# Baixar atualizações do GitHub (pull):
+## Baixar atualizações do GitHub (pull):
 git pull
 
-# Visualizar o histórico de commits:
+## Visualizar o histórico de commits:
 git log --oneline
 
 # Fluxo típico de trabalho — sempre que modificar arquivos, execute:
