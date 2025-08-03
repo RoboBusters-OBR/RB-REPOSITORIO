@@ -255,4 +255,4 @@ def FitaRED():
     if sensor_CorD.color() == Color.RED or sensor_CorD.color() == Color.RED:
         Drive.stop()
         rint("jhzda")
-        wait(100000)
+        wait(1000000)
