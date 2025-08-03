@@ -8,7 +8,7 @@ cinza = 0
 
 while True:
     if sensor_CorD.reflection() > 90:
-        cinza = 1
+        cinza = 2
     if sensor_CorE.reflection() > 90:
         cinza = 1
 
