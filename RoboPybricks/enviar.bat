@@ -1,3 +1,3 @@
 @echo off
-pybricksdev run ble main.py -n "hub 6" --no-wait
+pybricksdev run ble main.py -n "RB_SUPERIOR" --no-wait
 pause

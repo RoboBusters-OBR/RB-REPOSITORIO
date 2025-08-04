@@ -3,8 +3,11 @@ from config import (
     Garra, Drive, timer, left_Motor, right_Motor,
     sensor_CorD, sensor_CorE, UltrassonicoF, hub, Color, 
 )
-from movimentos_bases import guinada, mover, seguir_Linha, curvabrusca, verifica_verde, FitaRED, Obstaculo
+from movimentos_bases import guinada, mover
 from pybricks.tools import wait
+from seguimento_de_linha import seguir_Linha, curvabrusca, verifica_verde, FitaRED
+from obstaculos_trajeto import Obstaculo, separar_dados
+
 
 async def move_gripper():
     await Garra.run_angle(1000, 180)
@@ -23,8 +26,8 @@ async def sobe():
     await multitask(Drive.straight(-40), sobe_gripper())        
 
 def identifica_sala():
-    global cinza
-    if any(numero < 260 for numero in separar_dados('I')) or cinza == 1 :
+   
+    if any(numero < 260 for numero in separar_dados('I')) or sensor_CorD.reflection() > 90 and sensor_CorE.reflection() > 90  :
         Drive.brake()
         guinada('D', 10,100)
         timer.reset()

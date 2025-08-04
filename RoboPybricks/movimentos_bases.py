@@ -1,5 +1,5 @@
 #movimentos_bases
-from config import left_Motor, right_Motor, Drive
+from config import left_Motor, right_Motor, Drive, hub 
 
 def mover(GIRO):
     left_Motor.dc(GIRO)
