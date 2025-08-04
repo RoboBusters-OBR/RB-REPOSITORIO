@@ -97,7 +97,7 @@ def rampa ():
 def Obstaculo():
 
 
-    if UltrassonicoF.distance() <= 60:
+    if UltrassonicoF.distance() <= 50:
         timer.reset()
         while True:  # gira para esquerrda até que ache a linha com o sensor da direita
             seguir_Linha(1, 40)
@@ -134,9 +134,9 @@ def Obstaculo():
         Drive.straight(60)  
         hub.imu.reset_heading(0)
         while True:
-            left_Motor.dc(100)
+            left_Motor.dc(90)
             right_Motor.dc(41)
-            if abs(hub.imu.heading())> 90 and abs(hub.imu.heading())< 97:
+            if abs(hub.imu.heading())> 180 and abs(hub.imu.heading())< 187:
                 Drive.straight(40)
                 guinada('D',98,80)
                 while True:
@@ -164,13 +164,13 @@ def Obstaculo():
                 timer.reset()
                 while True:
                     mover(-80)
-                    if timer.time()>400 or sensor_CorD.reflection() < 20:
+                    if timer.time()>600 or sensor_CorD.reflection() < 20:
                         if sensor_CorD.reflection() < 20 :
                             print("Tem sim")
                             guinada("E",80, 100) 
                             while True:
                                 mover(-80)
-                                if sensor_CorD.reflection() < 20 or sensor_CorE.reflection() < 20:
+                                if sensor_CorD.reflection() < 9 :
                                     Drive.straight(-40)
                                     return 0
                                     break
@@ -178,7 +178,7 @@ def Obstaculo():
                         
                 
         
-                        elif timer.time() > 300 :
+                        elif timer.time() > 500 :
                             print("Tem nada")
                             guinada('E',80,80)
                             print("voltando")

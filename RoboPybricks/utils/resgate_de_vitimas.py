@@ -23,6 +23,7 @@ async def sobe():
     await multitask(Drive.straight(-40), sobe_gripper())        
 
 def identifica_sala():
+    global cinza
     if any(numero < 260 for numero in separar_dados('I')) or cinza == 1 :
         Drive.brake()
         guinada('D', 10,100)
@@ -51,7 +52,7 @@ def identifica_sala():
             fazer_resgate()
 
 def fazer_resgate():
-    global cinza
+    
     timer.reset()
     while True:
         if any(numero < 200 for numero in separar_dados('I')):
@@ -539,3 +540,4 @@ def fazer_resgate():
                         wait(1500)
                         hub.imu.reset_heading(0)
                         saida += 1
+  
