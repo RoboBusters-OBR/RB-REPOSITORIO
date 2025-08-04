@@ -126,8 +126,4 @@ Durante a instalação, marque a opção **"Add Python to PATH"**
 
 -*git commit -m "Descrição do que mudou"*: **Salva as mudanças localmente**
 
-<<<<<<< HEAD
 -*git push*:         **Envia as mudanças para o GitHub**
-=======
--*git push*:         **Envia as mudanças para o GitHub**
->>>>>>> dce1c9aa182c3cf964a2578acec18e6f9b0a3fb9
