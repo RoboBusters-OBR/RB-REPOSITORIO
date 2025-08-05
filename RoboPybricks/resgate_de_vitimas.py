@@ -25,7 +25,7 @@ async def sobe():
     await multitask(Drive.straight(-40), sobe_gripper())        
 
 def identifica_sala():
-    from seguimento_de_linha import seguir_Linha, FitaRED
+    from seguimento_de_linha import seguir_Linha, FitaRED, curvabrusca, verifica_verde
 
     if any(numero < 260 for numero in separar_dados('I')) or sensor_CorD.reflection() > 90 and sensor_CorE.reflection() > 90  :
         Drive.brake()
@@ -112,10 +112,10 @@ def fazer_resgate():
             hub.imu.reset_heading(0)
 
         while True:
-
+            print(UltrassonicoF.distance())
             left_Motor.dc(90)
             right_Motor.dc(90)
-            if (UltrassonicoF.distance() < 120 or
+            if (UltrassonicoF.distance() < 120 and UltrassonicoF.distance() > 100  or
                     (sensor_CorD.reflection() < 18 and sensor_CorE.reflection() < 18) or
                     hub.imu.heading() < -19 or
                     (sensor_CorD.reflection() > 90 and sensor_CorE.reflection() > 90)):
@@ -123,7 +123,7 @@ def fazer_resgate():
                 print(separar_dados('S'))
                 Drive.brake()
                 break
-        if UltrassonicoF.distance() < 120:
+        if UltrassonicoF.distance() < 120 and UltrassonicoF.distance() > 100 :
             print("viu parede")
             left_Motor.dc(100)
             right_Motor.dc(100)
@@ -171,6 +171,7 @@ def fazer_resgate():
             Drive.brake()
             Garra.dc(-100)
             wait(1200)
+            Drive.straight(250)
             hub.imu.reset_heading(0)
         if hub.imu.heading() < -18:
             Drive.brake()
@@ -379,16 +380,17 @@ def fazer_resgate():
             guinada("D", 89, 100)
             hub.imu.reset_heading(0)
         while True:
+            print(UltrassonicoF.distance())
             left_Motor.dc(90)
             right_Motor.dc(90)
-            if (UltrassonicoF.distance() < 160 or
+            if (UltrassonicoF.distance() < 120 and UltrassonicoF.distance() > 100  or
                     (sensor_CorD.reflection() < 18 and sensor_CorE.reflection() < 18) or
                     hub.imu.heading() < -22 or any(numero > 400 for numero in separar_dados('I')) or
                     (sensor_CorD.reflection() > 90 and sensor_CorE.reflection() > 90)):
                 print(hub.imu.heading())
                 Drive.brake()
                 break
-        if UltrassonicoF.distance() < 120:
+        if UltrassonicoF.distance() < 120 and UltrassonicoF.distance() > 100 :
             Drive.brake()
             saida += 1
             print("viu parede")

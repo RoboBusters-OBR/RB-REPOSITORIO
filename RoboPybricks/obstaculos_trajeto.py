@@ -5,8 +5,8 @@ from pybricks.tools import wait
 
 
 def rampa():
-    from seguimento_de_linha import seguir_Linha, verifica_verde, FitaRED
-
+    from seguimento_de_linha import seguir_Linha, verifica_verde, FitaRED, curvabrusca
+    from resgate_de_vitimas import identifica_sala
     if hub.imu.tilt()[1] < -15:
         while not hub.imu.tilt()[1] > -5:
             seguir_Linha(6, 59)
@@ -49,23 +49,27 @@ def rampa():
         print('LOMBADA')
         timer.reset()
         while True:
-            if timer.time() > 1200:
+            if timer.time() > 3000: 
+                Drive.brake()
+                print('Acabou o tempo da lombada')
                 break
-            seguir_Linha(6, 60)
+            seguir_Linha(5, 70)
             identifica_sala()  # 5, 72 # CURVA  > 5 < 19 AND > 20 < 42 4.2 , 75
             verifica_verde()
             Obstaculo()
             FitaRED()
+            curvabrusca()
 
-        while True:
-            if not hub.imu.tilt()[0] < 1:
+        '''while True:
+            print(hub.imu.tilt()[0])
+            if not hub.imu.tilt()[0] < 2:
                 Drive.brake()
                 break
-            seguir_Linha(6, 40)
+            seguir_Linha(8, 60)
             identifica_sala()  # 5, 72 # CURVA  > 5 < 19 AND > 20 < 42 4.2 , 75
             verifica_verde()
             Obstaculo()
-            FitaRED()
+            FitaRED()'''
 
     elif hub.imu.tilt()[0] > 10 and hub.imu.tilt()[0] < 40:
         print('DESCIDA')
@@ -137,7 +141,7 @@ def Obstaculo():
             left_Motor.dc(90)
             right_Motor.dc(41)
             if abs(hub.imu.heading()) > 180 and abs(hub.imu.heading()) < 187:
-                Drive.straight(40)
+                Drive.straight(70)
                 guinada('D', 90, 80)
                 while True:
                     left_Motor.dc(60)
@@ -146,85 +150,14 @@ def Obstaculo():
                         Drive.straight(10)
                         Drive.brake()
                         break
-                '''while True:
-                    mover(80)
-                    if UltrassonicoF.distance()< 220:
-                        Drive.brake()
-                        guinada('D',20, 100)
-                        while True:
-                            left_Motor.dc(60)
-                            right_Motor.dc(60)
-                            if UltrassonicoF.distance()< 50:
-                                Drive.straight(10)
-                                Drive.brake()
-                                break 
-                        timer.reset()
-                        Drive.brake()'''
-
-                timer.reset()
+                print("Tem sim")
+                guinada("E", 190, 100)
                 while True:
-                    guinada('8', 9, 70)
-                    mover(-80)
-                    if sensor_CorD.reflection() < 20:
-                        print("Tem sim")
-                        guinada("E", 80, 100)
-                        while True:
-                            mover(-70)
-                            if sensor_CorD.reflection() < 12:
-                                Drive.straight(-40)
-                                return 0
-                                break
+                    mover(70)
+                    if sensor_CorE.reflection() < 30:
+                        Drive.straight(-40)
+                        return 0
 
-                        # elif timer.time() > 500 :
-                        # print("Tem nada")
-                        # guinada('E',80,80)
-                        # print("voltando")
-                        # hub.imu.reset_heading(0)
-
-                        # break
-                        # break
-
-                # break
-
-        '''Drive.straight(70)
-        while True:  # se nao achou proucura no lado oposto
-            right_Motor.dc(80)
-            left_Motor.dc(-80)
-            if (sensor_CorD.reflection() >= 9) and (sensor_CorD.reflection() <= 18):
-                #guinada('D', 12, 80)
-                Drive.stop()
-                break
-        Drive.straight(60) 
-        guinada('D', 120, 80)         
-        while True:  
-            right_Motor.dc(-80)
-            left_Motor.dc(80)
-            if (sensor_CorE.reflection() >= 9) and (sensor_CorE.reflection() <= 18):
-                guinada('E', 8, 80)
-                Drive.stop()
-                break  
-        while True:  
-            right_Motor.dc(80)
-            left_Motor.dc(-80)
-            if (sensor_CorD.reflection() >= 9) and (sensor_CorD.reflection() <= 18):
-                guinada('D', 16, 80)
-                Drive.stop()
-                break                
-        while True:  
-            right_Motor.dc(60)
-            left_Motor.dc(60)
-            if UltrassonicoF.distance() <= 60:
-                Drive.straight(30)
-                Drive.stop()
-                break
-        guinada('E', 120, 80)
-        while True:  
-            right_Motor.dc(80)
-            left_Motor.dc(-80)
-            if (sensor_CorE.reflection() >= 9) and (sensor_CorE.reflection() <= 18):
-                guinada('E', 20, 80)
-                Drive.stop()
-                break'''
 
 
 def separar_dados(tipo):
