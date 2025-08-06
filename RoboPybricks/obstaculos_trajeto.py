@@ -141,7 +141,7 @@ def Obstaculo():
             left_Motor.dc(90)
             right_Motor.dc(41)
             if abs(hub.imu.heading()) > 180 and abs(hub.imu.heading()) < 187:
-                Drive.straight(70)
+                Drive.straight(50)
                 guinada('D', 90, 80)
                 while True:
                     left_Motor.dc(60)
@@ -155,7 +155,7 @@ def Obstaculo():
                 while True:
                     mover(70)
                     if sensor_CorE.reflection() < 30:
-                        Drive.straight(-40)
+                        Drive.straight(-50)
                         return 0
 
 
