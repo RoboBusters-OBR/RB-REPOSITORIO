@@ -215,11 +215,11 @@ def fazer_resgate():
                     wait(200)
                     left_Motor.dc(100)
                     right_Motor.dc(100)
+                    hub.ble.broadcast(0)
                     wait(100)
                     left_Motor.dc(-100)
                     right_Motor.dc(-100)
                     wait(200)
-                    hub.ble.broadcast(0)
                     Garra.dc(-100)
                     wait(1100)
                     left_Motor.dc(100)
@@ -426,6 +426,7 @@ def fazer_resgate():
             while not sensor_CorE.color() == Color.BLACK:
                 left_Motor.dc(80)
                 right_Motor.dc(-80)
+                
             while True:
                 seguir_Linha(5, 80)
                 curvabrusca()

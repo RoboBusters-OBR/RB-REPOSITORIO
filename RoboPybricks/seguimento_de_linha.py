@@ -256,6 +256,64 @@ def curvabrusca():
             
 def FitaRED():
     if sensor_CorD.color() == Color.RED or sensor_CorD.color() == Color.RED:
+        hub.ble.broadcast(3)
         Drive.stop()
-        rint("jhzda")
         wait(1000000)
+
+def curvalombada():
+    
+    if (sensor_CorE.reflection() >= 5 and sensor_CorE.reflection() <= 10) and (sensor_CorD.reflection() >= 20 and sensor_CorD.reflection() <= 43) and (sensor_CorE.color()!= Color.GREEN and sensor_CorD.color()!= Color.GREEN) and hub.imu.tilt()[1] > -9 and hub.imu.tilt()[1] < 9:
+        left_Motor.dc(100) 
+        right_Motor.dc(100) 
+        wait(190) 
+        guinada('D', 2, 70)
+        Drive.brake() 
+        timer.reset() 
+        hub.imu.reset_heading(0) 
+
+        while True:
+            mover(-80)
+            if (abs(hub.imu.heading())> 95) or (sensor_CorD.reflection() >= 9 and sensor_CorD.reflection() <= 20)and sensor_CorD.color() != Color.GREEN and sensor_CorE.color() != Color.GREEN:
+                Drive.brake()
+                break
+        if sensor_CorD.reflection() >= 0 and sensor_CorD.reflection() <= 20:
+            guinada('D',5,60)
+            Drive.brake()
+    
+        elif  (abs(hub.imu.heading())> 90) and (sensor_CorD.reflection() >= 40 and sensor_CorE.reflection() >= 40) and sensor_CorD.color() != Color.GREEN and sensor_CorE.color() != Color.GREEN :
+            hub.imu.reset_heading(0) 
+            while True :
+                mover(80)
+                if (sensor_CorE.reflection() >= 9 and sensor_CorE.reflection() <= 17):
+                    guinada('E',5,65)
+                    break
+                
+    if (sensor_CorD.reflection() >= 5 and sensor_CorD.reflection() <= 10) and (sensor_CorE.reflection() >= 20 and sensor_CorE.reflection() <= 43) and (sensor_CorD.color()!= Color.GREEN and sensor_CorE.color()!= Color.GREEN) and hub.imu.tilt()[1] > -9 and hub.imu.tilt()[1] < 9   :
+        left_Motor.dc(100) 
+        right_Motor.dc(100) 
+        wait(190) 
+        Drive.brake() 
+
+        guinada('E', 2, 70)
+        Drive.brake()  
+        timer.reset()
+        hub.imu.reset_heading(0) 
+        
+        while True:
+            mover(80)
+            if (abs(hub.imu.heading())> 95) or (sensor_CorE.reflection() >= 9 and sensor_CorE.reflection() <= 20) and sensor_CorD.color() != Color.GREEN and sensor_CorE.color() != Color.GREEN:
+                Drive.brake()
+                break
+            
+        if sensor_CorE.reflection() >= 9 and sensor_CorE.reflection() <= 20 :
+            Drive.brake()
+            
+        elif  (abs(hub.imu.heading())> 90) and (sensor_CorD.reflection() >= 40 and sensor_CorE.reflection() >= 40) :
+            timer.reset()
+            while True :
+                mover(-80)
+                if (sensor_CorD.reflection() >= 9 and sensor_CorD.reflection() <= 20) and sensor_CorD.color() != Color.GREEN and sensor_CorE.color() != Color.GREEN:               
+                    guinada('D',5,60)
+
+                    break
+   

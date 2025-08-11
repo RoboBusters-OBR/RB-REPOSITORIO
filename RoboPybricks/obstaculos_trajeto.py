@@ -5,7 +5,7 @@ from pybricks.tools import wait
 
 
 def rampa():
-    from seguimento_de_linha import seguir_Linha, verifica_verde, FitaRED, curvabrusca
+    from seguimento_de_linha import seguir_Linha, verifica_verde, FitaRED, curvalombada
     from resgate_de_vitimas import identifica_sala
     if hub.imu.tilt()[1] < -15:
         while not hub.imu.tilt()[1] > -5:
@@ -49,27 +49,18 @@ def rampa():
         print('LOMBADA')
         timer.reset()
         while True:
-            if timer.time() > 3000: 
+            
+            if timer.time() > 2500: 
                 Drive.brake()
                 print('Acabou o tempo da lombada')
-                break
-            seguir_Linha(5, 70)
+                return 0
+            print(hub.imu.tilt()[0])   
+            seguir_Linha(4, 60)
             identifica_sala()  # 5, 72 # CURVA  > 5 < 19 AND > 20 < 42 4.2 , 75
             verifica_verde()
             Obstaculo()
             FitaRED()
-            curvabrusca()
-
-        '''while True:
-            print(hub.imu.tilt()[0])
-            if not hub.imu.tilt()[0] < 2:
-                Drive.brake()
-                break
-            seguir_Linha(8, 60)
-            identifica_sala()  # 5, 72 # CURVA  > 5 < 19 AND > 20 < 42 4.2 , 75
-            verifica_verde()
-            Obstaculo()
-            FitaRED()'''
+            curvalombada()
 
     elif hub.imu.tilt()[0] > 10 and hub.imu.tilt()[0] < 40:
         print('DESCIDA')
@@ -155,7 +146,7 @@ def Obstaculo():
                 while True:
                     mover(70)
                     if sensor_CorE.reflection() < 30:
-                        Drive.straight(-50)
+                        Drive.straight(-45) 
                         return 0
 
 

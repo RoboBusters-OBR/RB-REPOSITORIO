@@ -12,7 +12,7 @@ wait(1500)
 while True:
     
     identifica_sala()
-    seguir_Linha(5, 80)
+    seguir_Linha(5, 100)
     curvabrusca()
     verifica_verde()
     FitaRED()
