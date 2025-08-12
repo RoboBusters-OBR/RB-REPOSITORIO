@@ -171,7 +171,7 @@ def fazer_resgate():
             Drive.brake()
             Garra.dc(-100)
             wait(1200)
-            Drive.straight(250)
+            Drive.straight(200)
             hub.imu.reset_heading(0)
         if hub.imu.heading() < -18:
             Drive.brake()
