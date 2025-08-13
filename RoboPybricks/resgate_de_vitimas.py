@@ -1,7 +1,7 @@
 #resgate_de_vitimas
 from config import (
     Garra, Drive, timer, left_Motor, right_Motor,
-    sensor_CorD, sensor_CorE, UltrassonicoF, hub, Color, 
+    sensor_CorD, sensor_CorE, UltrassonicoF, hub, Color 
 )
 from movimentos_bases import guinada, mover
 from pybricks.tools import wait, run_task, multitask
@@ -56,6 +56,7 @@ def identifica_sala():
 
 def fazer_resgate():
     from seguimento_de_linha import seguir_Linha, verifica_verde, curvabrusca, FitaRED
+    from obstaculos_trajeto import rampa
 
     timer.reset()
     while True:
@@ -97,7 +98,7 @@ def fazer_resgate():
 
         print(canto_verde)
 
-        if canto_verde == 2:
+        if canto_verde == 1:
             break
         Drive.straight(30)
         print("DEIXANDO")
@@ -123,7 +124,7 @@ def fazer_resgate():
                 print(separar_dados('S'))
                 Drive.brake()
                 break
-        if UltrassonicoF.distance() < 120 and UltrassonicoF.distance() > 100 :
+        if UltrassonicoF.distance() < 120:
             print("viu parede")
             left_Motor.dc(100)
             right_Motor.dc(100)
@@ -195,7 +196,6 @@ def fazer_resgate():
                     Garra.dc(100)
                     wait(800)
                     guinada("E", 90, 100)
-
                     left_Motor.dc(-100)
                     right_Motor.dc(-100)
                     wait(500)
@@ -433,6 +433,8 @@ def fazer_resgate():
                 verifica_verde()
                 FitaRED()
                 Obstaculo()
+                rampa()
+                hub.ble.broadcast(3)
 
         if hub.imu.heading() < -21:
             Drive.brake()
@@ -459,6 +461,39 @@ def fazer_resgate():
                     hub.ble.broadcast("PARAR")
                     saida += 1
                     print("Viu vermelho")
+                    left_Motor.dc(60)
+                    right_Motor.dc(60)
+                    wait(550)
+                    Drive.brake()
+                    guinada("E", 5, 80)
+                    run_task(resg())
+                    Drive.straight(20)
+                    Garra.dc(100)
+                    wait(800)
+                    guinada("E", 90, 100)
+                    wait(600)
+                    Garra.dc(-100)
+                    wait(800)
+                    left_Motor.dc(-100)
+                    right_Motor.dc(-100)
+                    wait(500)
+                    hub.ble.broadcast(2)
+                    wait(600)
+                    left_Motor.dc(100)
+                    right_Motor.dc(100)
+                    wait(100)
+                    left_Motor.dc(-100)
+                    right_Motor.dc(-100)
+                    wait(200)
+                    left_Motor.dc(100)
+                    right_Motor.dc(100)
+                    wait(100)
+                    left_Motor.dc(-100)
+                    right_Motor.dc(-100)
+                    wait(200)
+                    hub.ble.broadcast(0)
+                    wait(100)
+                    guinada("D", 90, 100)
                     left_Motor.dc(100)
                     right_Motor.dc(100)
                     wait(580)
@@ -522,11 +557,13 @@ def fazer_resgate():
                     left_Motor.dc(80)
                     right_Motor.dc(-80)
                 while True:
-                    seguir_Linha(5, 90)
+                    seguir_Linha(5, 80)
                     curvabrusca()
                     verifica_verde()
                     FitaRED()
                     Obstaculo()
+                    rampa()
+                    hub.ble.broadcast(3)
             else:
                 print("tem nada, segue")
                 left_Motor.dc(-80)

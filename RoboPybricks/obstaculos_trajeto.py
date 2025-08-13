@@ -83,10 +83,14 @@ def rampa():
                 wait(2000)
 
     if hub.imu.tilt()[0] > 60:
-        Garra.dc(100)
-        wait(1000)
         Garra.dc(-100)
+        Drive.brake()
         wait(1500)
+        Drive.brake()
+        wait(800)
+        Garra.dc(100)
+        Drive.brake()
+        wait(1000)
 
 
 def Obstaculo():
@@ -130,23 +134,29 @@ def Obstaculo():
         hub.imu.reset_heading(0)
         while True:
             left_Motor.dc(90)
-            right_Motor.dc(41)
+            right_Motor.dc(39)
             if abs(hub.imu.heading()) > 180 and abs(hub.imu.heading()) < 187:
-                Drive.straight(50)
-                guinada('D', 90, 80)
+                Drive.straight(80)
+                while True:
+                    left_Motor.dc(-70)
+                    right_Motor.dc(-70)
+                    if sensor_CorD.reflection() < 30 and sensor_CorE.reflection() < 30:
+                        break
+                Drive.straight(80)    
+                guinada('D', 91, 80)
                 while True:
                     left_Motor.dc(60)
                     right_Motor.dc(60)
                     if UltrassonicoF.distance() < 50:
-                        Drive.straight(10)
+                        Drive.straight(15)
                         Drive.brake()
                         break
                 print("Tem sim")
-                guinada("E", 190, 100)
+                guinada("E", 195, 100)
                 while True:
                     mover(70)
                     if sensor_CorE.reflection() < 30:
-                        Drive.straight(-45) 
+                        Drive.straight(-47) 
                         return 0
 
 
