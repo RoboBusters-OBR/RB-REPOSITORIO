@@ -50,12 +50,12 @@ def rampa():
         timer.reset()
         while True:
             
-            if timer.time() > 2500: 
+            if timer.time() >2000:
                 Drive.brake()
                 print('Acabou o tempo da lombada')
                 return 0
             print(hub.imu.tilt()[0])   
-            seguir_Linha(4, 60)
+            seguir_Linha(3, 55)
             identifica_sala()  # 5, 72 # CURVA  > 5 < 19 AND > 20 < 42 4.2 , 75
             verifica_verde()
             Obstaculo()

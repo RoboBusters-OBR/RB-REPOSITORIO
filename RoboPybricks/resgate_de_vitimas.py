@@ -98,7 +98,7 @@ def fazer_resgate():
 
         print(canto_verde)
 
-        if canto_verde == 1:
+        if canto_verde == 2:
             break
         Drive.straight(30)
         print("DEIXANDO")
@@ -178,7 +178,7 @@ def fazer_resgate():
             Drive.brake()
             timer.reset()
             hub.ble.broadcast("COR")
-            while timer.time() < 1800:
+            while timer.time() < 1100:
                 if any(item.startswith("Color.GREEN") for item in separar_dados("S")):
                     hub.ble.broadcast("PARAR")
                     print("Viu verde")
@@ -360,14 +360,7 @@ def fazer_resgate():
             Garra.dc(-100)
             wait(1200)
             hub.imu.reset_heading(0)  # deixassancia acaba aqui
-    repetir_saida = 0
-    timer.reset()
-    repetir_saida = 4
-    hub.imu.reset_heading(0)
-    saida = 0
     while True:
-        if saida == repetir_saida:
-            break
         Drive.straight(30)
         print("SAINDO")
         if any(numero < 300 for numero in separar_dados('I')):
@@ -392,7 +385,6 @@ def fazer_resgate():
                 break
         if UltrassonicoF.distance() < 120 and UltrassonicoF.distance() > 100 :
             Drive.brake()
-            saida += 1
             print("viu parede")
             Drive.brake()
             left_Motor.dc(-100)
@@ -426,7 +418,7 @@ def fazer_resgate():
             while not sensor_CorE.color() == Color.BLACK:
                 left_Motor.dc(80)
                 right_Motor.dc(-80)
-                
+            hub.ble.broadcast(3)
             while True:
                 seguir_Linha(5, 80)
                 curvabrusca()
@@ -434,16 +426,14 @@ def fazer_resgate():
                 FitaRED()
                 Obstaculo()
                 rampa()
-                hub.ble.broadcast(3)
 
         if hub.imu.heading() < -21:
             Drive.brake()
             timer.reset()
             hub.ble.broadcast("COR")
-            while timer.time() < 2000:
+            while timer.time() < 1100:
                 if any(item.startswith("Color.GREEN") for item in separar_dados("S")):
                     hub.ble.broadcast("PARAR")
-                    saida += 1
                     print("Viu verde")
                     left_Motor.dc(100)
                     right_Motor.dc(100)
@@ -459,7 +449,6 @@ def fazer_resgate():
 
                 if any(item.startswith("Color.RED") for item in separar_dados("S")):
                     hub.ble.broadcast("PARAR")
-                    saida += 1
                     print("Viu vermelho")
                     left_Motor.dc(60)
                     right_Motor.dc(60)
@@ -507,7 +496,6 @@ def fazer_resgate():
                     hub.imu.reset_heading(0)
 
         if (sensor_CorD.reflection() > 90 and sensor_CorE.reflection() > 90):
-            saida += 1
             print("Viu nada")
             Drive.straight(40)
             Drive.brake()
@@ -556,6 +544,7 @@ def fazer_resgate():
                 while not sensor_CorE.reflection() < 15:
                     left_Motor.dc(80)
                     right_Motor.dc(-80)
+                hub.ble.broadcast(3)
                 while True:
                     seguir_Linha(5, 80)
                     curvabrusca()
@@ -563,7 +552,6 @@ def fazer_resgate():
                     FitaRED()
                     Obstaculo()
                     rampa()
-                    hub.ble.broadcast(3)
             else:
                 print("tem nada, segue")
                 left_Motor.dc(-80)
@@ -582,7 +570,6 @@ def fazer_resgate():
                     Garra.dc(-100)
                     wait(900)
                     hub.imu.reset_heading(0)
-                    saida += 1
                 else:
                     Garra.dc(-100)
                     wait(900)
@@ -590,5 +577,4 @@ def fazer_resgate():
                     right_Motor.dc(80)
                     wait(1500)
                     hub.imu.reset_heading(0)
-                    saida += 1
                                    

@@ -116,7 +116,7 @@ def verifica_verde():
 
 def curvabrusca():
     Drive.settings(straight_acceleration=1000)
-    if (sensor_CorE.reflection() >= 5 and sensor_CorE.reflection() <= 22) and (sensor_CorD.reflection() >= 20 and sensor_CorD.reflection() <= 43) and (sensor_CorE.color()!= Color.GREEN and sensor_CorD.color()!= Color.GREEN) and hub.imu.tilt()[1] > -9 and hub.imu.tilt()[1] < 9:
+    if (sensor_CorE.reflection() >= 5 and sensor_CorE.reflection() <= 22) and (sensor_CorD.reflection() >= 20 and sensor_CorD.reflection() <= 43) and (sensor_CorE.color()!= Color.GREEN and sensor_CorD.color()!= Color.GREEN) and hub.imu.tilt()[1] > -9 and hub.imu.tilt()[1] < 9 and hub.imu.tilt()[0] < -1:
         left_Motor.dc(100) 
         right_Motor.dc(100) 
         wait(190) 
@@ -262,7 +262,7 @@ def FitaRED():
 
 def curvalombada():
     
-    if (sensor_CorE.reflection() >= 5 and sensor_CorE.reflection() <= 10) and (sensor_CorD.reflection() >= 20 and sensor_CorD.reflection() <= 43) and (sensor_CorE.color()!= Color.GREEN and sensor_CorD.color()!= Color.GREEN) and hub.imu.tilt()[1] > -9 and hub.imu.tilt()[1] < 9:
+    if (sensor_CorE.reflection() >= 5 and sensor_CorE.reflection() <= 10) and (sensor_CorD.reflection() >= 17 and sensor_CorD.reflection() <= 43) and (sensor_CorE.color()!= Color.GREEN and sensor_CorD.color()!= Color.GREEN) and hub.imu.tilt()[1] > -9 and hub.imu.tilt()[1] < 9:
         left_Motor.dc(100) 
         right_Motor.dc(100) 
         wait(190) 
@@ -288,7 +288,7 @@ def curvalombada():
                     guinada('E',5,65)
                     break
                 
-    if (sensor_CorD.reflection() >= 5 and sensor_CorD.reflection() <= 10) and (sensor_CorE.reflection() >= 20 and sensor_CorE.reflection() <= 43) and (sensor_CorD.color()!= Color.GREEN and sensor_CorE.color()!= Color.GREEN) and hub.imu.tilt()[1] > -9 and hub.imu.tilt()[1] < 9   :
+    if (sensor_CorD.reflection() >= 5 and sensor_CorD.reflection() <= 10) and (sensor_CorE.reflection() >= 17 and sensor_CorE.reflection() <= 43) and (sensor_CorD.color()!= Color.GREEN and sensor_CorE.color()!= Color.GREEN) and hub.imu.tilt()[1] > -9 and hub.imu.tilt()[1] < 9   :
         left_Motor.dc(100) 
         right_Motor.dc(100) 
         wait(190) 
