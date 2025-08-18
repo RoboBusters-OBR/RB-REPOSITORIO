@@ -93,6 +93,7 @@ def fazer_resgate():
         wait(1500)
     timer.reset()
     canto_verde = 0
+    varrer_meio = 0
     hub.imu.reset_heading(0)
     while True:
 
@@ -103,15 +104,32 @@ def fazer_resgate():
         Drive.straight(30)
         print("DEIXANDO")
         if any(numero < 300 for numero in separar_dados('I')):
-            Drive.straight(40)
-            guinada("E", 80, 100)
-            left_Motor.dc(-100)
-            right_Motor.dc(-100)
-            wait(3000)
-            Drive.straight(50)
-            guinada("D", 89, 100)
-            hub.imu.reset_heading(0)
-
+            if varrer_meio == 1:
+                Drive.straight(40)
+                guinada("E", 80, 100)
+                left_Motor.dc(-100)
+                right_Motor.dc(-100)
+                wait(3000)
+                left_Motor.dc(100)
+                right_Motor.dc(100)
+                wait(2250)
+                left_Motor.dc(-100)
+                right_Motor.dc(-100)
+                wait(2300)
+                Drive.straight(50)
+                guinada("D", 89, 100)
+                hub.imu.reset_heading(0)
+                varrer_meio += 1
+            else:
+                Drive.straight(40)
+                guinada("E", 80, 100)
+                left_Motor.dc(-100)
+                right_Motor.dc(-100)
+                wait(3000)
+                Drive.straight(50)
+                guinada("D", 89, 100)
+                hub.imu.reset_heading(0)
+                varrer_meio += 1
         while True:
             print(UltrassonicoF.distance())
             left_Motor.dc(90)
@@ -364,14 +382,32 @@ def fazer_resgate():
         Drive.straight(30)
         print("SAINDO")
         if any(numero < 300 for numero in separar_dados('I')):
-            Drive.straight(40)
-            guinada("E", 80, 100)
-            left_Motor.dc(-100)
-            right_Motor.dc(-100)
-            wait(3000)
-            Drive.straight(50)
-            guinada("D", 89, 100)
-            hub.imu.reset_heading(0)
+            if varrer_meio == 1:
+                Drive.straight(40)
+                guinada("E", 80, 100)
+                left_Motor.dc(-100)
+                right_Motor.dc(-100)
+                wait(3000)
+                left_Motor.dc(100)
+                right_Motor.dc(100)
+                wait(2250)
+                left_Motor.dc(-100)
+                right_Motor.dc(-100)
+                wait(2300)
+                Drive.straight(50)
+                guinada("D", 89, 100)
+                hub.imu.reset_heading(0)
+                varrer_meio += 1
+            else:
+                Drive.straight(40)
+                guinada("E", 80, 100)
+                left_Motor.dc(-100)
+                right_Motor.dc(-100)
+                wait(3000)
+                Drive.straight(50)
+                guinada("D", 89, 100)
+                hub.imu.reset_heading(0)
+                varrer_meio += 1
         while True:
             print(UltrassonicoF.distance())
             left_Motor.dc(90)
