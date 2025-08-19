@@ -59,6 +59,7 @@ def fazer_resgate():
     from obstaculos_trajeto import rampa
 
     timer.reset()
+    Drive.straight(60)
     while True:
         if any(numero < 200 for numero in separar_dados('I')):
             leitura_ultra = 50
@@ -116,7 +117,7 @@ def fazer_resgate():
                 left_Motor.dc(-100)
                 right_Motor.dc(-100)
                 wait(2300)
-                Drive.straight(50)
+                Drive.straight(35)
                 guinada("D", 89, 100)
                 hub.imu.reset_heading(0)
                 varrer_meio += 1
@@ -126,7 +127,7 @@ def fazer_resgate():
                 left_Motor.dc(-100)
                 right_Motor.dc(-100)
                 wait(3000)
-                Drive.straight(50)
+                Drive.straight(35)
                 guinada("D", 89, 100)
                 hub.imu.reset_heading(0)
                 varrer_meio += 1
@@ -365,7 +366,7 @@ def fazer_resgate():
             print(hub.imu.heading())
             Drive.straight(40)
             Drive.brake()
-            Garra.dc(90)
+            Garra.dc(100)
             wait(1200)
             while True:
                 left_Motor.dc(-100)

@@ -17,7 +17,7 @@ def rampa():
         Drive.brake()
         wait(200)
         print('RAMPA')
-        Garra.run_angle(90, -150)
+        Garra.run_angle(90, -180)
 
         timer.reset()
         while True:
@@ -28,8 +28,11 @@ def rampa():
             if hub.imu.tilt()[0] > -1 and timer.time() > 500:
                 Drive.brake()
                 wait(500)
-                Garra.run_target(100, -1)
-                break
+                Garra.dc(100)
+                Drive.brake()
+                wait(1000)
+                return 0
+                
 
             if hub.imu.tilt()[0] > 4 and hub.imu.tilt()[0] < 40:
                 break
@@ -136,13 +139,13 @@ def Obstaculo():
             left_Motor.dc(90)
             right_Motor.dc(44)
             if abs(hub.imu.heading()) > 180 and abs(hub.imu.heading()) < 187:
-                Drive.straight(80)
+                Drive.straight(100)
                 while True:
                     left_Motor.dc(-70)
                     right_Motor.dc(-70)
-                    if sensor_CorD.reflection() < 30 and sensor_CorE.reflection() < 30:
+                    if any(numero < 280 for numero in separar_dados('I')):
                         break
-                Drive.straight(80)    
+                Drive.straight(-50)    
                 guinada('D', 91, 80)
                 while True:
                     left_Motor.dc(60)
@@ -152,10 +155,10 @@ def Obstaculo():
                         Drive.brake()
                         break
                 print("Tem sim")
-                guinada("E", 195, 100)
+                guinada("E", 110, 80)
                 while True:
-                    mover(70)
-                    if sensor_CorE.reflection() < 30:
+                    mover(-70)
+                    if sensor_CorD.reflection() < 30:
                         Drive.straight(-40)
                         return 0
 
