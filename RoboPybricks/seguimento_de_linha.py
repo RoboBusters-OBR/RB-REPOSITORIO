@@ -8,7 +8,7 @@ from obstaculos_trajeto import Obstaculo
 
 
 def seguir_Linha(KP, velocidade_base):
-    erro = (sensor_CorE.reflection()) - (sensor_CorD.reflection()+1) 
+    erro = (sensor_CorE.reflection()) - (sensor_CorD.reflection()+2) 
 
     correcao = erro * KP
     esquerda_power = velocidade_base + correcao 
@@ -181,13 +181,7 @@ def curvabrusca():
         right_Motor.dc(100) 
         wait(190) 
         Drive.brake() 
-        '''if sensor_CorD.reflection() < 30 and sensor_CorE.reflection() < 30 :
-            timer.reset()
-            while timer.time() < 190:
-                seguir_Linha(4.2, 70)#3.9, 79 # CURVA  > 5 < 19 AND > 20 < 42
-                FitaRED()
-                Obstaculo()
-            return 0'''
+        
 
         guinada('E', 25, 100)
         Drive.brake()  

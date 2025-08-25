@@ -163,7 +163,6 @@ def Obstaculo():
                         return 0
 
 
-
 def separar_dados(tipo):
     inteiros = []
     strings = []
