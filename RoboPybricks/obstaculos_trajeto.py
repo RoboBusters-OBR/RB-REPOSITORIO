@@ -17,7 +17,7 @@ def rampa():
         Drive.brake()
         wait(200)
         print('RAMPA')
-        Garra.run_angle(90, -180)
+        Garra.run_angle(90, -150)
 
         timer.reset()
         while True:
@@ -97,72 +97,44 @@ def rampa():
 
 
 def Obstaculo():
+
     from resgate_de_vitimas import identifica_sala
     from seguimento_de_linha import seguir_Linha
     if UltrassonicoF.distance() <= 50:
         timer.reset()
-        while True:  # gira para esquerrda até que ache a linha com o sensor da direita
+        while True:  
             seguir_Linha(1, 40)
             if timer.time() >= 300:
                 Drive.brake()
                 break
-    if UltrassonicoF.distance() <= 50:
-        Drive.settings(straight_speed=500, straight_acceleration=500)
-
-        Drive.straight(-30)
-        guinada('E', 90, 90)
-        Drive.straight(50)
-        while True:
-            Drive.drive(-100, 0)
-            if sensor_CorD.reflection() < 29 and sensor_CorE.reflection() < 29:
+        guinada("E", 60, 100)
+        while True:  
+            right_Motor.dc(-60)
+            left_Motor.dc(60)
+            if UltrassonicoF.distance() >= 39 and UltrassonicoF.distance() <= 58:
                 Drive.brake()
+                wait(400)
                 break
+        guinada("E",55,100)
+        Drive.straight(200)
+        guinada("D", 84,100)
+        Drive.straight(150)
         while True:
-            Drive.drive(100, 0)
-            if sensor_CorD.color() == Color.WHITE and sensor_CorE.color() == Color.WHITE:
-                Drive.brake()
+            right_Motor.dc(80)
+            left_Motor.dc(80)
+            if any(numero > 200 for numero in separar_dados('I')):
                 break
-        '''while True:
-            left_Motor.run(-150)
-            if sensor_CorE.reflection() <=16 and sensor_CorE.reflection() >=7:
-                Drive.brake()
+        Drive.straight(100)
+        guinada("D",85,100)
+        while True:
+            right_Motor.dc(80)
+            left_Motor.dc(80)
+            if sensor_CorD.color() == Color.BLACK:
                 break
-        while True:
-            right_Motor.run(-150)
-            if sensor_CorD.reflection() <= 8:
-                Drive.brake()
-                break'''
-
-        Drive.straight(60)
-        hub.imu.reset_heading(0)
-        while True:
-            left_Motor.dc(90)
-            right_Motor.dc(44)
-            if abs(hub.imu.heading()) > 180 and abs(hub.imu.heading()) < 187:
-                Drive.straight(100)
-                while True:
-                    left_Motor.dc(-70)
-                    right_Motor.dc(-70)
-                    if any(numero < 280 for numero in separar_dados('I')):
-                        break
-                Drive.straight(-50)    
-                guinada('D', 91, 80)
-                while True:
-                    left_Motor.dc(60)
-                    right_Motor.dc(60)
-                    if UltrassonicoF.distance() < 50:
-                        Drive.straight(15)
-                        Drive.brake()
-                        break
-                print("Tem sim")
-                guinada("E", 110, 80)
-                while True:
-                    mover(-70)
-                    if sensor_CorD.reflection() < 30:
-                        Drive.straight(-40)
-                        return 0
-
-
+        Drive.straight(50)        
+        while not sensor_CorD.color() == Color.BLACK:
+            left_Motor.dc(-80)
+            right_Motor.dc(80)
 def separar_dados(tipo):
     inteiros = []
     strings = []
