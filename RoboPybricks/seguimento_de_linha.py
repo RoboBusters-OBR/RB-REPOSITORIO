@@ -33,6 +33,7 @@ def verifica_verde():
                 right_Motor.dc(-70)
             wait(200)
             if sensor_CorD.reflection() < 15:
+                hub.speaker.beep(500,100)
                 left_Motor.dc(100)
                 right_Motor.dc(100)
                 wait(200)
@@ -43,6 +44,7 @@ def verifica_verde():
                         Drive.stop()
                         break   
             elif sensor_CorE.reflection() > 25:
+                hub.speaker.beep(500,100)
                 left_Motor.dc(90) 
                 right_Motor.dc(90) 
                 wait(450)
@@ -64,6 +66,7 @@ def verifica_verde():
                 right_Motor.dc(-70)
             wait(200)
             if sensor_CorD.reflection() < 15:
+                hub.speaker.beep(500,100)
                 left_Motor.dc(100)
                 right_Motor.dc(100)
                 wait(200)
@@ -74,6 +77,7 @@ def verifica_verde():
                         Drive.stop()
                         break   
             elif sensor_CorE.reflection() > 25:
+                hub.speaker.beep(500,100)
                 left_Motor.dc(90) 
                 right_Motor.dc(90) 
                 wait(450)
@@ -94,6 +98,7 @@ def verifica_verde():
                 right_Motor.dc(-70)
             wait(200)
             if sensor_CorD.reflection() < 15:
+                hub.speaker.beep(500,100)
                 left_Motor.dc(100)
                 right_Motor.dc(100)
                 wait(200)
@@ -104,6 +109,7 @@ def verifica_verde():
                         Drive.stop()
                         break   
             elif sensor_CorD.reflection() > 25:
+                hub.speaker.beep(500,100)
                 left_Motor.dc(90) 
                 right_Motor.dc(90) 
                 wait(450)

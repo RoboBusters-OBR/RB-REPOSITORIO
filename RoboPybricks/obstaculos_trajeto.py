@@ -149,6 +149,7 @@ def Obstaculo():
     from resgate_de_vitimas import identifica_sala
     from seguimento_de_linha import seguir_Linha
     if UltrassonicoF.distance() <= 50:
+        hub.speaker.beep(500,100)
         timer.reset()
         while True:  
             seguir_Linha(1, 40)
