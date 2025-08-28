@@ -109,7 +109,7 @@ def Obstaculo():
                 break
         guinada("E", 60, 100)
         while True:  
-            right_Motor.dc(-60)
+            right_Motor.dc(-60) 
             left_Motor.dc(60)
             if UltrassonicoF.distance() >= 39 and UltrassonicoF.distance() <= 58:
                 Drive.brake()
@@ -118,23 +118,29 @@ def Obstaculo():
         guinada("E",55,100)
         Drive.straight(200)
         guinada("D", 84,100)
-        Drive.straight(150)
+        Drive.straight(130)
         while True:
-            right_Motor.dc(80)
-            left_Motor.dc(80)
+            right_Motor.dc(50)
+            left_Motor.dc(50)
             if any(numero > 200 for numero in separar_dados('I')):
                 break
-        Drive.straight(100)
+        Drive.straight(130)
         guinada("D",85,100)
         while True:
             right_Motor.dc(80)
             left_Motor.dc(80)
             if sensor_CorD.color() == Color.BLACK:
                 break
-        Drive.straight(50)        
-        while not sensor_CorD.color() == Color.BLACK:
-            left_Motor.dc(-80)
-            right_Motor.dc(80)
+        Drive.straight(70)   
+        guinada("E", 85, 100)
+        Drive.brake()
+        timer.reset()
+        while True: 
+            if timer.time() > 500:
+                break
+        right_Motor.dc(-40)
+        left_Motor.dc(-40)   
+        wait(250)          
 def separar_dados(tipo):
     inteiros = []
     strings = []
