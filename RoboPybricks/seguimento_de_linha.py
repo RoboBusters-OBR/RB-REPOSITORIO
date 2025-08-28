@@ -250,7 +250,7 @@ def curvabrusca():
             
 def FitaRED():
     if sensor_CorD.color() == Color.RED or sensor_CorD.color() == Color.RED:
-        hub.ble.broadcast(3)
+        hub.ble.broadcast(2)
         Drive.stop()
         wait(1000000)
 

@@ -11,10 +11,10 @@ Garra.dc(100)
 wait(1500)
 while True:
     
-    print(sensor_CorD.color(), sensor_CorE.color(), sensor_CorD.reflection(), sensor_CorE.reflection())
+    print(UltrassonicoF.distance(), separar_dados("I"))
     '''if sensor_CorD.color() == Color.SILVER and sensor_CorE.color() == Color.SILVER and sensor_CorD.reflection() >= 36 and sensor_CorD.reflection() <= 42 and sensor_CorE.reflection() >= 36 and sensor_CorE.reflection() <=42  :
         Drive.brake()
-        wait(2000)'''
+        wait(2000)   '''
     identifica_sala()
     seguir_Linha(5, 80)#5, 80
     curvabrusca()

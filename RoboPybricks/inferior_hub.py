@@ -30,8 +30,12 @@ while True:
     cancela = hub.ble.observe(1)
     if cancela == 3 : #Abrir verde
         cancelaE.run_target(700, 100)     
-        cancelaE.stop()
-        cancela == 0  
+        cancela == 0 
+    if cancela == 2 : #Abrir verde
+        cancelaE.dc(100)
+        wait(1000)
+        cancelaE.dc(-100)
+        cancela == 0   
     
     if hub.ble.observe(1) == 'AREA_DE_RESGATE' :
         cancelaE.run_target(700, 100)
@@ -52,7 +56,7 @@ while True:
                 cancelaE.dc(-100)     
                 cancelaE.stop()
                 cancela == 0 
-            if cancela == 3 : #Abrir verde
+            if cancela == 3 : 
                 cancelaE.run_target(700, 100)     
                 cancelaE.stop()
                 cancela == 0 
@@ -72,8 +76,13 @@ while True:
     else:
         if cancela == 3 : #Abrir verde
             cancelaE.run_target(700, 100)     
-            cancelaE.stop()
+            
             cancela == 0 
+        if cancela == 2 : #Abrir verde
+            cancelaE.dc(100)
+            wait(1000)
+            cancelaE.dc(-100)
+            cancela == 0  
         print("SÓ DISTANCIA")
 
         tuplaultraa = UltrassonicoL.distance()

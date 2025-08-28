@@ -78,12 +78,42 @@ def rampa():
                 Drive.brake()
                 Garra.dc(100)
                 wait(700)
+                guinada("D",20,100)
+                timer.reset()
+                while True :
+                    mover(-60)
+                    if sensor_CorD.reflection()< 19 or sensor_CorE.reflection()< 19:
+                        Drive.brake()
+                        return 0
+                        break 
+                timer.reset()
+                while True :
+                    seguir_Linha(3, 55)
+                    identifica_sala()  # 5, 72 # CURVA  > 5 < 19 AND > 20 < 42 4.2 , 75
+                    verifica_verde()
+                    FitaRED()
+                    curvalombada()
+                    if timer.time() > 500:
+                        Drive.brake()
+                        return 0
+                        break 
                 break
             if hub.imu.tilt()[0] > 60:
                 Garra.dc(-100)
                 wait(2000)
                 Garra.dc(100)
                 wait(2000)
+                timer.reset()
+                while True :
+                    seguir_Linha(3, 55)
+                    identifica_sala()  # 5, 72 # CURVA  > 5 < 19 AND > 20 < 42 4.2 , 75
+                    verifica_verde()
+                    FitaRED()
+                    curvalombada()
+                    if timer.time() > 500:
+                        Drive.brake()
+                        return 0
+                        break
 
     if hub.imu.tilt()[0] > 60:
         Garra.dc(-100)
@@ -94,6 +124,24 @@ def rampa():
         Garra.dc(100)
         Drive.brake()
         wait(1000)
+        guinada("D", 20, 100)
+        while True :
+            mover(-60)
+            if sensor_CorD.reflection()< 19 or sensor_CorE.reflection()< 19:
+                Drive.brake()
+                return 0
+                break 
+        timer.reset()        
+        while True :
+            seguir_Linha(3, 55)
+            identifica_sala()  # 5, 72 # CURVA  > 5 < 19 AND > 20 < 42 4.2 , 75
+            verifica_verde()
+            FitaRED()
+            curvalombada()
+            if timer.time() > 500:
+                Drive.brake()
+                return 0
+                break
 
 
 def Obstaculo():

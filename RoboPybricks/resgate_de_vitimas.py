@@ -63,8 +63,11 @@ def fazer_resgate():
     quant_meio = 0
     while True:
         if any(numero < 200 for numero in separar_dados('I')):
+            print(separar_dados("I"))
             leitura_ultra = 50
         if any(numero > 200 for numero in separar_dados('I')):
+            print(separar_dados("I"))
+
             leitura_ultra = 100
         if timer.time() > 1200:
             break
@@ -104,7 +107,7 @@ def fazer_resgate():
 
         print(canto_verde)
 
-        if canto_verde == 1:
+        if canto_verde == 2:
             break
         Drive.straight(30)
         print("DEIXANDO")
