@@ -46,6 +46,8 @@ def identifica_sala():
                 if timer.time() > 1500:
                     break
         else:
+            Drive.brake()
+            hub.speaker.beep(500,500)
             hub.ble.broadcast("AREA_DE_RESGATE")
             guinada("D", 30, 100)
             left_Motor.dc(80)

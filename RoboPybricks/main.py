@@ -9,11 +9,11 @@ from pybricks.pupdevices import Motor
 
 Garra.dc(100)
 wait(1500)
-timer.reset()
+
 
 while True:
     
-    print(UltrassonicoF.distance(), separar_dados("I"))
+    #print(UltrassonicoF.distance(), separar_dados("I"))
     identifica_sala()
     seguir_Linha(5, 80)#5, 80
     curvabrusca()
