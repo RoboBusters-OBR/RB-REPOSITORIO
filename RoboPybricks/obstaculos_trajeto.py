@@ -73,7 +73,7 @@ def rampa():
         while True:
             seguir_Linha(0.9, 50)
             verifica_verde()
-            Obstaculo()
+            #Obstaculo()
             if hub.imu.tilt()[0] < 2:
                 Drive.brake()
                 Garra.dc(100)
@@ -148,7 +148,7 @@ def Obstaculo():
 
     from resgate_de_vitimas import identifica_sala
     from seguimento_de_linha import seguir_Linha
-    if UltrassonicoF.distance() <= 50:
+    if UltrassonicoF.distance() <= 70:
         hub.speaker.beep(500,100)
         timer.reset()
         while True:  
@@ -164,16 +164,24 @@ def Obstaculo():
                 Drive.brake()
                 wait(400)
                 break
-        guinada("E",55,100)
+        guinada("E",62,100)
         Drive.straight(200)
         guinada("D", 84,100)
-        Drive.straight(130)
+        Drive.straight(300)
+        '''while True:
+            right_Motor.dc(50)
+            left_Motor.dc(50)
+            if any(numero < 200 for numero in separar_dados('I')):
+                break
+        Drive.straight(5)        
+        Drive.brake()     
+        wait(300)   
         while True:
             right_Motor.dc(50)
             left_Motor.dc(50)
             if any(numero > 200 for numero in separar_dados('I')):
-                break
-        Drive.straight(130)
+                break'''
+        #Drive.straight(130)
         guinada("D",85,100)
         while True:
             right_Motor.dc(80)
