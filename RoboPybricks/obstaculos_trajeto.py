@@ -165,7 +165,7 @@ def Obstaculo():
                 wait(400)
                 break
         guinada("E",62,100)
-        Drive.straight(200)
+
         guinada("D", 84,100)
         Drive.straight(300)
         '''while True:
