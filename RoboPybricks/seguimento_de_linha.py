@@ -23,14 +23,15 @@ def verifica_verde():
         while timer.time() < 150 :
             seguir_Linha(1,40)
         Drive.brake()
+    
         if sensor_CorE.color() == Color.GREEN and sensor_CorD.color() == Color.GREEN:
             timer.reset()
             while True:
-                if (sensor_CorE.reflection() < 15 or sensor_CorE.reflection() > 25) and sensor_CorE.color() == Color.SILVER:
+                if (sensor_CorE.reflection() < 15 or sensor_CorE.reflection() > 40) and sensor_CorE.color() != Color.GREEN and (sensor_CorE.reflection() < 15 or sensor_CorE.reflection() > 40) and sensor_CorE.color() != Color.GREEN:
                     Drive.brake()
                     break
-                left_Motor.dc(-70)
-                right_Motor.dc(-70)
+                left_Motor.dc(-60)
+                right_Motor.dc(-60)
             wait(200)
             if sensor_CorD.reflection() < 15:
                 hub.speaker.beep(500,100)
@@ -40,10 +41,10 @@ def verifica_verde():
                 Drive.brake()
                 while True:
                     mover(100)
-                    if sensor_CorE.reflection() < 25:
+                    if sensor_CorE.reflection() < 40:
                         Drive.stop()
                         break   
-            elif sensor_CorE.reflection() > 25:
+            elif sensor_CorE.reflection() > 40:
                 hub.speaker.beep(500,100)
                 left_Motor.dc(90) 
                 right_Motor.dc(90) 
@@ -55,74 +56,87 @@ def verifica_verde():
                         Drive.stop()
                         break
                 Drive.straight(-15)
-        if sensor_CorE.color() == Color.GREEN and sensor_CorD.color() != Color.GREEN:
-            timer.reset()
-            timer.reset()
-            while True:
-                if (sensor_CorE.reflection() < 15 or sensor_CorE.reflection() > 25) and sensor_CorE.color() != Color.GREEN :
-                    Drive.brake()
-                    break
-                left_Motor.dc(-70)
-                right_Motor.dc(-70)
-            wait(200)
-            if sensor_CorD.reflection() < 15:
-                hub.speaker.beep(500,100)
-                left_Motor.dc(100)
-                right_Motor.dc(100)
-                wait(200)
+
+        elif  sensor_CorE.color() == Color.GREEN or sensor_CorD.color() == Color.GREEN :
+            if sensor_CorE.color() == Color.GREEN :
+                guinada("D",3,90)
+            if sensor_CorD.color() == Color.GREEN:
+                guinada("E",3,90)
+        
+            if sensor_CorE.color() == Color.GREEN and sensor_CorD.color() != Color.GREEN:
                 Drive.brake()
+                timer.reset()
+                timer.reset()
+                
+                
                 while True:
-                    mover(100)
-                    if sensor_CorE.reflection() < 25:
-                        Drive.stop()
-                        break   
-            elif sensor_CorE.reflection() > 25:
-                hub.speaker.beep(500,100)
-                left_Motor.dc(90) 
-                right_Motor.dc(90) 
-                wait(450)
-                guinada('E', 95, 100)
-                while True:
-                    mover(100)
-                    if sensor_CorE.reflection() < 20:
-                        Drive.stop()
+                    if (sensor_CorE.reflection() < 15 and sensor_CorE.reflection() > 5 and sensor_CorE.color() != Color.GREEN  or sensor_CorE.reflection() > 40 and sensor_CorE.color() != Color.GREEN ) :
+                        Drive.brake()
+
                         break
-        if sensor_CorD.color() == Color.GREEN and sensor_CorE.color() != Color.GREEN :
-            timer.reset()
-            timer.reset()
-            while True:
-                if (sensor_CorD.reflection() < 15 or sensor_CorD.reflection() > 25) and sensor_CorD.color() != Color.GREEN:
+                    left_Motor.dc(-60)
+                    right_Motor.dc(-60)
+                if sensor_CorD.reflection() < 15:
+                    hub.speaker.beep(500,100)
+                    left_Motor.dc(100)
+                    right_Motor.dc(100)
+                    wait(200)
                     Drive.brake()
-                    break
-                left_Motor.dc(-70)
-                right_Motor.dc(-70)
-            wait(200)
-            if sensor_CorD.reflection() < 15:
-                hub.speaker.beep(500,100)
-                left_Motor.dc(100)
-                right_Motor.dc(100)
-                wait(200)
+                    while True:
+                        mover(100)
+                        if sensor_CorE.reflection() < 25:
+                            Drive.stop()
+                            break   
+                elif sensor_CorE.reflection() > 40:
+                    hub.speaker.beep(500,100)
+                    left_Motor.dc(90) 
+                    right_Motor.dc(90) 
+                    wait(450)
+                    guinada('E', 95, 100)
+                    while True:
+                        mover(100)
+                        if sensor_CorE.reflection() < 20:
+                            Drive.stop()
+                            break
+            if sensor_CorD.color() == Color.GREEN and sensor_CorE.color() != Color.GREEN :
                 Drive.brake()
-                while True:
-                    mover(-100)
-                    if sensor_CorD.reflection() < 28:
-                        Drive.stop()
-                        break   
-            elif sensor_CorD.reflection() > 25:
                 hub.speaker.beep(500,100)
-                left_Motor.dc(90) 
-                right_Motor.dc(90) 
-                wait(450)
-                guinada('D', 95, 100)
+                
+                timer.reset()
+
                 while True:
-                    mover(-100)
-                    if sensor_CorD.reflection() < 28:
-                        Drive.stop()
-                        break 
+                    if (sensor_CorD.reflection() < 15 and sensor_CorD.reflection() > 5 and sensor_CorD.color() != Color.GREEN  or sensor_CorD.reflection() > 40 and sensor_CorD.color() != Color.GREEN ) :
+                        Drive.brake()
+                        break
+                    left_Motor.dc(-70)
+                    right_Motor.dc(-70)
+                wait(200)
+                if sensor_CorD.reflection() < 15:
+                    hub.speaker.beep(500,100)
+                    left_Motor.dc(100)
+                    right_Motor.dc(100)
+                    wait(200)
+                    Drive.brake()
+                    while True:
+                        mover(-100)
+                        if sensor_CorD.reflection() < 28:
+                            Drive.stop()
+                            break   
+                elif sensor_CorD.reflection() > 40:
+                    hub.speaker.beep(500,100)
+                    left_Motor.dc(90) 
+                    right_Motor.dc(90) 
+                    wait(450)
+                    guinada('D', 95, 100)
+                    while True:
+                        mover(-100)
+                        if sensor_CorD.reflection() < 28:
+                            Drive.stop()
+                            break 
 
 def curvabrusca():
     Drive.settings(straight_acceleration=1000)
-    if (sensor_CorE.reflection() >= 0 and sensor_CorE.reflection() <= 22) and (sensor_CorD.reflection() >= 20) and sensor_CorD.reflection() <= 45 and (sensor_CorE.color()!= Color.GREEN and sensor_CorD.color()!= Color.GREEN) and hub.imu.tilt()[1] > -9 and hub.imu.tilt()[1] < 9 and hub.imu.tilt()[0] < -1:
+    if (sensor_CorE.reflection() >= 0 and sensor_CorE.reflection() <= 22) and (sensor_CorD.reflection() >= 0 and sensor_CorD.reflection() <= 50 )and (sensor_CorE.color()!= Color.GREEN and sensor_CorD.color()!= Color.GREEN) and hub.imu.tilt()[1] > -9 and hub.imu.tilt()[1] < 9 :
         guinada('D', 10, 100)
         Drive.straight(40) 
         Drive.brake()  
@@ -151,7 +165,7 @@ def curvabrusca():
                             break
                     break
                 
-    if (sensor_CorD.reflection() >= 0 and sensor_CorD.reflection() <= 22) and (sensor_CorE.reflection() >= 20 and sensor_CorE.reflection() <= 45) and (sensor_CorD.color()!= Color.GREEN and sensor_CorE.color()!= Color.GREEN) and hub.imu.tilt()[1] > -9 and hub.imu.tilt()[1] < 9   :
+    if (sensor_CorD.reflection() >= 0 and sensor_CorD.reflection() <= 22) and (sensor_CorE.reflection() >= 20 and sensor_CorE.reflection() <= 50) and (sensor_CorD.color()!= Color.GREEN and sensor_CorE.color()!= Color.GREEN) and hub.imu.tilt()[1] > -9 and hub.imu.tilt()[1] < 9   :
         guinada('E', 10, 100)
         Drive.straight(40) 
         Drive.brake()  

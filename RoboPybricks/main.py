@@ -7,15 +7,15 @@ from obstaculos_trajeto import  Obstaculo, rampa, separar_dados
 from pybricks.tools import wait
 from pybricks.pupdevices import Motor
 
-Garra.dc(100)
-wait(1500)
+'''Garra.dc(100)
+wait(1500)'''
 
 
 while True:
     
-    #print(UltrassonicoF.distance(), separar_dados("I"))
+    print(sensor_CorE.reflection(), sensor_CorD.reflection())
     identifica_sala()
-    seguir_Linha(5, 80)#5, 80
+    seguir_Linha(4, 80)#5, 80
     curvabrusca()
     verifica_verde()
     FitaRED()
