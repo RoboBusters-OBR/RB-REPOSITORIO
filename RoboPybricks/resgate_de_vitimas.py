@@ -165,8 +165,7 @@ def fazer_resgate():
                 print(separar_dados('S'))
                 Drive.brake()
                 break 
-        if UltrassonicoF.distance() < 120 and (hub.imu.heading() > -9 and hub.imu.heading() < 9)  :
-            Drive.straight(50)
+        if UltrassonicoF.distance() < 120 :
             print("viu parede")
             left_Motor.dc(100)
             right_Motor.dc(100)
@@ -316,18 +315,17 @@ def fazer_resgate():
                     wait(1000)
                     left_Motor.dc(100)
                     right_Motor.dc(100)
-                    wait(580)
-                    while True:
+                    wait(400)
+                    guinada("E",44,90)
+                    Drive.straight(60)
+                    """while True:
                         left_Motor.dc(30)
                         right_Motor.dc(90)
                         if any(numero > 50 for numero in separar_dados('I')):
-                            break
-                    wait(600)
-                    Drive.straight(30
-                    )
+                            break"""
+
                     # guinada("E",12,90)
                     Drive.brake()
-                    wait(600)
                     hub.imu.reset_heading(0)
                     canto_verde += 1
                     hub.imu.reset_heading(0)
@@ -379,18 +377,19 @@ def fazer_resgate():
                     wait(1000)
                     left_Motor.dc(100)
                     right_Motor.dc(100)
-                    wait(580)
-                    while True:
+                    wait(400)
+                    """while True:
                         left_Motor.dc(30)
                         right_Motor.dc(90)
                         if any(numero > 50 for numero in separar_dados('I')):
                             break
-                    wait(600)
+                    wait(600)"""
                     # guinada("E",12,90)
+                    guinada("E",44,90)
+                    Drive.straight(60)
                     Drive.brake()
-                    wait(600)
                     hub.imu.reset_heading(0)
-        elif (sensor_CorD.color() == Color.SILVER and sensor_CorE.color() == Color.SILVER and sensor_CorD.reflection() >= 36 and sensor_CorD.reflection() <= 42 and sensor_CorE.reflection() >= 36 and sensor_CorE.reflection() <=42) :
+        if (sensor_CorD.color() == Color.SILVER and sensor_CorE.color() == Color.SILVER and sensor_CorD.reflection() >= 36 and sensor_CorD.reflection() <= 42 and sensor_CorE.reflection() >= 36 and sensor_CorE.reflection() <=42) :
             print("Viu nada")
             print(hub.imu.heading())
             Drive.straight(40)
@@ -404,6 +403,23 @@ def fazer_resgate():
             wait(1200)
             hub.imu.reset_heading(0)  # deixassancia acaba aqui
             Drive.straight(200)
+
+        if sensor_CorD.reflection() >= 90 and sensor_CorE.reflection() > 90 :
+            print("Viu nada")
+            Drive.straight(30)
+            Drive.brake()
+            Garra.dc(100)
+            wait(1200)
+            Drive.straight(-100)
+            wait(900)
+            Drive.brake()
+            guinada("E", 89, 80)
+            Drive.brake()
+            Garra.dc(-100)
+            wait(1200)
+            Drive.straight(200)
+            hub.imu.reset_heading(0)
+        
     contagem = 0
     buraco = 0
     hub.imu.reset_heading(0)
@@ -461,8 +477,7 @@ def fazer_resgate():
                 break
 
 
-        if UltrassonicoF.distance() < 120 and (hub.imu.heading() > -4 and hub.imu.heading() < 4) :
-            Drive.straight(50)
+        if UltrassonicoF.distance() < 120 and (hub.imu.heading() > -9 and hub.imu.heading() < 9) :
             Drive.brake()
             print("viu parede")
             Drive.brake()
@@ -516,13 +531,15 @@ def fazer_resgate():
                     print("Viu verde")
                     left_Motor.dc(100)
                     right_Motor.dc(100)
-                    wait(580)
-                    while True:
+                    wait(400)
+                    """while True:
                         left_Motor.dc(30)
                         right_Motor.dc(90)
                         if any(numero > 50 for numero in separar_dados('I')):
                             break
-                    wait(600)
+                    wait(600)"""
+                    guinada("E",44,90)
+                    Drive.straight(60)
                     Drive.brake()
                     hub.imu.reset_heading(0)
 
@@ -610,17 +627,17 @@ def fazer_resgate():
                         Drive.brake()
                         left_Motor.dc(100)
                         right_Motor.dc(100)
-                        wait(580)
-                        while True:
+                        wait(400)
+                        """hile True:
                             left_Motor.dc(30)
                             right_Motor.dc(90)
                             if any(numero > 50 for numero in separar_dados('I')):
                                 break
-                        wait(600)
-                        Drive.straight(30)
+                        wait(600)"""
                         # guinada("E",12,90)
                         Drive.brake()
-                        wait(600)
+                        guinada("E",44,90)
+                        Drive.straight(60)
                         canto_verde += 1
                         hub.imu.reset_heading(0)
                     else:    
@@ -661,18 +678,20 @@ def fazer_resgate():
                         guinada("D", 90, 100)
                         left_Motor.dc(100)
                         right_Motor.dc(100)
-                        wait(580)
-                        while True:
+                        wait(400)
+                        """while True:
                             left_Motor.dc(30)
                             right_Motor.dc(90)
                             if any(numero > 50 for numero in separar_dados('I')):
                                 break
-                        wait(600)
+                        wait(600)"""
+                        guinada("E",44,90)
+                        Drive.straight(60)
                         Drive.brake()
                         hub.imu.reset_heading(0)
 
         if (sensor_CorD.color() == Color.SILVER and sensor_CorE.color() == Color.SILVER and sensor_CorD.reflection() >= 36 and sensor_CorD.reflection() <= 42 and sensor_CorE.reflection() >= 36 and sensor_CorE.reflection() <=42):
-            Drive.straight(10)
+            Drive.straight(0.8)
             if (sensor_CorD.reflection() < 18 and sensor_CorE.reflection() < 18):
                 print("viu saida")
                 Garra.dc(100)
@@ -774,6 +793,24 @@ def fazer_resgate():
                             hub.imu.reset_heading(0)
                 if timer.time()> 600 and not any(numero > 300 for numero in separar_dados('I')) :
                     break
+        
+
+        if sensor_CorD.reflection() >= 90 and sensor_CorE.reflection() > 90 :
+            print("Viu nada")
+            Drive.straight(30)
+            Drive.brake()
+            Garra.dc(100)
+            wait(1200)
+            Drive.straight(-100)
+            wait(900)
+            Drive.brake()
+            guinada("E", 89, 80)
+            Drive.brake()
+            Garra.dc(-100)
+            wait(1200)
+            Drive.straight(200)
+            hub.imu.reset_heading(0)
+
 
                 
                                 

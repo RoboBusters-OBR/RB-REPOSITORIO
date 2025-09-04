@@ -9,8 +9,9 @@ from pybricks.pupdevices import Motor
 
 Garra.dc(100)
 wait(1500)
+Garra.stop()
 
-
+wait(5000)
 while True:
     
     print(sensor_CorE.reflection(), sensor_CorD.reflection())

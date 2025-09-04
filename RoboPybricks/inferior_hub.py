@@ -76,8 +76,8 @@ while True:
     else:
         if cancela == 3 : #Abrir verde
             cancelaE.run_target(700, 100)     
-            
             cancela == 0 
+
         if cancela == 2 : #Abrir verde
             cancelaE.dc(100)
             wait(1000)
