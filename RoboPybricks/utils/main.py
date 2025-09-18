@@ -9,16 +9,18 @@ from pybricks.pupdevices import Motor
 
 Garra.dc(100)
 wait(1000)
-Garra.stop()
+Garra.brake()
 
 
 while True:
+
     
     print(sensor_CorE.reflection(), sensor_CorD.reflection())
     identifica_sala()
-    seguir_Linha(5, 80)#5, 80
+    seguir_Linha(3, 50)#5, 80
     curvabrusca()
     verifica_verde()
     FitaRED()
     Obstaculo()
     rampa()
+    

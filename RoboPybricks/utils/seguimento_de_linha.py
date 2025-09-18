@@ -7,6 +7,7 @@ from config import hub
 from obstaculos_trajeto import Obstaculo
 
 
+
 def seguir_Linha(KP, velocidade_base):
     erro = (sensor_CorE.reflection()) - (sensor_CorD.reflection()+2) 
 
@@ -258,4 +259,28 @@ def curvalombada():
                     guinada('D',5,60)
 
                     break
-   
+
+def seguir_Linha2(KP, velocidade_base):
+    # Calcula o erro da linha
+    erro = sensor_CorE.reflection() - (sensor_CorD.reflection() + 2)
+
+    # Correção proporcional
+    correcao = erro * KP
+
+    # Limita a correção aos ângulos do IMU (-15 a 15)
+    correcao = max(-15, min(15, correcao))
+
+    # Calcula potência final dos motores
+    esquerda_power = velocidade_base + correcao
+    direita_power = velocidade_base - correcao
+
+    # Limita potência para não passar do máximo do motor
+    esquerda_power = max(0, min(velocidade_base, esquerda_power))
+    direita_power = max(0, min(velocidade_base, direita_power))
+
+    # Envia para os motores
+    left_Motor.dc(esquerda_power)
+    right_Motor.dc(direita_power)
+
+def mapp(x, in_min, in_max, out_min, out_max):
+    return (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min

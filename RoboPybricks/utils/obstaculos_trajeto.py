@@ -4,8 +4,9 @@ from movimentos_bases import guinada, mover
 from pybricks.tools import wait
 
 
+
 def rampa():
-    from seguimento_de_linha import seguir_Linha, verifica_verde, FitaRED, curvalombada
+    from seguimento_de_linha import seguir_Linha, verifica_verde, FitaRED, curvalombada,seguir_Linha2
     from resgate_de_vitimas import identifica_sala
     if hub.imu.tilt()[1] < -15:
         while not hub.imu.tilt()[1] > -5:
@@ -69,11 +70,13 @@ def rampa():
         print('DESCIDA')
         Drive.brake()
 
+
         timer.reset()
         while True:
-            seguir_Linha(0.9, 50)
+            seguir_Linha2(4, 40)
             verifica_verde()
-            #Obstaculo()
+            
+           
             if hub.imu.tilt()[0] < 2:
                 Drive.brake()
                 Garra.dc(100)
@@ -84,20 +87,17 @@ def rampa():
                     mover(-60)
                     if sensor_CorD.reflection()< 19 or sensor_CorE.reflection()< 19:
                         Drive.brake()
-                        return 0
-                        break 
-                timer.reset()
-                while True :
-                    seguir_Linha(3, 55)
-                    identifica_sala()  # 5, 72 # CURVA  > 5 < 19 AND > 20 < 42 4.2 , 75
-                    verifica_verde()
-                    FitaRED()
-                    curvalombada()
-                    if timer.time() > 500:
-                        Drive.brake()
-                        return 0
-                        break 
-                break
+                        timer.reset()
+                        while True :
+                            seguir_Linha(3, 55)
+                            identifica_sala()  # 5, 72 # CURVA  > 5 < 19 AND > 20 < 42 4.2 , 75
+                            verifica_verde()
+                            FitaRED()
+                            curvalombada()
+                            if timer.time() > 500:
+                                Drive.brake()
+                                return 0
+    
             if hub.imu.tilt()[0] > 60:
                 Garra.dc(-100)
                 wait(2000)
@@ -168,47 +168,57 @@ def Obstaculo():
         while True :  
             left_Motor.dc(100) 
             right_Motor.dc(41)
+            
             if hub.imu.heading()>89:
                 Drive.brake()
-
-                
                 while True :
-                    if any(numero > 200 for numero in separar_dados('I')) or sensor_CorD.reflection()<15 and sensor_CorE.reflection()<15:
-                        if sensor_CorD.reflection()<15 and sensor_CorE.reflection()<15:
-                            Drive.straight(60)
-                            guinada("E",100,70)
-                            
-                            while True :
-                                if sensor_CorD.reflection()<15 or sensor_CorE.reflection()<15 :
-                                    Drive.brake()
-                                    break
-                                left_Motor.dc(60) 
-                                right_Motor.dc(-60)
-                        
-
-                        else:
-                            Drive.straight(60)
-                            while True :
-                                if any(numero > 200 for numero in separar_dados('I')) :
-                                    Drive.brake()
-                                    Drive.straight(-30)
-                                    hub.imu.reset_heading(0)
-                                    break
-                                left_Motor.dc(60) 
-                                right_Motor.dc(60)
-                            break
-
-
-                            
-            
                     left_Motor.dc(-60) 
                     right_Motor.dc(-60)
+                    if any(numero > 250 for numero in separar_dados('I')):
+                        Drive.brake()
+                        break
+                while True :
+                    left_Motor.dc(60) 
+                    right_Motor.dc(60)
+                    if any(numero < 250 for numero in separar_dados('I')) or  sensor_CorD.reflection()<15:
+                        if sensor_CorE.reflection()<15 or sensor_CorD.reflection()<15:
+                            Drive.straight(40)
+                            guinada("E",90,90)
+                            while True:
+                                left_Motor.dc(60) 
+                                right_Motor.dc(-60)
+                                if sensor_CorE.reflection()<15 or sensor_CorD.reflection()<15 :
+                                    Drive.straight(-20)
+                                    return 0
+                        else :
+                            Drive.brake()
+                            hub.imu.reset_heading(0)
+                            break
+                       
+                while True :
+                    left_Motor.dc(60) 
+                    right_Motor.dc(60)
+                    if any(numero > 250 for numero in separar_dados('I')) or  sensor_CorD.reflection()<15:
+                        if sensor_CorE.reflection()<15 or sensor_CorD.reflection()<15:
+                            Drive.straight(40)
+                            guinada("E",90,90)
+                            while True:
+                                left_Motor.dc(60) 
+                                right_Motor.dc(-60)
+                                if sensor_CorE.reflection()<15 or sensor_CorD.reflection()<15 :
+                                    Drive.straight(-20)
+                                    return 0
+                    
+                        else :
+                            Drive.brake()
+                            Drive.straight(-30)
+                            hub.imu.reset_heading(0)
+                            break
+
                 
 
-                hub.imu.reset_heading(0)
-            
 
-
+                        
 
 def separar_dados(tipo):
     inteiros = []
