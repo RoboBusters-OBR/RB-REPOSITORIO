@@ -1,6 +1,6 @@
 # obstaculos_trajeto
 from config import hub, left_Motor, right_Motor, Drive, UltrassonicoF, timer, Garra, my_colors, sensor_CorD, sensor_CorE, Color
-from movimentos_bases import guinada, mover
+from movimentos_bases import guinada, mover, girar_absoluto
 from pybricks.tools import wait
 
 
@@ -14,7 +14,7 @@ def rampa():
             verifica_verde()
             Obstaculo()
 
-    if hub.imu.tilt()[0] < -15:
+    if hub.imu.tilt()[0] < -15 :
         Drive.brake()
         wait(200)
         print('RAMPA')
@@ -49,7 +49,7 @@ def rampa():
                     if hub.imu.tilt()[0] > 6:
                         break
 
-    elif hub.imu.tilt()[0] < -1 and hub.imu.tilt()[0] > -4 and sensor_CorD.reflection() > 30 and sensor_CorE.reflection() > 30:
+    elif (hub.imu.tilt()[0] < -1 and hub.imu.tilt()[0] > -4) and (sensor_CorD.reflection() > 30 and sensor_CorE.reflection() > 30):
         print('LOMBADA')
         timer.reset()
         while True:
@@ -113,7 +113,7 @@ def rampa():
                     if timer.time() > 500:
                         Drive.brake()
                         return 0
-                        break
+                        
 
     if hub.imu.tilt()[0] > 60:
         Garra.dc(-100)
@@ -150,75 +150,90 @@ def Obstaculo():
     if UltrassonicoF.distance() <= 70:
         hub.speaker.beep(500,100)
         timer.reset()
-        while True:  
-            seguir_Linha(1, 40)
-            if timer.time() >= 300:
-                Drive.brake()
-                break
-        guinada("E", 60, 100)
-        while True:  
-            right_Motor.dc(-60) 
-            left_Motor.dc(60)
-            if UltrassonicoF.distance() >= 39 and UltrassonicoF.distance() <= 58:
-                Drive.brake()
-                wait(400)
-                break
-        guinada("E",62,100)
-        hub.imu.reset_heading(0)
-        while True :  
-            left_Motor.dc(100) 
-            right_Motor.dc(41)
-            
-            if hub.imu.heading()>89:
-                Drive.brake()
-                while True :
-                    left_Motor.dc(-60) 
-                    right_Motor.dc(-60)
-                    if any(numero > 250 for numero in separar_dados('I')):
-                        Drive.brake()
-                        break
-                while True :
-                    left_Motor.dc(60) 
-                    right_Motor.dc(60)
-                    if any(numero < 250 for numero in separar_dados('I')) or  sensor_CorD.reflection()<15:
-                        if sensor_CorE.reflection()<15 or sensor_CorD.reflection()<15:
-                            Drive.straight(40)
-                            guinada("E",90,90)
-                            while True:
-                                left_Motor.dc(60) 
-                                right_Motor.dc(-60)
-                                if sensor_CorE.reflection()<15 or sensor_CorD.reflection()<15 :
-                                    Drive.straight(-20)
-                                    return 0
-                        else :
-                            Drive.brake()
-                            hub.imu.reset_heading(0)
+        Drive.straight(-30)
+        guinada("D",30,100)
+        Drive.straight(30)
+        girar_absoluto(55)
+        hub.speaker.beep(500,100)
+        if UltrassonicoF.distance() <= 70:
+            while True :
+                left_Motor.dc(60)
+                right_Motor.dc(60)
+                if UltrassonicoF.distance() <= 60:
+                    break
+            guinada("E",90,60)
+            movimentoobs()
+        else:
+            while True:
+                if UltrassonicoF.distance() <= 100:
+                    while True :
+                        left_Motor.dc(60)
+                        right_Motor.dc(60)
+                        if UltrassonicoF.distance() <= 60:
                             break
-                       
-                while True :
-                    left_Motor.dc(60) 
-                    right_Motor.dc(60)
-                    if any(numero > 250 for numero in separar_dados('I')) or  sensor_CorD.reflection()<15:
-                        if sensor_CorE.reflection()<15 or sensor_CorD.reflection()<15:
-                            Drive.straight(40)
-                            guinada("E",90,90)
-                            while True:
-                                left_Motor.dc(60) 
-                                right_Motor.dc(-60)
-                                if sensor_CorE.reflection()<15 or sensor_CorD.reflection()<15 :
-                                    Drive.straight(-20)
-                                    return 0
-                    
-                        else :
-                            Drive.brake()
-                            Drive.straight(-30)
-                            hub.imu.reset_heading(0)
-                            break
+                    guinada("E",90,60)
+                    movimentoobs()
 
+                    return 0
+                    
+                guinada("E",90,55)
+                Drive.brake()
+                wait(60)
+        
                 
 
-
-                        
+def movimentoobs():
+    hub.imu.reset_heading(0)
+    while True :  
+        left_Motor.dc(100) 
+        right_Motor.dc(41)
+        
+        if hub.imu.heading()>89:
+            Drive.brake()
+            while True :
+                left_Motor.dc(-60) 
+                right_Motor.dc(-60)
+                if any(numero > 250 for numero in separar_dados('I')):
+                    Drive.brake()
+                    break
+            while True :
+                left_Motor.dc(60) 
+                right_Motor.dc(60)
+                if any(numero < 250 for numero in separar_dados('I')) or  sensor_CorD.reflection()<15:
+                    if sensor_CorE.reflection()<15 or sensor_CorD.reflection()<15:
+                        Drive.straight(40)
+                        guinada("E",90,90)
+                        while True:
+                            left_Motor.dc(60) 
+                            right_Motor.dc(-60)
+                            if sensor_CorE.reflection()<15 or sensor_CorD.reflection()<15 :
+                                Drive.straight(-20)
+                                return 0
+                    else :
+                        Drive.brake()
+                        hub.imu.reset_heading(0)
+                        break
+                    
+            while True :
+                left_Motor.dc(60) 
+                right_Motor.dc(60)
+                if any(numero > 250 for numero in separar_dados('I')) or  sensor_CorD.reflection()<15:
+                    if sensor_CorE.reflection()<15 or sensor_CorD.reflection()<15:
+                        Drive.straight(40)
+                        guinada("E",90,90)
+                        while True:
+                            left_Motor.dc(60) 
+                            right_Motor.dc(-60)
+                            if sensor_CorE.reflection()<15 or sensor_CorD.reflection()<15 :
+                                Drive.straight(-20)
+                                return 0
+                
+                    else :
+                        Drive.brake()
+                        Drive.straight(-30)
+                        hub.imu.reset_heading(0)
+                        break
+                
 
 def separar_dados(tipo):
     inteiros = []
@@ -249,3 +264,7 @@ def separar_dados(tipo):
     else:
         return None  # Retorna None se o tipo não for 'S' ou 'I'
 
+async def gemidao():
+    await hub.speaker.beep(frequency=440, duration=2000)  # 2 segundos
+    await hub.speaker.beep(frequency=600, duration=1500)  # sobe o tom
+    await hub.speaker.beep(frequency=500, duration=1000)  # desce um pouco
