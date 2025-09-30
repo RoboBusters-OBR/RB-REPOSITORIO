@@ -6,7 +6,6 @@ from resgate_de_vitimas import identifica_sala
 from obstaculos_trajeto import  Obstaculo, rampa, separar_dados
 from pybricks.tools import wait
 from pybricks.pupdevices import Motor
-from movimentos_bases import girar_absoluto
 
 Garra.dc(100)
 wait(1000)
@@ -15,8 +14,6 @@ Garra.stop()
 
 
 while True:
-    
-  print(hub.imu.rotation(Axis.Z))
   seguir_Linha(5, 80)#5, 80
   curvabrusca()
   verifica_verde()
@@ -24,5 +21,7 @@ while True:
   Obstaculo()
   rampa()
   identifica_sala()
+  
+
     
     

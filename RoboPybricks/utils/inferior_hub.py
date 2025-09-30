@@ -13,13 +13,12 @@ UltrassonicoL = UltrasonicSensor(Port.C)
 cancelaE = Motor(Port.F)
 
 
-Color.GREEN = Color(h=150, s=75, v=7)
-Color.WHITE = Color(h=200, s=13, v=40)
-Color.NADA = Color(h=210, s=27, v=9)
-Color.RED = Color(h=352, s=87, v=30)
-Color.NAO = Color(h = 0, s=86, v=3)
+Color.GREEN = Color(h=146, s=62, v=17)
+Color.GRENL = Color(h=120, s=64, v=1)
+Color.RED = Color(h=350, s=87, v=31)
+Color.REDL = Color(h = 352, s=91, v=5)
 
-my_colors1 = (Color.GREEN, Color.RED, Color.WHITE, Color.NADA, Color.NAO )
+my_colors1 = (Color.GREEN, Color.REDL, Color.GRENL, Color.RED)
 
 
 CorD.detectable_colors(my_colors1)
@@ -89,8 +88,6 @@ while True:
 
         print(tuplaultraa)
         hub.ble.broadcast(tuplaultraa)
-
-    
        
     
     

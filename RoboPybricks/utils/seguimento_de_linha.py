@@ -4,12 +4,13 @@ from config import sensor_CorE, sensor_CorD, left_Motor, right_Motor, Drive, tim
 from movimentos_bases import mover, guinada
 from pybricks.tools import wait
 from config import hub 
-from obstaculos_trajeto import Obstaculo
+from resgate_de_vitimas import identifica_sala
+from obstaculos_trajeto import Obstaculo, rampa
 
 
 
 def seguir_Linha(KP, velocidade_base):
-    erro = (sensor_CorE.reflection()) - (sensor_CorD.reflection()+2) 
+    erro = (sensor_CorE.reflection()) - (sensor_CorD.reflection()) 
 
     correcao = erro * KP
     esquerda_power = velocidade_base + correcao 
