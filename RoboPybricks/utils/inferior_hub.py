@@ -12,7 +12,6 @@ CorD = ColorSensor(Port.A)
 UltrassonicoL = UltrasonicSensor(Port.C)
 cancelaE = Motor(Port.F)
 
-
 Color.GREEN = Color(h=146, s=62, v=17)
 Color.GRENL = Color(h=120, s=64, v=1)
 Color.RED = Color(h=350, s=87, v=31)

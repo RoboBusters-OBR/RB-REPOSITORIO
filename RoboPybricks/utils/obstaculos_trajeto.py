@@ -129,7 +129,6 @@ def rampa():
             mover(-60)
             if sensor_CorD.reflection()< 19 or sensor_CorE.reflection()< 19:
                 Drive.brake()
-                return 0
                 break 
         timer.reset()        
         while True :
@@ -141,7 +140,7 @@ def rampa():
             if timer.time() > 500:
                 Drive.brake()
                 return 0
-                break
+
 
 def Obstaculo():
 
@@ -264,7 +263,7 @@ def separar_dados(tipo):
     else:
         return None  # Retorna None se o tipo não for 'S' ou 'I'
 
-async def gemidao():
+
     await hub.speaker.beep(frequency=440, duration=2000)  # 2 segundos
     await hub.speaker.beep(frequency=600, duration=1500)  # sobe o tom
     await hub.speaker.beep(frequency=500, duration=1000)  # desce um pouco
