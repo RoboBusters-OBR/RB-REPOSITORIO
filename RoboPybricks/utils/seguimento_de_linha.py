@@ -10,7 +10,7 @@ from obstaculos_trajeto import Obstaculo, rampa
 
 
 def seguir_Linha(KP, velocidade_base):
-    erro = (sensor_CorE.reflection()) - (sensor_CorD.reflection()) 
+    erro = (sensor_CorE.reflection()) - (sensor_CorD.reflection())
 
     correcao = erro * KP
     esquerda_power = velocidade_base + correcao 

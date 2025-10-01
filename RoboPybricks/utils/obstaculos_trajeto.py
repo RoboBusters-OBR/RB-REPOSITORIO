@@ -6,7 +6,7 @@ from pybricks.tools import wait
 
 
 def rampa():
-    from seguimento_de_linha import seguir_Linha, verifica_verde, FitaRED, curvalombada,seguir_Linha2
+    from seguimento_de_linha import seguir_Linha, verifica_verde, FitaRED, curvalombada,seguir_Linha2,curvabrusca
     from resgate_de_vitimas import identifica_sala
     if hub.imu.tilt()[1] < -15:
         while not hub.imu.tilt()[1] > -5:
@@ -30,24 +30,56 @@ def rampa():
                 Drive.brake()
                 wait(500)
                 Garra.dc(100)
-                Drive.brake()
-                wait(1000)
-                return 0
+                wait(800)
+                
+                break
                 
 
-            if hub.imu.tilt()[0] > 4 and hub.imu.tilt()[0] < 40:
-                break
-            elif hub.imu.tilt()[0] > -2 and hub.imu.tilt()[0] < 6:
-                Drive.brake()
-                Garra.dc(100)
-                wait(800)
-                while True:
-                    seguir_Linha(6, 55)
-                    verifica_verde()
-                    FitaRED()
-                    Obstaculo()
-                    if hub.imu.tilt()[0] > 6:
-                        break
+        if hub.imu.tilt()[0] < 1 and hub.imu.tilt()[0] > -40:
+            print(hub.imu.tilt()[0] )
+            print("AQUI")
+            while True:
+        
+                seguir_Linha(5, 60)
+                verifica_verde()
+                FitaRED()
+                curvabrusca()
+                Obstaculo()
+                if hub.imu.tilt()[0] < -7:
+                    break
+            
+        if hub.imu.tilt()[0] > 8 and hub.imu.tilt()[0] < 40:
+            print("OUTRO AQUI")
+            Drive.brake()
+            Garra.dc(100)
+            wait(800)
+            Garra.dc(-100)
+            wait(700)
+            Garra.dc(100)
+            wait(700)
+            Drive.straight(-70)
+            guinada("D", 20, 100)
+            timer.reset()
+            achou = 0
+            while True :
+                mover(-60)
+                if sensor_CorD.reflection()< 19 or sensor_CorE.reflection()< 19 or timer.time()>600:
+                    if sensor_CorD.reflection()< 19 or sensor_CorE.reflection()< 19 :
+                        Drive.brake()
+                        achou += 1
+                elif sensor_CorD.reflection()> 35 and sensor_CorE.reflection()> 35 and timer.time()>600   : 
+                    guinada("D", 35, 100)
+                    Drive.straight(40)
+                if achou == 1:
+                    break
+                
+            while True:
+                seguir_Linha(6, 55)
+                verifica_verde()
+                FitaRED()
+                Obstaculo()
+                if hub.imu.tilt()[0] > 0:
+                    break
 
     elif (hub.imu.tilt()[0] < -1 and hub.imu.tilt()[0] > -4) and (sensor_CorD.reflection() > 30 and sensor_CorE.reflection() > 30):
         print('LOMBADA')
@@ -79,8 +111,11 @@ def rampa():
            
             if hub.imu.tilt()[0] < 2:
                 Drive.brake()
+                Garra.dc(-100)
+                wait(1000)
                 Garra.dc(100)
                 wait(700)
+                Drive.straight(-50)
                 guinada("D",20,100)
                 timer.reset()
                 while True :
@@ -99,11 +134,19 @@ def rampa():
                                 return 0
     
             if hub.imu.tilt()[0] > 60:
+                Drive.brake()
                 Garra.dc(-100)
                 wait(2000)
                 Garra.dc(100)
                 wait(2000)
+                Drive.straight(-60)
                 timer.reset()
+                guinada("D", 20, 100)
+                while True :
+                    mover(-60)
+                    if sensor_CorD.reflection()< 19 or sensor_CorE.reflection()< 19:
+                        Drive.brake()
+                        break 
                 while True :
                     seguir_Linha(3, 55)
                     identifica_sala()  # 5, 72 # CURVA  > 5 < 19 AND > 20 < 42 4.2 , 75
@@ -116,6 +159,7 @@ def rampa():
                         
 
     if hub.imu.tilt()[0] > 60:
+        Drive.brake()
         Garra.dc(-100)
         Drive.brake()
         wait(1500)
@@ -124,6 +168,7 @@ def rampa():
         Garra.dc(100)
         Drive.brake()
         wait(1000)
+        Drive.straight(-60)
         guinada("D", 20, 100)
         while True :
             mover(-60)
@@ -139,8 +184,12 @@ def rampa():
             curvalombada()
             if timer.time() > 500:
                 Drive.brake()
+<<<<<<< HEAD
                 return 0
 
+=======
+                break
+>>>>>>> 911ac6b (Este código tem aquelas ulyimas alterações na sala de resgate e hoje voltamos a ajustar algumas coisas na função de rampa, de identificação de área elevada e descida, não está totalmente pronto mas o principal ja foi ajustado e reorgnizado hoje é dia 01.10.2025)
 
 def Obstaculo():
 
