@@ -23,5 +23,5 @@ while True:
   identifica_sala()
   
 
-    
+
     

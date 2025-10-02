@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 #movimentos_bases
 from config import left_Motor, right_Motor, Drive, hub, Axis
 from pybricks.tools import wait

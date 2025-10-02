@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # config.py
 from pybricks.hubs import InventorHub
 from pybricks.pupdevices import Motor, ColorSensor, UltrasonicSensor

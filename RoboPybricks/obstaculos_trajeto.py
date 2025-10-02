@@ -57,19 +57,21 @@ def rampa():
             wait(700)
             Garra.dc(100)
             wait(700)
-            Drive.straight(-70)
+            Drive.straight(-10)
             guinada("D", 20, 100)
             timer.reset()
             achou = 0
             while True :
                 mover(-60)
-                if sensor_CorD.reflection()< 19 or sensor_CorE.reflection()< 19 or timer.time()>600:
+                if sensor_CorD.reflection()< 19 or sensor_CorE.reflection()< 19 or timer.time()>1100:
                     if sensor_CorD.reflection()< 19 or sensor_CorE.reflection()< 19 :
                         Drive.brake()
                         achou += 1
-                elif sensor_CorD.reflection()> 35 and sensor_CorE.reflection()> 35 and timer.time()>600   : 
-                    guinada("D", 35, 100)
-                    Drive.straight(40)
+                    elif sensor_CorD.reflection()> 20 and sensor_CorE.reflection()> 20 and timer.time()>1000   : 
+                        guinada("D", 45, 100)
+                        Drive.straight(40)
+                
+                        timer.reset()
                 if achou == 1:
                     break
                 
@@ -184,12 +186,7 @@ def rampa():
             curvalombada()
             if timer.time() > 500:
                 Drive.brake()
-<<<<<<< HEAD
-                return 0
-
-=======
                 break
->>>>>>> 911ac6b (Este código tem aquelas ulyimas alterações na sala de resgate e hoje voltamos a ajustar algumas coisas na função de rampa, de identificação de área elevada e descida, não está totalmente pronto mas o principal ja foi ajustado e reorgnizado hoje é dia 01.10.2025)
 
 def Obstaculo():
 
@@ -311,8 +308,3 @@ def separar_dados(tipo):
         return inteiros
     else:
         return None  # Retorna None se o tipo não for 'S' ou 'I'
-
-
-    await hub.speaker.beep(frequency=440, duration=2000)  # 2 segundos
-    await hub.speaker.beep(frequency=600, duration=1500)  # sobe o tom
-    await hub.speaker.beep(frequency=500, duration=1000)  # desce um pouco

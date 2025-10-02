@@ -6,6 +6,9 @@ from pybricks.tools import wait
 from config import hub 
 from resgate_de_vitimas import identifica_sala
 from obstaculos_trajeto import Obstaculo, rampa
+import obstaculos_trajeto
+import movimentos_bases
+import config
 
 
 

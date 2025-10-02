@@ -14,10 +14,12 @@ cancelaE = Motor(Port.F)
 
 Color.GREEN = Color(h=146, s=62, v=17)
 Color.GRENL = Color(h=120, s=64, v=1)
+Color.GRENLL = Color(h=180, s=100, v=0)
 Color.RED = Color(h=350, s=87, v=31)
 Color.REDL = Color(h = 352, s=91, v=5)
+Color.REDLL = Color(h = 0, s=90, v=1)
 
-my_colors1 = (Color.GREEN, Color.REDL, Color.GRENL, Color.RED)
+my_colors1 = (Color.GREEN, Color.REDL, Color.GRENL, Color.RED,  Color.GRENLL, Color.REDLL)
 
 
 CorD.detectable_colors(my_colors1)
@@ -72,7 +74,7 @@ while True:
 
 
     else:
-        if cancela == 3 : #Abrir verde
+        """if cancela == 3 : #Abrir verde
             cancelaE.run_target(700, 100)     
             cancela == 0 
 
@@ -86,7 +88,8 @@ while True:
         tuplaultraa = UltrassonicoL.distance()
 
         print(tuplaultraa)
-        hub.ble.broadcast(tuplaultraa)
+        hub.ble.broadcast(tuplaultraa)"""
+        print(CorD.color(),CorD.hsv())
        
     
     
