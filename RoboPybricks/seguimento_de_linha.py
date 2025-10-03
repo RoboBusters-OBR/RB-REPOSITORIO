@@ -14,7 +14,8 @@ import config
 
 def seguir_Linha(KP, velocidade_base):
     erro = (sensor_CorE.reflection()) - (sensor_CorD.reflection())
-
+    if abs(erro) > 0 and abs(erro) < 2 or abs(erro) >0 and abs(erro)<3 or abs(erro) >0 and abs(erro)<4 or abs(erro) >0 and abs(erro)<5 :
+        erro = 0
     correcao = erro * KP
     esquerda_power = velocidade_base + correcao 
     direita_power = velocidade_base - correcao 
@@ -288,3 +289,45 @@ def seguir_Linha2(KP, velocidade_base):
 
 def mapp(x, in_min, in_max, out_min, out_max):
     return (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min
+
+def identificanada():
+    timer.reset()
+    preto = 0
+    if sensor_CorD.reflection() > 54 and sensor_CorE.reflection()> 54:
+        while True:
+            seguir_Linha(5, 80)#5, 80
+            curvabrusca()
+            verifica_verde()
+            FitaRED()
+            Obstaculo()
+            rampa()
+            '''identifica_sala()'''
+            if timer.time()>500:
+                break
+            if sensor_CorD.reflection() <50 or sensor_CorE.reflection()<50 :
+                preto += 1
+        if preto == 0:
+            while True:
+                """left_Motor.dc(-90)
+                right_Motor.dc(-90)
+                if sensor_CorD.reflection() <50 or sensor_CorE.reflection()<50:
+                    Drive.brake()"""
+                guinada("D", 20, 100)
+                timer.reset()
+                achado = 0
+                while True :
+                    if achado == 1:
+                        return 0
+                    mover(-60)
+                    if sensor_CorD.reflection()< 19 or sensor_CorE.reflection()< 19 or timer.time()>1100:
+                        if sensor_CorD.reflection()< 19 or sensor_CorE.reflection()< 19 :
+                            Drive.brake()
+                            achado += 1
+                            return 0
+
+                        elif sensor_CorD.reflection()> 20 and sensor_CorE.reflection()> 20 and timer.time()>1000   : 
+                            guinada("D", 45, 100)
+                            Drive.straight(40)
+                            timer.reset()
+                    if achado == 1:
+                        return 0

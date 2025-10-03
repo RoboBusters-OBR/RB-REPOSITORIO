@@ -1,6 +1,6 @@
 # obstaculos_trajeto
 from config import hub, left_Motor, right_Motor, Drive, UltrassonicoF, timer, Garra, my_colors, sensor_CorD, sensor_CorE, Color
-from movimentos_bases import guinada, mover, girar_absoluto
+from movimentos_bases import guinada, mover
 from pybricks.tools import wait
 
 
@@ -31,7 +31,7 @@ def rampa():
                 wait(500)
                 Garra.dc(100)
                 wait(800)
-                
+                Drive.straight(-50)
                 break
                 
 
@@ -45,10 +45,10 @@ def rampa():
                 FitaRED()
                 curvabrusca()
                 Obstaculo()
-                if hub.imu.tilt()[0] < -7:
+                if hub.imu.tilt()[0] >10:
                     break
             
-        if hub.imu.tilt()[0] > 8 and hub.imu.tilt()[0] < 40:
+        elif hub.imu.tilt()[0] > 7 and hub.imu.tilt()[0] < 40:
             print("OUTRO AQUI")
             Drive.brake()
             Garra.dc(100)
@@ -62,11 +62,14 @@ def rampa():
             timer.reset()
             achou = 0
             while True :
+                if achou == 1:
+                    break
                 mover(-60)
                 if sensor_CorD.reflection()< 19 or sensor_CorE.reflection()< 19 or timer.time()>1100:
                     if sensor_CorD.reflection()< 19 or sensor_CorE.reflection()< 19 :
                         Drive.brake()
                         achou += 1
+                        break
                     elif sensor_CorD.reflection()> 20 and sensor_CorE.reflection()> 20 and timer.time()>1000   : 
                         guinada("D", 45, 100)
                         Drive.straight(40)
@@ -193,39 +196,14 @@ def Obstaculo():
     from resgate_de_vitimas import identifica_sala
     from seguimento_de_linha import seguir_Linha
     if UltrassonicoF.distance() <= 70:
-        hub.speaker.beep(500,100)
-        timer.reset()
-        Drive.straight(-30)
-        guinada("D",30,100)
-        Drive.straight(30)
-        girar_absoluto(55)
-        hub.speaker.beep(500,100)
-        if UltrassonicoF.distance() <= 70:
-            while True :
-                left_Motor.dc(60)
-                right_Motor.dc(60)
-                if UltrassonicoF.distance() <= 60:
-                    break
-            guinada("E",90,60)
-            movimentoobs()
-        else:
-            while True:
-                if UltrassonicoF.distance() <= 100:
-                    while True :
-                        left_Motor.dc(60)
-                        right_Motor.dc(60)
-                        if UltrassonicoF.distance() <= 60:
-                            break
-                    guinada("E",90,60)
-                    movimentoobs()
-
-                    return 0
-                    
-                guinada("E",90,55)
-                Drive.brake()
-                wait(60)
-        
-                
+        guinada('E', 35, 60)
+        while True:
+            left_Motor.dc(60) 
+            right_Motor.dc(-60) 
+            if UltrassonicoF.distance() <= 70:
+              break
+        guinada('E', 70, 60)     
+        movimentoobs()
 
 def movimentoobs():
     hub.imu.reset_heading(0)
@@ -233,9 +211,10 @@ def movimentoobs():
         left_Motor.dc(100) 
         right_Motor.dc(41)
         
-        if hub.imu.heading()>89:
+        if hub.imu.heading()>90:
             Drive.brake()
             while True :
+                print(separar_dados("I"))
                 left_Motor.dc(-60) 
                 right_Motor.dc(-60)
                 if any(numero > 250 for numero in separar_dados('I')):
@@ -247,7 +226,7 @@ def movimentoobs():
                 if any(numero < 250 for numero in separar_dados('I')) or  sensor_CorD.reflection()<15:
                     if sensor_CorE.reflection()<15 or sensor_CorD.reflection()<15:
                         Drive.straight(40)
-                        guinada("E",90,90)
+                        guinada("E",150,90)
                         while True:
                             left_Motor.dc(60) 
                             right_Motor.dc(-60)
@@ -265,7 +244,7 @@ def movimentoobs():
                 if any(numero > 250 for numero in separar_dados('I')) or  sensor_CorD.reflection()<15:
                     if sensor_CorE.reflection()<15 or sensor_CorD.reflection()<15:
                         Drive.straight(40)
-                        guinada("E",90,90)
+                        guinada("E",150,90)
                         while True:
                             left_Motor.dc(60) 
                             right_Motor.dc(-60)

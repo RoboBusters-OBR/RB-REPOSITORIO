@@ -74,7 +74,7 @@ while True:
 
 
     else:
-        """if cancela == 3 : #Abrir verde
+        if cancela == 3 : #Abrir verde
             cancelaE.run_target(700, 100)     
             cancela == 0 
 
@@ -88,8 +88,8 @@ while True:
         tuplaultraa = UltrassonicoL.distance()
 
         print(tuplaultraa)
-        hub.ble.broadcast(tuplaultraa)"""
-        print(CorD.color(),CorD.hsv())
+        hub.ble.broadcast(tuplaultraa)
+        #print(CorD.color(),CorD.hsv())
        
     
     

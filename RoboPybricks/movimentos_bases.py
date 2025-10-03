@@ -21,13 +21,13 @@ def guinada(LADO, GRAUS, VELOCIDADE):
                 Drive.brake()
                 break
 
-def girar_absoluto(velocidade):
-    """
-    Gira o robô até um ângulo absoluto 'destino' usando IMU.
+"""def girar_absoluto(velocidade):
+
+   Gira o robô até um ângulo absoluto 'destino' usando IMU.
     - direita = negativo
     - esquerda = positivo
     Compensa qualquer erro automaticamente.
-    """
+    
     while True:
         
 
@@ -44,4 +44,4 @@ def girar_absoluto(velocidade):
 
 
     left_Motor.stop()
-    right_Motor.stop()
+    right_Motor.stop()"""
