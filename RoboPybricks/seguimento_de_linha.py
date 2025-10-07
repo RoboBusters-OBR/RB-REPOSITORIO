@@ -5,7 +5,7 @@ from movimentos_bases import mover, guinada
 from pybricks.tools import wait
 from config import hub 
 from resgate_de_vitimas import identifica_sala
-from obstaculos_trajeto import Obstaculo, rampa
+from obstaculos_trajeto import Obstaculo, rampa, separar_dados
 import obstaculos_trajeto
 import movimentos_bases
 import config
@@ -293,7 +293,7 @@ def mapp(x, in_min, in_max, out_min, out_max):
 def identificanada():
     timer.reset()
     preto = 0
-    if sensor_CorD.reflection() > 54 and sensor_CorE.reflection()> 54:
+    if sensor_CorD.reflection() > 53 and sensor_CorE.reflection()> 53 and any(numero > 200 for numero in separar_dados('I')) :
         while True:
             seguir_Linha(5, 80)#5, 80
             curvabrusca()
@@ -301,17 +301,14 @@ def identificanada():
             FitaRED()
             Obstaculo()
             rampa()
-            '''identifica_sala()'''
-            if timer.time()>500:
+            #identifica_sala()
+            if timer.time()>680:
                 break
             if sensor_CorD.reflection() <50 or sensor_CorE.reflection()<50 :
                 preto += 1
-        if preto == 0:
+                break
+        if preto == 0 and timer.time()>650:
             while True:
-                """left_Motor.dc(-90)
-                right_Motor.dc(-90)
-                if sensor_CorD.reflection() <50 or sensor_CorE.reflection()<50:
-                    Drive.brake()"""
                 guinada("D", 20, 100)
                 timer.reset()
                 achado = 0

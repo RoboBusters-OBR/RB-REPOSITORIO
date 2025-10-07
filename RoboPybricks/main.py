@@ -20,7 +20,7 @@ while True:
   FitaRED()
   Obstaculo()
   rampa()
-  #identifica_sala()
+  identifica_sala()
   identificanada()
   print(sensor_CorD.reflection(),sensor_CorE.reflection())
   

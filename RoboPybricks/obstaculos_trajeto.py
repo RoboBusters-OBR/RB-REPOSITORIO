@@ -27,12 +27,15 @@ def rampa():
             verifica_verde()
             FitaRED()
             if hub.imu.tilt()[0] > -1 and timer.time() > 500:
-                Drive.brake()
-                wait(500)
-                Garra.dc(100)
-                wait(800)
-                Drive.straight(-50)
-                break
+                if hub.imu.tilt()[0] > 5 and hub.imu.tilt()[0] < 40 :
+                    Drive.straight(-30)
+                    break 
+                else :
+                    Drive.brake()
+                    wait(500)
+                    Garra.dc(100)
+                    wait(800)
+                    break
                 
 
         if hub.imu.tilt()[0] < 1 and hub.imu.tilt()[0] > -40:
@@ -57,7 +60,7 @@ def rampa():
             wait(700)
             Garra.dc(100)
             wait(700)
-            Drive.straight(-10)
+            Drive.straight(20)
             guinada("D", 20, 100)
             timer.reset()
             achou = 0
@@ -68,13 +71,16 @@ def rampa():
                 if sensor_CorD.reflection()< 19 or sensor_CorE.reflection()< 19 or timer.time()>1100:
                     if sensor_CorD.reflection()< 19 or sensor_CorE.reflection()< 19 :
                         Drive.brake()
+                        Drive.straight(-10)
                         achou += 1
                         break
-                    elif sensor_CorD.reflection()> 20 and sensor_CorE.reflection()> 20 and timer.time()>1000   : 
+    
+                    elif sensor_CorD.reflection()> 30 and sensor_CorE.reflection()> 30 and timer.time()>1000   : 
                         guinada("D", 45, 100)
                         Drive.straight(40)
                 
                         timer.reset()
+                    break 
                 if achou == 1:
                     break
                 
@@ -213,6 +219,13 @@ def movimentoobs():
         
         if hub.imu.heading()>90:
             Drive.brake()
+            while True :
+                print(separar_dados("I"))
+                left_Motor.dc(-60) 
+                right_Motor.dc(-60)
+                if any(numero < 250 for numero in separar_dados('I')):
+                    Drive.brake()
+                    break
             while True :
                 print(separar_dados("I"))
                 left_Motor.dc(-60) 
