@@ -293,7 +293,8 @@ def mapp(x, in_min, in_max, out_min, out_max):
 def identificanada():
     timer.reset()
     preto = 0
-    if sensor_CorD.reflection() > 53 and sensor_CorE.reflection()> 53 and any(numero > 200 for numero in separar_dados('I')) :
+    if sensor_CorD.reflection() > 55 and sensor_CorE.reflection()> 55  :
+        preto = 0
         while True:
             seguir_Linha(5, 80)#5, 80
             curvabrusca()
@@ -301,30 +302,45 @@ def identificanada():
             FitaRED()
             Obstaculo()
             rampa()
-            #identifica_sala()
-            if timer.time()>680:
+            identifica_sala()
+            if preto >= 1:
                 break
-            if sensor_CorD.reflection() <50 or sensor_CorE.reflection()<50 :
+            if sensor_CorD.reflection() <53 or sensor_CorE.reflection()<53 :
                 preto += 1
                 break
-        if preto == 0 and timer.time()>650:
-            while True:
-                guinada("D", 20, 100)
-                timer.reset()
-                achado = 0
-                while True :
-                    if achado == 1:
-                        return 0
-                    mover(-60)
-                    if sensor_CorD.reflection()< 19 or sensor_CorE.reflection()< 19 or timer.time()>1100:
-                        if sensor_CorD.reflection()< 19 or sensor_CorE.reflection()< 19 :
-                            Drive.brake()
-                            achado += 1
+            print(preto)
+            if preto == 0 and timer.time()>750  :
+                while True:
+                    #guinada("D", 35, 100)
+                    timer.reset()
+                    achado = 0
+                    while True :
+                        if achado == 1:
                             return 0
+                        mover(-80)
+                        if sensor_CorD.reflection()< 25 or sensor_CorE.reflection()< 25 or timer.time()>1100:
+                            if sensor_CorD.reflection()< 28 or sensor_CorE.reflection()< 28 :
+                                Drive.brake()
+                                achado += 1
+                                return 0
 
-                        elif sensor_CorD.reflection()> 20 and sensor_CorE.reflection()> 20 and timer.time()>1000   : 
-                            guinada("D", 45, 100)
-                            Drive.straight(40)
-                            timer.reset()
-                    if achado == 1:
-                        return 0
+                            elif sensor_CorD.reflection()> 20 and sensor_CorE.reflection()> 20 and timer.time()>1000   : 
+                                timer.reset()
+                                while True :
+                            
+                                    mover(80)
+                                    if sensor_CorD.reflection()< 25 or sensor_CorE.reflection()< 25 or timer.time()>1500:
+                                        break
+                                
+                                if sensor_CorD.reflection()< 28 or sensor_CorE.reflection()< 28 :
+                                    Drive.brake()
+                                    achado += 1
+                                    return 0
+                                else:
+                                    timer.reset()
+                                    
+                            break
+                                
+                                    
+                        if achado == 1:
+                            return 0

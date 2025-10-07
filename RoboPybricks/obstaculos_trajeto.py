@@ -61,36 +61,29 @@ def rampa():
             Garra.dc(100)
             wait(700)
             Drive.straight(20)
-            guinada("D", 20, 100)
-            timer.reset()
-            achou = 0
-            while True :
-                if achou == 1:
-                    break
-                mover(-60)
-                if sensor_CorD.reflection()< 19 or sensor_CorE.reflection()< 19 or timer.time()>1100:
-                    if sensor_CorD.reflection()< 19 or sensor_CorE.reflection()< 19 :
-                        Drive.brake()
-                        Drive.straight(-10)
-                        achou += 1
+            if sensor_CorD.reflection()> 50 and sensor_CorE.reflection()>50:
+                guinada("D", 20, 100)
+                timer.reset()
+                achou = 0
+                while True :
+                    if achou == 1:
                         break
-    
-                    elif sensor_CorD.reflection()> 30 and sensor_CorE.reflection()> 30 and timer.time()>1000   : 
-                        guinada("D", 45, 100)
-                        Drive.straight(40)
-                
-                        timer.reset()
-                    break 
-                if achou == 1:
-                    break
-                
-            while True:
-                seguir_Linha(6, 55)
-                verifica_verde()
-                FitaRED()
-                Obstaculo()
-                if hub.imu.tilt()[0] > 0:
-                    break
+                    mover(-60)
+                    if sensor_CorD.reflection()< 19 or sensor_CorE.reflection()< 19 or timer.time()>1100:
+                        if sensor_CorD.reflection()< 25 or sensor_CorE.reflection()< 25 :
+                            Drive.brake()
+                            Drive.straight(-10)
+                            achou += 1
+                            return 0
+        
+                        elif sensor_CorD.reflection()> 30 and sensor_CorE.reflection()> 30 and timer.time()>1000   : 
+                            guinada("D", 50, 100)
+                            Drive.straight(30)
+                    
+                            timer.reset()
+                        break 
+                    if achou == 1:
+                        break
 
     elif (hub.imu.tilt()[0] < -1 and hub.imu.tilt()[0] > -4) and (sensor_CorD.reflection() > 30 and sensor_CorE.reflection() > 30):
         print('LOMBADA')

@@ -100,9 +100,10 @@ def fazer_resgate():
         Drive.straight(200)
         Garra.dc(-90)
         wait(1500)
-        quant_meio = 0
+        quant_meio = 1
     timer.reset()
     canto_verde = 0
+    canto_verde_alinhamento = 0
     varrer_meio = 0
     canto_vermelho = 0
     hub.imu.reset_heading(0)
@@ -118,57 +119,25 @@ def fazer_resgate():
         print("DEIXANDO")
         if any(numero < 300 for numero in separar_dados('I')):
             if varrer_meio == quant_meio:
-                if canto_vermelho == 1:
-                    Drive.straight(40)
-                    guinada("E", 80, 100)
-                    left_Motor.dc(-100)
-                    right_Motor.dc(-100)
-                    wait(3000)
-                    left_Motor.dc(100)
-                    right_Motor.dc(95)
-                    wait(2350)
-                    left_Motor.dc(-100)
-                    right_Motor.dc(-100)
-                    wait(2450)
-                    Drive.straight(35)
-                    guinada("D", 89, 100)
-                    hub.imu.reset_heading(0)
-                    varrer_meio += 1
-                elif canto_verde == 1:
-                    Drive.straight(40)
-                    guinada("E", 80, 100)
-                    left_Motor.dc(-100)
-                    right_Motor.dc(-100)
-                    wait(3000)
-                    left_Motor.dc(100)
-                    right_Motor.dc(95)
-                    wait(2350)
-                    left_Motor.dc(-100)
-                    right_Motor.dc(-100)
-                    wait(2450)
-                    Drive.straight(35)
-                    guinada("D", 89, 100)
-                    hub.imu.reset_heading(0)
-                    varrer_meio += 1
-                else:    
-                    Drive.straight(40)
-                    guinada("E", 80, 100)
-                    left_Motor.dc(-100)
-                    right_Motor.dc(-100)
-                    wait(3000)
-                    left_Motor.dc(100)
-                    right_Motor.dc(95)
-                    wait(2350)
-                    left_Motor.dc(-100)
-                    right_Motor.dc(-100)
-                    wait(2450)
-                    Drive.straight(35)
-                    guinada("D", 89, 100)
-                    hub.imu.reset_heading(0)
-                    varrer_meio += 1
+                Drive.straight(43)
+                guinada("E", 80, 100)
+                left_Motor.dc(-100)
+                right_Motor.dc(-100)
+                wait(3000)
+                left_Motor.dc(100)
+                right_Motor.dc(95)
+                wait(2350)
+                left_Motor.dc(-100)
+                right_Motor.dc(-100)
+                wait(2450)
+                Drive.straight(35)
+                guinada("D", 89, 100)
+                hub.imu.reset_heading(0)
+                varrer_meio += 1
             elif varrer_meio != quant_meio:
                 if canto_vermelho == 1:
-                    Drive.straight(40)
+                    print("vermelho alinha")
+                    Drive.straight(43)
                     guinada("E", 80, 100)
                     left_Motor.dc(-100)
                     right_Motor.dc(-100)
@@ -183,8 +152,10 @@ def fazer_resgate():
                     guinada("D", 89, 100)
                     hub.imu.reset_heading(0)
                     varrer_meio += 1
-                elif canto_verde == 1:
-                    Drive.straight(40)
+                    canto_vermelho += 1
+                elif canto_verde_alinhamento == 1:
+                    print("verde alinha")
+                    Drive.straight(43)
                     guinada("E", 80, 100)
                     left_Motor.dc(-100)
                     right_Motor.dc(-100)
@@ -199,8 +170,9 @@ def fazer_resgate():
                     guinada("D", 89, 100)
                     hub.imu.reset_heading(0)
                     varrer_meio += 1
+                    canto_verde_alinhamento += 1
                 else:    
-                    Drive.straight(40)
+                    Drive.straight(43)
                     guinada("E", 80, 100)
                     left_Motor.dc(-100)
                     right_Motor.dc(-100)
@@ -216,13 +188,13 @@ def fazer_resgate():
         while True:
             print(UltrassonicoF.distance())
             left_Motor.dc(90)
-            right_Motor.dc(90)
+            right_Motor.dc(86)
             parede = 0
             if UltrassonicoF.distance() < 120 and UltrassonicoF.distance() > 100 :
                 timer.reset()
                 while True :
                     left_Motor.dc(90)
-                    right_Motor.dc(90)
+                    right_Motor.dc(86)
                     parede += 1
                     if timer.time()>700 or sensor_CorD.reflection() < 18 and sensor_CorE.reflection() < 18 or hub.imu.heading() < -19 or sensor_CorD.reflection() > 90 and sensor_CorE.reflection() > 90 or sensor_CorD.reflection() > 33 and sensor_CorE.reflection() > 33 and sensor_CorD.reflection() < 42 and sensor_CorE.reflection() < 42: 
                         break
@@ -401,6 +373,7 @@ def fazer_resgate():
                     Drive.brake()
                     hub.imu.reset_heading(0)
                     canto_verde += 1
+                    canto_verde_alinhamento += 1
                     hub.imu.reset_heading(0)
                     abudega = 0 
     
@@ -535,13 +508,13 @@ def fazer_resgate():
                 varrer_meio += 1
         while True:
             print(UltrassonicoF.distance())
-            left_Motor.dc(100)
-            right_Motor.dc(100)
+            left_Motor.dc(90)
+            right_Motor.dc(86)
             if UltrassonicoF.distance() < 120 and UltrassonicoF.distance() > 100 :
                 timer.reset()
                 while True :
-                    left_Motor.dc(100)
-                    right_Motor.dc(100)
+                    left_Motor.dc(90)
+                    right_Motor.dc(86)
                     parede += 1
                     if timer.time()>700 or sensor_CorD.reflection() < 18 and sensor_CorE.reflection() < 18 or hub.imu.heading() < -22 or any(numero > 300 for numero in separar_dados('I')) or sensor_CorD.reflection() > 90 and sensor_CorE.reflection() > 90 or sensor_CorD.reflection() > 33 and sensor_CorE.reflection() > 33 and sensor_CorD.reflection() < 42 and sensor_CorE.reflection() < 42: 
                         break
@@ -563,7 +536,7 @@ def fazer_resgate():
             Drive.brake()
             left_Motor.dc(-100)
             right_Motor.dc(-100)
-            wait(70)
+            wait(700)
             Drive.brake()
             Garra.dc(90)
             wait(2000)
@@ -618,7 +591,7 @@ def fazer_resgate():
                         if any(numero > 50 for numero in separar_dados('I')):
                             break
                     wait(600)"""
-                    guinada("E",35,90)
+                    guinada("E",40,90)
                     Drive.straight(80)
                     Drive.brake()
                     hub.imu.reset_heading(0)
@@ -635,7 +608,7 @@ def fazer_resgate():
                         if any(numero > 50 for numero in separar_dados('I')):
                             break
                     wait(600)"""
-                    guinada("E",35,90)
+                    guinada("E",40,90)
                     Drive.straight(80)
                     Drive.brake()
                     hub.imu.reset_heading(0)
@@ -680,13 +653,17 @@ def fazer_resgate():
             wait(100)
             timer.reset()
             while True :
-
                 if timer.time()> 600 and any(numero > 300 for numero in separar_dados('I')) :
                     print("SAIDA - BURACO(NAO VIU PAREDE)")
                     print("saiu")
-                    Drive.straight(-60)
+                    while True:
+                        right_Motor.dc(-70)
+                        left_Motor.dc(-70)
+                        if any(numero <= 150 for numero in separar_dados('I')):
+                            Drive.brake()
+                            break        
                     Garra.dc(100)
-                    wait(1200)
+                    wait(2000)
                     left_Motor.dc(80)
                     right_Motor.dc(80)
                     wait(1100)
