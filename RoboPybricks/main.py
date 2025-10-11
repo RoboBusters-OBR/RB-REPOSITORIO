@@ -9,7 +9,7 @@ from pybricks.pupdevices import Motor
 
 Garra.dc(100)
 wait(1000)
-Garra.stop()
+Garra.brake()
 
 
 

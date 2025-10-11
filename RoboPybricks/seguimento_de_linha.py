@@ -146,11 +146,11 @@ def curvabrusca():
         right_Motor.dc(80)
         wait(300)
     
-    if (sensor_CorE.reflection() >= 0 and sensor_CorE.reflection() <= 25) and (sensor_CorD.reflection() >= 0 and sensor_CorD.reflection() <= 50 )and (sensor_CorE.color()!= Color.GREEN and sensor_CorD.color()!= Color.GREEN) and hub.imu.tilt()[1] > -9 and hub.imu.tilt()[1] < 9 :
+    if (sensor_CorE.reflection() >= 0 and sensor_CorE.reflection() <= 25) and (sensor_CorD.reflection() >= 0 and sensor_CorD.reflection() <= 50 )and (sensor_CorE.color()!= Color.GREEN and sensor_CorD.color()!= Color.GREEN) and hub.imu.tilt()[1] > -3 and hub.imu.tilt()[1] < 3 :
         guinada('D', 10, 100)
         Drive.straight(40) 
-        if (sensor_CorD.reflection() <= 40 or sensor_CorE.reflection() <= 40) :
-            return 0
+        """if (sensor_CorD.reflection() <= 40 or sensor_CorE.reflection() <= 40) :
+            return 0"""
         Drive.brake()  
         timer.reset()
         hub.imu.reset_heading(0) 
@@ -177,11 +177,11 @@ def curvabrusca():
                             break
                     break
                 
-    if (sensor_CorD.reflection() >= 0 and sensor_CorD.reflection() <= 25) and (sensor_CorE.reflection() >= 20 and sensor_CorE.reflection() <= 50) and (sensor_CorD.color()!= Color.GREEN and sensor_CorE.color()!= Color.GREEN) and hub.imu.tilt()[1] > -9 and hub.imu.tilt()[1] < 9   :
+    if (sensor_CorD.reflection() >= 0 and sensor_CorD.reflection() <= 25) and (sensor_CorE.reflection() >= 20 and sensor_CorE.reflection() <= 50) and (sensor_CorD.color()!= Color.GREEN and sensor_CorE.color()!= Color.GREEN) and hub.imu.tilt()[1] > -3 and hub.imu.tilt()[1] < 3   :
         guinada('E', 10, 100)
         Drive.straight(40) 
-        if (sensor_CorD.reflection() <= 40 or sensor_CorE.reflection() <= 40) :
-            return 0
+        """if (sensor_CorD.reflection() <= 40 or sensor_CorE.reflection() <= 40) :
+            return 0"""
         Drive.brake()  
         timer.reset()
         hub.imu.reset_heading(0) 
@@ -310,11 +310,28 @@ def identificanada():
                 break
             print(preto)
             if preto == 0 and timer.time()>750  :
-                while True:
+                while True :
+                    left_Motor.dc(-80)
+                    right_Motor.dc(-80)
+                    if sensor_CorD.reflection()< 35:
+                        Drive.straight(20)
+                        while not sensor_CorD.reflection()< 30:
+                            mover(-80)
+                        Drive.straight(-20)
+                        break
+                    if sensor_CorE.reflection()< 35:
+                        Drive.straight(20)
+                        while not sensor_CorE.reflection()< 30:
+                            mover(80)
+                        Drive.straight(-20)
+                        break
+                
+                '''while True:
                     #guinada("D", 35, 100)
                     timer.reset()
                     achado = 0
                     while True :
+
                         if achado == 1:
                             return 0
                         mover(-80)
@@ -326,6 +343,7 @@ def identificanada():
 
                             elif sensor_CorD.reflection()> 20 and sensor_CorE.reflection()> 20 and timer.time()>1000   : 
                                 timer.reset()
+                                Drive.straight(20)
                                 while True :
                             
                                     mover(80)
@@ -338,9 +356,10 @@ def identificanada():
                                     return 0
                                 else:
                                     timer.reset()
+                                    Drive.straight(20)
                                     
                             break
                                 
                                     
                         if achado == 1:
-                            return 0
+                            return 0'''

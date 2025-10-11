@@ -8,17 +8,11 @@ from pybricks.tools import wait
 def rampa():
     from seguimento_de_linha import seguir_Linha, verifica_verde, FitaRED, curvalombada,seguir_Linha2,curvabrusca
     from resgate_de_vitimas import identifica_sala
-    if hub.imu.tilt()[1] < -15:
-        while not hub.imu.tilt()[1] > -5:
-            seguir_Linha(6, 59)
-            verifica_verde()
-            Obstaculo()
-
     if hub.imu.tilt()[0] < -15 :
         Drive.brake()
         wait(200)
         print('RAMPA')
-        Garra.run_angle(90, -150)
+        Garra.run_angle(90, -170)
 
         timer.reset()
         while True:
@@ -38,18 +32,55 @@ def rampa():
                     break
                 
 
-        if hub.imu.tilt()[0] < 1 and hub.imu.tilt()[0] > -40:
+        if hub.imu.tilt()[0] < 2 and hub.imu.tilt()[0] > -40:
             print(hub.imu.tilt()[0] )
             print("AQUI")
+            Drive.straight(30)
+            guinada("E",30,60)
+            while True:
+        
+                mover(60)
+                if sensor_CorE.reflection()< 30 :
+                    break
             while True:
         
                 seguir_Linha(5, 60)
                 verifica_verde()
                 FitaRED()
-                curvabrusca()
                 Obstaculo()
-                if hub.imu.tilt()[0] >10:
-                    break
+                if hub.imu.tilt()[0] < -15 :
+                    rampadupla()
+                    
+                if hub.imu.tilt()[0] >10:#AQUI ELE IDENTIFICA QUE TA DESCENDO A RAMPA 
+                    while True:
+                        seguir_Linha2(4, 40)
+                        if hub.imu.tilt()[0] <3:
+                            print("Descendo rapido")
+                            guinada("D", 20, 100)
+                            timer.reset()
+                            achou = 0
+                            while True :
+                                if achou == 1:
+                                    return 0 
+                                mover(-60)
+                                if sensor_CorD.reflection()< 19 or sensor_CorE.reflection()< 19 or timer.time()>1100:
+                                    if sensor_CorD.reflection()< 25 or sensor_CorE.reflection()< 25 :
+                                        Drive.brake()
+                                        Drive.straight(-10)
+                                        achou += 1
+                                        return 0
+                    
+                                    elif sensor_CorD.reflection()> 30 and sensor_CorE.reflection()> 30 and timer.time()>1000   : 
+                                        guinada("D", 30, 100)
+                                        Drive.straight(30)
+                                        
+                                        timer.reset()
+                                    
+                                if achou == 1:
+                                    return 0
+                                """if proucurou == 4:
+                                    guinada("D", 30, 100)
+                                    return 0"""
             
         elif hub.imu.tilt()[0] > 7 and hub.imu.tilt()[0] < 40:
             print("OUTRO AQUI")
@@ -85,12 +116,12 @@ def rampa():
                     if achou == 1:
                         break
 
-    elif (hub.imu.tilt()[0] < -1 and hub.imu.tilt()[0] > -4) and (sensor_CorD.reflection() > 30 and sensor_CorE.reflection() > 30):
+    if (hub.imu.tilt()[0] < -1 and hub.imu.tilt()[0] > -4) and (sensor_CorD.reflection() > 30 and sensor_CorE.reflection() > 30):
         print('LOMBADA')
         timer.reset()
         while True:
             
-            if timer.time() >2000:
+            if timer.time() >2000 or hub.imu.tilt()[0] > 10 and hub.imu.tilt()[0] < 40 :
                 Drive.brake()
                 print('Acabou o tempo da lombada')
                 return 0
@@ -102,7 +133,7 @@ def rampa():
             FitaRED()
             curvalombada()
 
-    elif hub.imu.tilt()[0] > 10 and hub.imu.tilt()[0] < 40:
+    if hub.imu.tilt()[0] > 10 and hub.imu.tilt()[0] < 40:
         print('DESCIDA')
         Drive.brake()
 
@@ -120,22 +151,28 @@ def rampa():
                 Garra.dc(100)
                 wait(700)
                 Drive.straight(-50)
-                guinada("D",20,100)
+                guinada("D", 20, 100)
                 timer.reset()
+                achou = 0
                 while True :
+                    if achou == 1:
+                        return 0
                     mover(-60)
-                    if sensor_CorD.reflection()< 19 or sensor_CorE.reflection()< 19:
-                        Drive.brake()
-                        timer.reset()
-                        while True :
-                            seguir_Linha(3, 55)
-                            identifica_sala()  # 5, 72 # CURVA  > 5 < 19 AND > 20 < 42 4.2 , 75
-                            verifica_verde()
-                            FitaRED()
-                            curvalombada()
-                            if timer.time() > 500:
-                                Drive.brake()
-                                return 0
+                    if sensor_CorD.reflection()< 19 or sensor_CorE.reflection()< 19 or timer.time()>1100:
+                        if sensor_CorD.reflection()< 25 or sensor_CorE.reflection()< 25 :
+                            Drive.brake()
+                            Drive.straight(-10)
+                            achou += 1
+                            return 0
+        
+                        elif sensor_CorD.reflection()> 30 and sensor_CorE.reflection()> 30 and timer.time()>1000   : 
+                            guinada("D", 30, 100)
+                            Drive.straight(40)
+                    
+                            timer.reset()
+                    
+                    if achou == 1:
+                        return 0
     
             if hub.imu.tilt()[0] > 60:
                 Drive.brake()
@@ -293,3 +330,75 @@ def separar_dados(tipo):
         return inteiros
     else:
         return None  # Retorna None se o tipo não for 'S' ou 'I'
+
+def rampadupla():
+    from seguimento_de_linha import seguir_Linha, verifica_verde, FitaRED,seguir_Linha2,curvabrusca
+    
+    if hub.imu.tilt()[0] < -15 :
+        Drive.brake()
+        wait(200)
+        print('RAMPA')
+        Garra.run_angle(90, -170)
+        timer.reset()
+
+        while True:
+            
+            seguir_Linha(0.9, 100)
+            verifica_verde()
+            FitaRED()
+            
+            if hub.imu.tilt()[0] > -1 and timer.time() > 500:
+                if hub.imu.tilt()[0] > 5 and hub.imu.tilt()[0] < 40 :
+                    Drive.straight(-30)
+                    break 
+                else :
+                    Drive.brake()
+                    wait(500)
+                    Garra.dc(100)
+                    wait(800)
+                    break
+                
+
+        if hub.imu.tilt()[0] < 2 and hub.imu.tilt()[0] > -40:
+            print(hub.imu.tilt()[0] )
+            print("AQUI")
+            Drive.straight(30)
+            guinada("E",30,60)
+            while True:
+        
+                mover(60)
+                if sensor_CorE.reflection()< 30 :
+                    break
+            while True:
+        
+                seguir_Linha(5, 60)
+                verifica_verde()
+                FitaRED()
+                Obstaculo()
+                if hub.imu.tilt()[0] >10:#AQUI ELE IDENTIFICA QUE TA DESCENDO A RAMPA 
+                    while True:
+                        seguir_Linha2(4, 40)
+                        if hub.imu.tilt()[0] <3:
+                            print("Descendo rapido")
+                            guinada("D", 20, 100)
+                            timer.reset()
+                            achou = 0
+                            while True :
+                                if achou == 1:
+                                    return 0 
+                                mover(-60)
+                                if sensor_CorD.reflection()< 19 or sensor_CorE.reflection()< 19 or timer.time()>1100:
+                                    if sensor_CorD.reflection()< 25 or sensor_CorE.reflection()< 25 :
+                                        Drive.brake()
+                                        Drive.straight(-10)
+                                        achou += 1
+                                        return 0
+                    
+                                    elif sensor_CorD.reflection()> 30 and sensor_CorE.reflection()> 30 and timer.time()>1000   : 
+                                        guinada("D", 30, 100)
+                                        Drive.straight(30)
+                                        
+                                        timer.reset()
+                                    
+                                if achou == 1:
+                                    return 0

@@ -119,8 +119,8 @@ def fazer_resgate():
         print("DEIXANDO")
         if any(numero < 300 for numero in separar_dados('I')):
             if varrer_meio == quant_meio:
-                Drive.straight(43)
-                guinada("E", 80, 100)
+                Drive.straight(40)
+                guinada("E", 85, 100)
                 left_Motor.dc(-100)
                 right_Motor.dc(-100)
                 wait(3000)
@@ -137,8 +137,8 @@ def fazer_resgate():
             elif varrer_meio != quant_meio:
                 if canto_vermelho == 1:
                     print("vermelho alinha")
-                    Drive.straight(43)
-                    guinada("E", 80, 100)
+                    Drive.straight(40)
+                    guinada("E", 85, 100)
                     left_Motor.dc(-100)
                     right_Motor.dc(-100)
                     wait(3000)
@@ -155,8 +155,8 @@ def fazer_resgate():
                     canto_vermelho += 1
                 elif canto_verde_alinhamento == 1:
                     print("verde alinha")
-                    Drive.straight(43)
-                    guinada("E", 80, 100)
+                    Drive.straight(40)
+                    guinada("E", 85, 100)
                     left_Motor.dc(-100)
                     right_Motor.dc(-100)
                     wait(3000)
@@ -172,15 +172,15 @@ def fazer_resgate():
                     varrer_meio += 1
                     canto_verde_alinhamento += 1
                 else:    
-                    Drive.straight(43)
-                    guinada("E", 80, 100)
+                    Drive.straight(40)
+                    guinada("E", 85, 100)
                     left_Motor.dc(-100)
                     right_Motor.dc(-100)
                     wait(1500)
-                    Drive.straight(20)
+                    Drive.straight(40)
                     left_Motor.dc(-100)
                     right_Motor.dc(-100)
-                    wait(2000)
+                    wait(2800)
                     Drive.straight(35)
                     guinada("D", 89, 100)
                     hub.imu.reset_heading(0)
@@ -363,7 +363,7 @@ def fazer_resgate():
                     right_Motor.dc(100)
                     wait(700)
                     guinada("E",35,90)
-                    Drive.straight(70)
+                    Drive.straight(100)
                     """while True:
                         left_Motor.dc(30)
                         right_Motor.dc(90)
@@ -434,7 +434,7 @@ def fazer_resgate():
                     wait(600)"""
                     # guinada("E",12,90)
                     guinada("E",35,90)
-                    Drive.straight(70)
+                    Drive.straight(100)
                     Drive.brake()
                     hub.imu.reset_heading(0)
                     canto_vermelho += 1
@@ -482,7 +482,7 @@ def fazer_resgate():
         if any(numero < 400 for numero in separar_dados('I')):
             if varrer_meio == quant_meio:
                 Drive.straight(40)
-                guinada("E", 80, 100)
+                guinada("E", 85, 100)
                 left_Motor.dc(-100)
                 right_Motor.dc(-100)
                 wait(3000)
@@ -498,7 +498,7 @@ def fazer_resgate():
                 varrer_meio += 1
             else:
                 Drive.straight(40)
-                guinada("E", 80, 100)
+                guinada("E", 85, 100)
                 left_Motor.dc(-100)
                 right_Motor.dc(-100)
                 wait(3000)
@@ -657,22 +657,22 @@ def fazer_resgate():
                     print("SAIDA - BURACO(NAO VIU PAREDE)")
                     print("saiu")
                     while True:
-                        right_Motor.dc(-70)
-                        left_Motor.dc(-70)
-                        if any(numero <= 150 for numero in separar_dados('I')):
+                        right_Motor.dc(-60)
+                        left_Motor.dc(-60)
+                        if any(numero <= 250 for numero in separar_dados('I')):
                             Drive.brake()
                             break        
                     Garra.dc(100)
-                    wait(2000)
+                    wait(1900)
                     left_Motor.dc(80)
                     right_Motor.dc(80)
                     wait(1100)
-                    guinada("D", 87, 80)
+                    guinada("D", 84, 80)
                     timer.reset()
                     while True:
                         left_Motor.dc(80)
                         right_Motor.dc(80)
-                        if sensor_CorE.reflection() < 20 and sensor_CorD.reflection() < 20 or timer.time() > 900:
+                        if sensor_CorE.reflection() < 50 or sensor_CorD.reflection() < 50 or sensor_CorE.reflection() > 90 or sensor_CorD.reflection() < 90 or timer.time() > 1500:
                             Drive.brake()
                             break
                     if sensor_CorE.reflection() < 19 and sensor_CorD.reflection() < 19:
