@@ -55,12 +55,13 @@ def identifica_sala():
             right_Motor.dc(80)
             wait(350)
             Drive.brake()
+            
             fazer_resgate()
 
 def fazer_resgate():
     from seguimento_de_linha import seguir_Linha, verifica_verde, curvabrusca, FitaRED
     from obstaculos_trajeto import rampa,separar_dados,Obstaculo
-
+    
     timer.reset()
     Drive.straight(60)
     quant_meio = 0
@@ -91,13 +92,13 @@ def fazer_resgate():
     elif leitura_ultra == 100:  # se nao esta encostado
         left_Motor.dc(80)
         right_Motor.dc(80)
-        wait(500)
+        wait(300)
         Drive.brake()
         guinada("D", 89, 70)
         Drive.brake()
         Garra.dc(-90)
         wait(1200)
-        Drive.straight(200)
+        Drive.straight(-90)
         Garra.dc(-90)
         wait(1500)
         quant_meio = 1
@@ -115,28 +116,16 @@ def fazer_resgate():
 
         if canto_verde == 2:
             break
-        Drive.straight(30)
+        Drive.straight(30,wait = False )
+        print(separar_dados('I'))
         print("DEIXANDO")
-        if any(numero < 300 for numero in separar_dados('I')):
-            if varrer_meio == quant_meio:
-                Drive.straight(40)
-                guinada("E", 85, 100)
-                left_Motor.dc(-100)
-                right_Motor.dc(-100)
-                wait(3000)
-                left_Motor.dc(100)
-                right_Motor.dc(95)
-                wait(2350)
-                left_Motor.dc(-100)
-                right_Motor.dc(-100)
-                wait(2450)
-                Drive.straight(35)
-                guinada("D", 89, 100)
-                hub.imu.reset_heading(0)
-                varrer_meio += 1
-            elif varrer_meio != quant_meio:
-                if canto_vermelho == 1:
-                    print("vermelho alinha")
+        if any(numero < 300 for numero in separar_dados('I')) and UltrassonicoF.distance()>= 200:
+            Drive.straight(50)
+            Drive.stop()
+            wait(200)
+            if any(numero < 300 for numero in separar_dados('I')) and UltrassonicoF.distance()>= 200:
+                print(separar_dados('I'))
+                if varrer_meio == quant_meio and any(numero < 300 for numero in separar_dados('I')):
                     Drive.straight(40)
                     guinada("E", 85, 100)
                     left_Motor.dc(-100)
@@ -152,55 +141,81 @@ def fazer_resgate():
                     guinada("D", 89, 100)
                     hub.imu.reset_heading(0)
                     varrer_meio += 1
-                    canto_vermelho += 1
-                elif canto_verde_alinhamento == 1:
-                    print("verde alinha")
-                    Drive.straight(40)
-                    guinada("E", 85, 100)
-                    left_Motor.dc(-100)
-                    right_Motor.dc(-100)
-                    wait(3000)
-                    left_Motor.dc(100)
-                    right_Motor.dc(95)
-                    wait(2350)
-                    left_Motor.dc(-100)
-                    right_Motor.dc(-100)
-                    wait(2450)
-                    Drive.straight(35)
-                    guinada("D", 89, 100)
-                    hub.imu.reset_heading(0)
-                    varrer_meio += 1
-                    canto_verde_alinhamento += 1
-                else:    
-                    Drive.straight(40)
-                    guinada("E", 85, 100)
-                    left_Motor.dc(-100)
-                    right_Motor.dc(-100)
-                    wait(1500)
-                    Drive.straight(40)
-                    left_Motor.dc(-100)
-                    right_Motor.dc(-100)
-                    wait(2800)
-                    Drive.straight(35)
-                    guinada("D", 89, 100)
-                    hub.imu.reset_heading(0)
-                    varrer_meio += 1        
+                elif varrer_meio != quant_meio and any(numero < 300 for numero in separar_dados('I')):
+                    if canto_vermelho == 1:
+                        print("vermelho alinha")
+                        Drive.straight(40)
+                        guinada("E", 85, 100)
+                        left_Motor.dc(-100)
+                        right_Motor.dc(-100)
+                        wait(3000)
+                        left_Motor.dc(100)
+                        right_Motor.dc(100)
+                        wait(2350)
+                        left_Motor.dc(-100)
+                        right_Motor.dc(-100)
+                        wait(2450)
+                        Drive.straight(35)
+                        guinada("D", 89, 100)
+                        hub.imu.reset_heading(0)
+                        varrer_meio += 1
+                        canto_vermelho += 1
+                    elif canto_verde_alinhamento == 1 and any(numero < 300 for numero in separar_dados('I')):
+                        print("verde alinha")
+                        Drive.straight(40)
+                        guinada("E", 85, 100)
+                        left_Motor.dc(-100)
+                        right_Motor.dc(-100)
+                        wait(3000)
+                        left_Motor.dc(100)
+                        right_Motor.dc(100)
+                        wait(2350)
+                        left_Motor.dc(-100)
+                        right_Motor.dc(-100)
+                        wait(2450)
+                        Drive.straight(35)
+                        guinada("D", 89, 100)
+                        hub.imu.reset_heading(0)
+                        varrer_meio += 1
+                        canto_verde_alinhamento += 1
+                    elif any(numero < 300 for numero in separar_dados('I')):    
+                        Drive.straight(40)
+                        guinada("E", 85, 100)
+                        left_Motor.dc(-100)
+                        right_Motor.dc(-100)
+                        wait(1500)
+                        Drive.straight(40)
+                        left_Motor.dc(-100)
+                        right_Motor.dc(-100)
+                        wait(2800)
+                        Drive.straight(35)
+                        guinada("D", 89, 100)
+                        hub.imu.reset_heading(0)
+                        varrer_meio += 1  
+            else :
+                print("segue")     
         while True:
             print(UltrassonicoF.distance())
             left_Motor.dc(90)
-            right_Motor.dc(86)
+            right_Motor.dc(90)
             parede = 0
             if UltrassonicoF.distance() < 120 and UltrassonicoF.distance() > 100 :
                 timer.reset()
                 while True :
                     left_Motor.dc(90)
-                    right_Motor.dc(86)
-                    parede += 1
-                    if timer.time()>700 or sensor_CorD.reflection() < 18 and sensor_CorE.reflection() < 18 or hub.imu.heading() < -19 or sensor_CorD.reflection() > 90 and sensor_CorE.reflection() > 90 or sensor_CorD.reflection() > 33 and sensor_CorE.reflection() > 33 and sensor_CorD.reflection() < 42 and sensor_CorE.reflection() < 42: 
-                        break
-                    if UltrassonicoF.distance() > 200 :
+                    right_Motor.dc(90)
+                    if (UltrassonicoF.distance() < 120):
+                        parede += 1
+
+                    if timer.time()>700 or sensor_CorD.reflection() < 18 and sensor_CorE.reflection() < 18 or hub.imu.heading() < -19 or sensor_CorD.reflection() > 90 and sensor_CorE.reflection() > 90 or sensor_CorD.reflection() > 33 and sensor_CorE.reflection() > 33 and sensor_CorD.reflection() < 42 and sensor_CorE.reflection() < 42:
                         parede = 0 
-            if (UltrassonicoF.distance() < 120 and hub.imu.heading() > -9 and hub.imu.heading() < 9 and parede > 40  or
+                        break
+                    if (UltrassonicoF.distance() < 120 and hub.imu.heading() > -9 and hub.imu.heading() < 9 and parede > 500):
+                        break
+
+                    if UltrassonicoF.distance() > 125 :
+                        parede = 0 
+            if (UltrassonicoF.distance() < 120 and hub.imu.heading() > -9 and hub.imu.heading() < 9 and parede > 499  or
                     (sensor_CorD.reflection() < 18 and sensor_CorE.reflection() < 18) or
                     hub.imu.heading() < -19 or
                     (sensor_CorD.reflection() > 90 and sensor_CorE.reflection() > 90) or 
@@ -362,8 +377,8 @@ def fazer_resgate():
                     left_Motor.dc(100)
                     right_Motor.dc(100)
                     wait(700)
-                    guinada("E",35,90)
-                    Drive.straight(100)
+                    guinada("E",37,90)
+                    Drive.straight(170)
                     """while True:
                         left_Motor.dc(30)
                         right_Motor.dc(90)
@@ -376,6 +391,7 @@ def fazer_resgate():
                     canto_verde_alinhamento += 1
                     hub.imu.reset_heading(0)
                     abudega = 0 
+                    hub.ble.broadcast("PARAR")
     
 
                 if any(item.startswith("Color.RED") for item in separar_dados("S")) or any(item.startswith("Color.REDL") for item in separar_dados("S")) or any(item.startswith("Color.REDLL") for item in separar_dados("S")):
@@ -433,12 +449,13 @@ def fazer_resgate():
                             break
                     wait(600)"""
                     # guinada("E",12,90)
-                    guinada("E",35,90)
-                    Drive.straight(100)
+                    guinada("E",37,90)
+                    Drive.straight(170)
                     Drive.brake()
                     hub.imu.reset_heading(0)
                     canto_vermelho += 1
                     abudega = 0
+                    hub.ble.broadcast("PARAR")
 
         
 
@@ -479,48 +496,59 @@ def fazer_resgate():
     while True:
         Drive.straight(30)
         print("SAINDO")
-        if any(numero < 400 for numero in separar_dados('I')):
-            if varrer_meio == quant_meio:
-                Drive.straight(40)
-                guinada("E", 85, 100)
-                left_Motor.dc(-100)
-                right_Motor.dc(-100)
-                wait(3000)
-                left_Motor.dc(100)
-                right_Motor.dc(95)
-                wait(2350)
-                left_Motor.dc(-100)
-                right_Motor.dc(-100)
-                wait(2450)
-                Drive.straight(50)
-                guinada("D", 89, 100)
-                hub.imu.reset_heading(0)
-                varrer_meio += 1
-            else:
-                Drive.straight(40)
-                guinada("E", 85, 100)
-                left_Motor.dc(-100)
-                right_Motor.dc(-100)
-                wait(3000)
-                Drive.straight(50)
-                guinada("D", 89, 100)
-                hub.imu.reset_heading(0)
-                varrer_meio += 1
+        if any(numero < 300 for numero in separar_dados('I')):
+            Drive.straight(30)
+            Drive.stop()
+            wait(200)
+            if any(numero < 400 for numero in separar_dados('I')):
+                if varrer_meio == quant_meio:
+                    Drive.straight(40)
+                    guinada("E", 85, 100)
+                    left_Motor.dc(-100)
+                    right_Motor.dc(-100)
+                    wait(3000)
+                    left_Motor.dc(100)
+                    right_Motor.dc(100)
+                    wait(2350)
+                    left_Motor.dc(-100)
+                    right_Motor.dc(-100)
+                    wait(2450)
+                    Drive.straight(50)
+                    guinada("D", 89, 100)
+                    hub.imu.reset_heading(0)
+                    varrer_meio += 1
+                else:
+                    Drive.straight(40)
+                    guinada("E", 85, 100)
+                    left_Motor.dc(-100)
+                    right_Motor.dc(-100)
+                    wait(3000)
+                    Drive.straight(50)
+                    guinada("D", 89, 100)
+                    hub.imu.reset_heading(0)
+                    varrer_meio += 1
         while True:
             print(UltrassonicoF.distance())
             left_Motor.dc(90)
-            right_Motor.dc(86)
+            right_Motor.dc(90)
             if UltrassonicoF.distance() < 120 and UltrassonicoF.distance() > 100 :
                 timer.reset()
                 while True :
                     left_Motor.dc(90)
-                    right_Motor.dc(86)
-                    parede += 1
+                    right_Motor.dc(90)
+                    if (UltrassonicoF.distance() < 120):
+                        parede += 1
+
                     if timer.time()>700 or sensor_CorD.reflection() < 18 and sensor_CorE.reflection() < 18 or hub.imu.heading() < -22 or any(numero > 300 for numero in separar_dados('I')) or sensor_CorD.reflection() > 90 and sensor_CorE.reflection() > 90 or sensor_CorD.reflection() > 33 and sensor_CorE.reflection() > 33 and sensor_CorD.reflection() < 42 and sensor_CorE.reflection() < 42: 
-                        break
-                    if UltrassonicoF.distance() > 200  :
                         parede = 0 
-            if (UltrassonicoF.distance() < 120 and hub.imu.heading() > -9 and hub.imu.heading() < 9 and parede > 40  or
+                        break
+                    if (UltrassonicoF.distance() < 120 and hub.imu.heading() > -9 and hub.imu.heading() < 9 and parede > 500):
+                        break
+
+                    if UltrassonicoF.distance() > 125 :
+                        parede = 0 
+            
+            if (UltrassonicoF.distance() < 120 and hub.imu.heading() > -9 and hub.imu.heading() < 9 and parede > 499  or
                     (sensor_CorD.reflection() < 18 and sensor_CorE.reflection() < 18) or
                     hub.imu.heading() < -22 or any(numero > 300 for numero in separar_dados('I')) or
                     (sensor_CorD.reflection() > 90 and sensor_CorE.reflection() > 90) or
@@ -656,70 +684,98 @@ def fazer_resgate():
                 if timer.time()> 600 and any(numero > 300 for numero in separar_dados('I')) :
                     print("SAIDA - BURACO(NAO VIU PAREDE)")
                     print("saiu")
+                    Garra.dc(100)
+                    wait(1900)
+                    while True:
+                        print(separar_dados('I'))
+                        right_Motor.dc(-60)
+                        left_Motor.dc(-60)
+                        if any(numero <= 200 for numero in separar_dados('I')):
+                            Drive.brake()
+                            Drive.straight(100)
+                            break
+                    while True:
+                        right_Motor.dc(60)
+                        left_Motor.dc(60)
+                        if any(numero <= 200 for numero in separar_dados('I')):
+                            Drive.brake()
+                            Drive.straight(-100)
+                            break
                     while True:
                         right_Motor.dc(-60)
                         left_Motor.dc(-60)
-                        if any(numero <= 250 for numero in separar_dados('I')):
+                        if any(numero <= 170 for numero in separar_dados('I')):
                             Drive.brake()
-                            break        
-                    Garra.dc(100)
-                    wait(1900)
+                            Drive.straight(70)
+                            break
+                    while True:
+                        right_Motor.dc(-60)
+                        left_Motor.dc(-60)
+                        if any(numero <= 170 for numero in separar_dados('I')):
+                            Drive.brake()
+                            break
+                            
                     left_Motor.dc(80)
                     right_Motor.dc(80)
-                    wait(1100)
-                    guinada("D", 84, 80)
+                    wait(800)
+                    guinada("D", 85, 80)
                     timer.reset()
                     while True:
                         left_Motor.dc(80)
                         right_Motor.dc(80)
-                        if sensor_CorE.reflection() < 50 or sensor_CorD.reflection() < 50 or sensor_CorE.reflection() > 90 or sensor_CorD.reflection() < 90 or timer.time() > 1500:
-                            Drive.brake()
+                        print(timer.time())
+                        if sensor_CorE.reflection() < 19 and sensor_CorD.reflection() < 19 or sensor_CorE.reflection() > 90 or sensor_CorD.reflection() > 90 or timer.time() > 2000:
+                            if sensor_CorE.reflection() < 19 and sensor_CorD.reflection() < 19:
+                                print("indentificou preto")
+                                left_Motor.dc(80)
+                                right_Motor.dc(80)
+                                wait(500)
+                                guinada("E", 40, 80)
+                                while not sensor_CorE.reflection() < 15:
+                                    left_Motor.dc(80)
+                                    right_Motor.dc(-80)
+                                hub.ble.broadcast(3)
+                                while True:
+                                    seguir_Linha(5, 80)
+                                    curvabrusca()
+                                    verifica_verde()
+                                    FitaRED()
+                                    Obstaculo()
+                                    rampa()
+                            if timer.time() > 2000 or sensor_CorE.reflection() > 90 or sensor_CorD.reflection() > 90:
+                                #volta
+                                while True:
+                                    right_Motor.dc(-60)
+                                    left_Motor.dc(-60)
+                                    if any(numero <= 150 for numero in separar_dados('I')):
+                                        Drive.brake()
+                                        break
+                                print("tem nada, segue")
+                                left_Motor.dc(-80)
+                                right_Motor.dc(-80)
+                                wait(900)
+                                Drive.brake()
+                                guinada("E", 89, 80)
+                                Drive.brake()
+                                wait(250)
+                                if UltrassonicoF.distance() <= 90:
+                                    guinada("E", 89, 80)
+                                    left_Motor.dc(-80)
+                                    right_Motor.dc(-80)
+                                    wait(300)
+                                    Drive.brake()
+                                    Garra.dc(-100)
+                                    wait(1200)
+                                    hub.imu.reset_heading(0)
+                                else:
+                                    Garra.dc(-100)
+                                    wait(1200)
+                                    left_Motor.dc(80)
+                                    right_Motor.dc(80)
+                                    wait(1500)
+                                    hub.imu.reset_heading(0)
+                        if timer.time()> 600 and not any(numero > 300 for numero in separar_dados('I')) :
                             break
-                    if sensor_CorE.reflection() < 19 and sensor_CorD.reflection() < 19:
-                        print("indentificou preto")
-                        left_Motor.dc(80)
-                        right_Motor.dc(80)
-                        wait(500)
-                        guinada("E", 40, 80)
-                        while not sensor_CorE.reflection() < 15:
-                            left_Motor.dc(80)
-                            right_Motor.dc(-80)
-                        hub.ble.broadcast(3)
-                        while True:
-                            seguir_Linha(5, 80)
-                            curvabrusca()
-                            verifica_verde()
-                            FitaRED()
-                            Obstaculo()
-                            rampa()
-                    else:
-                        print("tem nada, segue")
-                        left_Motor.dc(-80)
-                        right_Motor.dc(-80)
-                        wait(900)
-                        Drive.brake()
-                        guinada("E", 89, 80)
-                        Drive.brake()
-                        wait(250)
-                        if UltrassonicoF.distance() <= 90:
-                            guinada("E", 89, 80)
-                            left_Motor.dc(-80)
-                            right_Motor.dc(-80)
-                            wait(300)
-                            Drive.brake()
-                            Garra.dc(-100)
-                            wait(1200)
-                            hub.imu.reset_heading(0)
-                        else:
-                            Garra.dc(-100)
-                            wait(1200)
-                            left_Motor.dc(80)
-                            right_Motor.dc(80)
-                            wait(1500)
-                            hub.imu.reset_heading(0)
-                if timer.time()> 600 and not any(numero > 300 for numero in separar_dados('I')) :
-                    break
-        
 
         if sensor_CorD.reflection() >= 90 and sensor_CorE.reflection() > 90 :
             print("Viu nada")

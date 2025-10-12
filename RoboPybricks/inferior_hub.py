@@ -23,9 +23,8 @@ my_colors1 = (Color.GREEN, Color.REDL, Color.GRENL, Color.RED,  Color.GRENLL, Co
 
 
 CorD.detectable_colors(my_colors1)
-
-cancelaE.run_target(700, 100)
-
+cancelaE.run_target(1000, 0,then = Stop.HOLD,wait = False )
+cancelaE.run_target(1000, 15,then = Stop.HOLD,wait = False )
 while True:
     cancela = hub.ble.observe(1)
     if cancela == 3 : #Abrir verde
@@ -38,28 +37,27 @@ while True:
         cancela == 0   
     
     if hub.ble.observe(1) == 'AREA_DE_RESGATE' :
-        cancelaE.run_target(700, 100)
-        cancelaE.run_target(700, 70)   
+        cancelaE.run_target(700, 0,then = Stop.HOLD,wait = False)
+        cancelaE.run_target(1000, -25,then = Stop.HOLD,wait = False )  
         while True:
 
             tuplaultra = UltrassonicoL.distance()
             hub.ble.broadcast(tuplaultra)
             
             cancela = hub.ble.observe(1)
-            cancelaE.dc(-100)
+            
             if cancela == 2 : #Abrir verde
-                cancelaE.dc(100)
+                cancelaE.run_target(1000, 100)
                 wait(1000)
-                cancelaE.dc(-100)
+                cancelaE.run_target(1000, -25,then = Stop.HOLD,wait = False )
                 cancela == 0  
             if cancela == 5 : 
                 cancelaE.dc(-100)     
                 cancelaE.stop()
                 cancela == 0 
             if cancela == 3 : 
-                cancelaE.run_target(700, 100)     
-                cancelaE.stop()
-                cancela == 0 
+                cancelaE.run_target(1000, 20,then = Stop.HOLD,wait = False )
+                cancela == 0  
             print("ultra")
 
             if hub.ble.observe(1) == "COR" :
