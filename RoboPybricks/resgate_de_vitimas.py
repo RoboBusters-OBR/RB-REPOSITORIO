@@ -61,7 +61,17 @@ def identifica_sala():
 def fazer_resgate():
     from seguimento_de_linha import seguir_Linha, verifica_verde, curvabrusca, FitaRED
     from obstaculos_trajeto import rampa,separar_dados,Obstaculo
-    
+    Color.BLACK = Color(h=210, s=32, v=18)
+    Color.GREEN = Color(h=176, s=71, v=24)
+    Color.WHITE = Color(h=200, s=15, v=98)
+    Color.CINZA = Color(h=0, s=24, v=55)
+    Color.RED = Color(h=340, s=80, v=55)
+    Color.SILVER = Color(h=210, s=27, v=70)
+
+    # Lista de cores detectáveis
+    my_colors = (Color.GREEN, Color.RED, Color.WHITE, Color.BLACK, Color.CINZA, Color.SILVER)
+    sensor_CorD.detectable_colors(my_colors)
+    sensor_CorE.detectable_colors(my_colors)
     timer.reset()
     Drive.straight(60)
     quant_meio = 0
@@ -210,12 +220,12 @@ def fazer_resgate():
                     if timer.time()>700 or sensor_CorD.reflection() < 18 and sensor_CorE.reflection() < 18 or hub.imu.heading() < -19 or sensor_CorD.reflection() > 90 and sensor_CorE.reflection() > 90 or sensor_CorD.reflection() > 33 and sensor_CorE.reflection() > 33 and sensor_CorD.reflection() < 42 and sensor_CorE.reflection() < 42:
                         parede = 0 
                         break
-                    if (UltrassonicoF.distance() < 120 and hub.imu.heading() > -9 and hub.imu.heading() < 9 and parede > 500):
+                    if (UltrassonicoF.distance() < 120 and hub.imu.heading() > -11 and hub.imu.heading() <11 and parede > 500):
                         break
 
-                    if UltrassonicoF.distance() > 125 :
+                    if UltrassonicoF.distance() > 140 :
                         parede = 0 
-            if (UltrassonicoF.distance() < 120 and hub.imu.heading() > -9 and hub.imu.heading() < 9 and parede > 499  or
+            if (UltrassonicoF.distance() < 120 and hub.imu.heading() > -11 and hub.imu.heading() < 11 and parede > 499  or
                     (sensor_CorD.reflection() < 18 and sensor_CorE.reflection() < 18) or
                     hub.imu.heading() < -19 or
                     (sensor_CorD.reflection() > 90 and sensor_CorE.reflection() > 90) or 
@@ -496,12 +506,12 @@ def fazer_resgate():
     while True:
         Drive.straight(30)
         print("SAINDO")
-        if any(numero < 300 for numero in separar_dados('I')):
+        if any(numero < 350 for numero in separar_dados('I')):
             Drive.straight(30)
             Drive.stop()
             wait(200)
-            if any(numero < 400 for numero in separar_dados('I')):
-                if varrer_meio == quant_meio:
+            if any(numero < 350 for numero in separar_dados('I')):
+                if varrer_meio == quant_meio and any(numero < 350 for numero in separar_dados('I')):
                     Drive.straight(40)
                     guinada("E", 85, 100)
                     left_Motor.dc(-100)
@@ -517,7 +527,7 @@ def fazer_resgate():
                     guinada("D", 89, 100)
                     hub.imu.reset_heading(0)
                     varrer_meio += 1
-                else:
+                elif any(numero < 350 for numero in separar_dados('I')) :
                     Drive.straight(40)
                     guinada("E", 85, 100)
                     left_Motor.dc(-100)
@@ -542,15 +552,15 @@ def fazer_resgate():
                     if timer.time()>700 or sensor_CorD.reflection() < 18 and sensor_CorE.reflection() < 18 or hub.imu.heading() < -22 or any(numero > 300 for numero in separar_dados('I')) or sensor_CorD.reflection() > 90 and sensor_CorE.reflection() > 90 or sensor_CorD.reflection() > 33 and sensor_CorE.reflection() > 33 and sensor_CorD.reflection() < 42 and sensor_CorE.reflection() < 42: 
                         parede = 0 
                         break
-                    if (UltrassonicoF.distance() < 120 and hub.imu.heading() > -9 and hub.imu.heading() < 9 and parede > 500):
+                    if (UltrassonicoF.distance() < 120 and hub.imu.heading() > -11 and hub.imu.heading() < 11 and parede > 500):
                         break
 
                     if UltrassonicoF.distance() > 125 :
                         parede = 0 
             
-            if (UltrassonicoF.distance() < 120 and hub.imu.heading() > -9 and hub.imu.heading() < 9 and parede > 499  or
+            if (UltrassonicoF.distance() < 120 and hub.imu.heading() > -11 and hub.imu.heading() < 11 and parede > 499  or
                     (sensor_CorD.reflection() < 18 and sensor_CorE.reflection() < 18) or
-                    hub.imu.heading() < -22 or any(numero > 300 for numero in separar_dados('I')) or
+                    hub.imu.heading() < -22 or any(numero > 360 for numero in separar_dados('I')) or
                     (sensor_CorD.reflection() > 90 and sensor_CorE.reflection() > 90) or
                     (sensor_CorD.color() == Color.SILVER and sensor_CorE.color() == Color.SILVER and sensor_CorD.reflection() >= 36 and sensor_CorD.reflection() <= 42 and sensor_CorE.reflection() >= 36 and sensor_CorE.reflection() <=42)):
                 print(hub.imu.heading())
@@ -558,7 +568,7 @@ def fazer_resgate():
                 break
 
 
-        if UltrassonicoF.distance() < 120 and (hub.imu.heading() > -9 and hub.imu.heading() < 9) :
+        if UltrassonicoF.distance() < 120 and (hub.imu.heading() > -11 and hub.imu.heading() < 11) :
             Drive.brake()
             print("viu parede")
             Drive.brake()
@@ -676,12 +686,12 @@ def fazer_resgate():
                 wait(1200)
                 Drive.straight(200)
                 hub.imu.reset_heading(0)                                                                                                                                                                                                                                                                                                                       
-        elif any(numero > 300 for numero in separar_dados('I')) :
+        elif any(numero > 360 for numero in separar_dados('I')) :
             Drive.brake()
             wait(100)
             timer.reset()
             while True :
-                if timer.time()> 600 and any(numero > 300 for numero in separar_dados('I')) :
+                if timer.time()> 600 and any(numero > 360 for numero in separar_dados('I')) :
                     print("SAIDA - BURACO(NAO VIU PAREDE)")
                     print("saiu")
                     Garra.dc(100)
@@ -697,7 +707,7 @@ def fazer_resgate():
                     while True:
                         right_Motor.dc(60)
                         left_Motor.dc(60)
-                        if any(numero <= 200 for numero in separar_dados('I')):
+                        if any(numero <= 200 for numero in separar_dados('I')) or UltrassonicoF.distance()<50:
                             Drive.brake()
                             Drive.straight(-100)
                             break

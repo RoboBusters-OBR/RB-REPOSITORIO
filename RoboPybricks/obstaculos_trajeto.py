@@ -116,12 +116,12 @@ def rampa():
                     if achou == 1:
                         break
 
-    if (hub.imu.tilt()[0] < -1 and hub.imu.tilt()[0] > -4) and (sensor_CorD.reflection() > 30 and sensor_CorE.reflection() > 30):
+    if (hub.imu.tilt()[0] < -1.6 and hub.imu.tilt()[0] > -4) and (sensor_CorD.reflection() > 30 and sensor_CorE.reflection() > 30):
         print('LOMBADA')
         timer.reset()
         while True:
             
-            if timer.time() >2000 or hub.imu.tilt()[0] > 10 and hub.imu.tilt()[0] < 40 :
+            if timer.time() >2000 or hub.imu.tilt()[0] > 10 and hub.imu.tilt()[0] < 40 or hub.imu.tilt()[0] >0 :
                 Drive.brake()
                 print('Acabou o tempo da lombada')
                 return 0
