@@ -26,7 +26,7 @@ CorD.detectable_colors(my_colors1)
 cancelaE.run_target(1000, 0,then = Stop.HOLD,wait = False )
 cancelaE.run_target(1000, 15,then = Stop.HOLD,wait = False )
 while True:
-    cancela = hub.ble.observe(1)
+    """cancela = hub.ble.observe(1)
     if cancela == 3 : #Abrir verde
         cancelaE.run_target(700, 100)     
         cancela == 0 
@@ -34,7 +34,7 @@ while True:
         cancelaE.dc(100)
         wait(1000)
         cancelaE.dc(-100)
-        cancela == 0   
+        cancela == 0   """
     
     if hub.ble.observe(1) == 'AREA_DE_RESGATE' :
         cancelaE.run_target(700, 0,then = Stop.HOLD,wait = False)
@@ -72,6 +72,7 @@ while True:
 
 
     else:
+        cancela = hub.ble.observe(1)
         if cancela == 3 : #Abrir verde
             cancelaE.run_target(700, 100)     
             cancela == 0 

@@ -18,13 +18,14 @@ def rampa():
         while True:
             # 5, 72 # CURVA  > 5 < 19 AND > 20 < 42 4.2 , 75
             seguir_Linha(0.9, 100)
-            verifica_verde()
+
             FitaRED()
-            if hub.imu.tilt()[0] > -1 and timer.time() > 500:
-                if hub.imu.tilt()[0] > 5 and hub.imu.tilt()[0] < 40 :
+            if hub.imu.tilt()[0] >-1 and timer.time() > 500:
+                if hub.imu.tilt()[0] > 6 and hub.imu.tilt()[0] < 40 :
                     Drive.straight(-30)
+                    print("aqui voltando")
                     break 
-                else :
+                elif hub.imu.tilt()[0] > -1 and hub.imu.tilt()[0] <10 :
                     Drive.brake()
                     wait(500)
                     Garra.dc(100)
@@ -39,8 +40,9 @@ def rampa():
             guinada("E",30,60)
             while True:
         
-                mover(60)
+                mover(70)
                 if sensor_CorE.reflection()< 30 :
+                    Drive.straight(-10)
                     break
             while True:
         
@@ -48,6 +50,7 @@ def rampa():
                 verifica_verde()
                 FitaRED()
                 Obstaculo()
+                curvabrusca()
                 if hub.imu.tilt()[0] < -15 :
                     rampadupla()
                     
@@ -62,7 +65,7 @@ def rampa():
                             while True :
                                 if achou == 1:
                                     return 0 
-                                mover(-60)
+                                mover(-80)
                                 if sensor_CorD.reflection()< 19 or sensor_CorE.reflection()< 19 or timer.time()>1100:
                                     if sensor_CorD.reflection()< 25 or sensor_CorE.reflection()< 25 :
                                         Drive.brake()
@@ -99,7 +102,7 @@ def rampa():
                 while True :
                     if achou == 1:
                         break
-                    mover(-60)
+                    mover(-70)
                     if sensor_CorD.reflection()< 19 or sensor_CorE.reflection()< 19 or timer.time()>1100:
                         if sensor_CorD.reflection()< 25 or sensor_CorE.reflection()< 25 :
                             Drive.brake()
@@ -116,12 +119,19 @@ def rampa():
                     if achou == 1:
                         break
 
-    if (hub.imu.tilt()[0] < -1.6 and hub.imu.tilt()[0] > -4) and (sensor_CorD.reflection() > 30 and sensor_CorE.reflection() > 30):
+    if (hub.imu.tilt()[0] <= -1 and hub.imu.tilt()[0] > -6) :
         print('LOMBADA')
         timer.reset()
         while True:
+            seguir_Linha(3, 55)
+            if timer.time() >1000:
+                Drive.brake()
+                print('Acabou o tempo da lombada')
+                break
+        timer.reset()
+        while True:
             
-            if timer.time() >2000 or hub.imu.tilt()[0] > 10 and hub.imu.tilt()[0] < 40 or hub.imu.tilt()[0] >0 :
+            if timer.time() >2000 or (hub.imu.tilt()[0] > 10 and hub.imu.tilt()[0] < 40) or  hub.imu.tilt()[0] > 0 or hub.imu.tilt()[0] < -7  :
                 Drive.brake()
                 print('Acabou o tempo da lombada')
                 return 0
@@ -131,7 +141,7 @@ def rampa():
             verifica_verde()
             Obstaculo()
             FitaRED()
-            curvalombada()
+            #curvalombada()
 
     if hub.imu.tilt()[0] > 10 and hub.imu.tilt()[0] < 40:
         print('DESCIDA')
@@ -232,10 +242,10 @@ def Obstaculo():
     from resgate_de_vitimas import identifica_sala
     from seguimento_de_linha import seguir_Linha
     if UltrassonicoF.distance() <= 70:
-        guinada('E', 35, 60)
+        guinada('E', 35, 80)
         while True:
-            left_Motor.dc(60) 
-            right_Motor.dc(-60) 
+            left_Motor.dc(70) 
+            right_Motor.dc(-70) 
             if UltrassonicoF.distance() <= 70:
               break
         guinada('E', 70, 60)     

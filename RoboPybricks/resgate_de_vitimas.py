@@ -17,46 +17,51 @@ async def sobe_gripper():
     await Garra.run_angle(1000, 180)   
 
 async def main():
-    await multitask(Drive.straight(-40), move_gripper())
+    await multitask(Drive.straight(-60), move_gripper())
 
 async def resg():
     await multitask(Drive.straight(-20), move_gripper())    
 
 async def sobe():
-    await multitask(Drive.straight(-40), sobe_gripper())        
+    await multitask(Drive.straight(-60), sobe_gripper())        
 
 def identifica_sala():
     from seguimento_de_linha import seguir_Linha, FitaRED, curvabrusca, verifica_verde
     from obstaculos_trajeto import Obstaculo, separar_dados
     if any(numero < 260 for numero in separar_dados('I')) or sensor_CorD.reflection() > 90 and sensor_CorE.reflection() > 90  :
-        Drive.brake()
-        guinada('D', 10,100)
-        timer.reset()
-        while True :
-            mover(-100)
-            if sensor_CorD.reflection()< 20 or timer.time() > 500 :
-                break
-        Drive.stop()
-        if sensor_CorD.reflection()< 20: 
-            while True :
-                seguir_Linha(5,80)
-                curvabrusca()
-                verifica_verde()
-                FitaRED()
-                Obstaculo()
-                if timer.time() > 1500:
-                    break
-        else:
+        if any(numero < 260 for numero in separar_dados('I')) :
             Drive.brake()
-            hub.speaker.beep(500,500)
-            hub.ble.broadcast("AREA_DE_RESGATE")
-            guinada("D", 30, 100)
+            guinada('D', 10,100)
+            timer.reset()
+            while True :
+                mover(-100)
+                if sensor_CorD.reflection()< 20 or timer.time() > 500 :
+                    break
+            Drive.stop()
+            if sensor_CorD.reflection()< 20: 
+                while True :
+                    seguir_Linha(5,80)
+                    curvabrusca()
+                    verifica_verde()
+                    FitaRED()
+                    Obstaculo()
+                    if timer.time() > 1500:
+                        break
+            else:
+                Drive.brake()
+                hub.speaker.beep(500,500)
+                hub.ble.broadcast("AREA_DE_RESGATE")
+                guinada("D", 30, 100)
+                left_Motor.dc(80)
+                right_Motor.dc(80)
+                wait(350)
+                Drive.brake()
+                
+                fazer_resgate()
+        elif sensor_CorD.reflection() > 90 and sensor_CorE.reflection() > 90:
             left_Motor.dc(80)
             right_Motor.dc(80)
-            wait(350)
-            Drive.brake()
-            
-            fazer_resgate()
+            wait(400)
 
 def fazer_resgate():
     from seguimento_de_linha import seguir_Linha, verifica_verde, curvabrusca, FitaRED
@@ -147,7 +152,7 @@ def fazer_resgate():
                     left_Motor.dc(-100)
                     right_Motor.dc(-100)
                     wait(2450)
-                    Drive.straight(35)
+                    Drive.straight(25)
                     guinada("D", 89, 100)
                     hub.imu.reset_heading(0)
                     varrer_meio += 1
@@ -165,7 +170,7 @@ def fazer_resgate():
                         left_Motor.dc(-100)
                         right_Motor.dc(-100)
                         wait(2450)
-                        Drive.straight(35)
+                        Drive.straight(25)
                         guinada("D", 89, 100)
                         hub.imu.reset_heading(0)
                         varrer_meio += 1
@@ -183,7 +188,7 @@ def fazer_resgate():
                         left_Motor.dc(-100)
                         right_Motor.dc(-100)
                         wait(2450)
-                        Drive.straight(35)
+                        Drive.straight(25)
                         guinada("D", 89, 100)
                         hub.imu.reset_heading(0)
                         varrer_meio += 1
@@ -198,7 +203,7 @@ def fazer_resgate():
                         left_Motor.dc(-100)
                         right_Motor.dc(-100)
                         wait(2800)
-                        Drive.straight(35)
+                        Drive.straight(25)
                         guinada("D", 89, 100)
                         hub.imu.reset_heading(0)
                         varrer_meio += 1  
@@ -388,7 +393,7 @@ def fazer_resgate():
                     right_Motor.dc(100)
                     wait(700)
                     guinada("E",37,90)
-                    Drive.straight(170)
+                    Drive.straight(100) #170
                     """while True:
                         left_Motor.dc(30)
                         right_Motor.dc(90)
@@ -460,7 +465,7 @@ def fazer_resgate():
                     wait(600)"""
                     # guinada("E",12,90)
                     guinada("E",37,90)
-                    Drive.straight(170)
+                    Drive.straight(100)
                     Drive.brake()
                     hub.imu.reset_heading(0)
                     canto_vermelho += 1
