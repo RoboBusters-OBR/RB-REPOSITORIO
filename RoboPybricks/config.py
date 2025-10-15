@@ -9,7 +9,7 @@ from pybricks.parameters import Axis
 from pybricks.tools import multitask, run_task
 
 # Inicializa o hub com canal de comunicação
-hub = InventorHub(top_side=Axis.Z, front_side=Axis.Y, broadcast_channel=1, observe_channels=[2])
+hub = InventorHub(top_side=Axis.Z, front_side=Axis.Y, broadcast_channel=11, observe_channels=[41])
 
 # Motores
 Garra = Motor(Port.F)

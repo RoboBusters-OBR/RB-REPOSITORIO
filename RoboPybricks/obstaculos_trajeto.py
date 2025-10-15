@@ -119,7 +119,7 @@ def rampa():
                     if achou == 1:
                         break
 
-    if (hub.imu.tilt()[0] <= -1 and hub.imu.tilt()[0] > -6) :
+    if (hub.imu.tilt()[0] <= -2 and hub.imu.tilt()[0] > -6) :
         print('LOMBADA')
         timer.reset()
         while True:
@@ -255,7 +255,7 @@ def movimentoobs():
     hub.imu.reset_heading(0)
     while True :  
         left_Motor.dc(100) 
-        right_Motor.dc(41)
+        right_Motor.dc(50)
         
         if hub.imu.heading()>90:
             Drive.brake()
@@ -309,15 +309,14 @@ def movimentoobs():
                         Drive.brake()
                         Drive.straight(-30)
                         hub.imu.reset_heading(0)
-                        break
-                
+                        break               
 
 def separar_dados(tipo):
     inteiros = []
     strings = []
 
     # Obtenha os dados da função
-    tuplaultra = hub.ble.observe(2)
+    tuplaultra = hub.ble.observe(41)
 
     # Verifique se tuplaultra é uma sequência (tupla, lista, etc.)
     if isinstance(tuplaultra, (list, tuple)):  # Verifica se é uma sequência

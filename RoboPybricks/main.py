@@ -13,16 +13,14 @@ Drive.stop()
 wait(200)
 
 while True:
-  '''seguir_Linha(5, 80)#5, 8
+  seguir_Linha(5, 80)#5, 8
   verifica_verde()
   curvabrusca()
   FitaRED()
   Obstaculo()
   rampa()
   identifica_sala()
-  identificanada()'''
-  #print(sensor_CorD.reflection(),sensor_CorE.reflection())
+  identificanada()
+  print(separar_dados("I"))
   #print(hub.imu.tilt()[0])
-  Garra.dc(100)
-  wait(1500)
-    
+  
