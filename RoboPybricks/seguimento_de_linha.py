@@ -26,7 +26,7 @@ def seguir_Linha(KP, velocidade_base):
 def verifica_verde():
     if sensor_CorE.color() == Color.GREEN or sensor_CorD.color() == Color.GREEN:
         timer.reset()
-        while timer.time() < 150 :
+        while timer.time() < 100 :
             seguir_Linha(1,40)
         Drive.brake()
     
@@ -98,9 +98,9 @@ def verifica_verde():
                 left_Motor.dc(90) 
                 right_Motor.dc(90) 
                 wait(550)
-                guinada('E', 95, 70)
+                guinada('E', 95, 80)
                 while True:
-                    mover(65)
+                    mover(80)
                     if sensor_CorE.reflection() < 20:
                         Drive.straight(-20)
                         Drive.brake()
@@ -137,9 +137,9 @@ def verifica_verde():
                 left_Motor.dc(90) 
                 right_Motor.dc(90) 
                 wait(550)
-                guinada('D', 95, 70)
+                guinada('D', 95, 80)
                 while True:
-                    mover(-65)
+                    mover(-80)
                     if sensor_CorD.reflection() < 28:
                         Drive.straight(-20)
                         Drive.brake()
@@ -153,8 +153,10 @@ def curvabrusca():
         right_Motor.dc(80)
         wait(300)"""
     
-    if (sensor_CorE.reflection() >= 0 and sensor_CorE.reflection() <= 22) and (sensor_CorD.reflection() >= 0 and sensor_CorD.reflection() <= 40 )and (sensor_CorE.color()!= Color.GREEN and sensor_CorD.color()!= Color.GREEN) and hub.imu.tilt()[0] > -1 and hub.imu.tilt()[0] < 1 :
-        
+    if (sensor_CorE.reflection() >= 0 and sensor_CorE.reflection() <= 22) and (sensor_CorD.reflection() >= 0 and sensor_CorD.reflection() <= 40 )and (sensor_CorE.color()!= Color.GREEN and sensor_CorD.color()!= Color.GREEN) and hub.imu.tilt()[0] > -1 and hub.imu.tilt()[0] < 2 :
+        wait(50)
+        if sensor_CorD.color()== Color.GREEN or sensor_CorE.color()== Color.GREEN:
+            return 0
         guinada('D', 10, 100)
         Drive.straight(45) 
         """if (sensor_CorD.reflection() <= 40 or sensor_CorE.reflection() <= 40) :
@@ -187,7 +189,10 @@ def curvabrusca():
             
                
                 
-    if (sensor_CorD.reflection() >= 0 and sensor_CorD.reflection() <= 22) and (sensor_CorE.reflection() >= 20 and sensor_CorE.reflection() <= 40) and (sensor_CorD.color()!= Color.GREEN and sensor_CorE.color()!= Color.GREEN) and hub.imu.tilt()[0] > -1 and hub.imu.tilt()[0] < 1   :
+    if (sensor_CorD.reflection() >= 0 and sensor_CorD.reflection() <= 22) and (sensor_CorE.reflection() >= 20 and sensor_CorE.reflection() <= 40) and (sensor_CorD.color()!= Color.GREEN and sensor_CorE.color()!= Color.GREEN) and hub.imu.tilt()[0] > -1 and hub.imu.tilt()[0] < 2  :
+        wait(50)
+        if sensor_CorD.color()== Color.GREEN or sensor_CorE.color()== Color.GREEN:
+            return 0
         guinada('E', 10, 100)
         Drive.straight(45) 
         """if (sensor_CorD.reflection() <= 40 or sensor_CorE.reflection() <= 40) :

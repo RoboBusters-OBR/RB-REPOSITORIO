@@ -7,10 +7,10 @@ from obstaculos_trajeto import  Obstaculo, rampa, separar_dados
 from pybricks.tools import wait
 from pybricks.pupdevices import Motor
 from pybricks.parameters import Stop
+from movimentos_bases import guinada
 
 Garra.run_target(500, 0,then = Stop.BRAKE,wait = False )
 Drive.stop()
-wait(500)
 
 while True:
   seguir_Linha(5, 80)#5, 8
@@ -20,7 +20,7 @@ while True:
   Obstaculo()
   rampa()
   identifica_sala()
-  identificanada()
-  #print(separar_dados("I"))
+  #identificanada()
+  print(sensor_CorE.reflection(),sensor_CorD.reflection())
   #print(hub.imu.tilt()[0])
   

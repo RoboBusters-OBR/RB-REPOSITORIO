@@ -31,8 +31,8 @@ sensor_CorD = ColorSensor(Port.C)
 UltrassonicoF = UltrasonicSensor(Port.E)
 
 # Definição de cores personalizadas
-Color.BLACK = Color(h=210, s=32, v=18)
-Color.GREEN = Color(h=176, s=71, v=24)
+Color.BLACK = Color(h=220, s=34, v=20)#Drive.use_gyro(True)
+Color.GREEN = Color(h=162, s=78, v=24)#176,71,24
 Color.WHITE = Color(h=200, s=15, v=98)
 Color.CINZA = Color(h=0, s=24, v=55)
 Color.RED = Color(h=340, s=80, v=55)
