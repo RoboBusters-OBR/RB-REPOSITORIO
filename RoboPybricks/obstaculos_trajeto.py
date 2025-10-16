@@ -273,7 +273,7 @@ def movimentoobs():
     guinada("D",89,100)
     Drive.straight(350)
     guinada("D",89,100)
-    Drive.straight(190)
+    Drive.straight(170)
     """while True :  
         left_Motor.dc(100) 
         right_Motor.dc(30)

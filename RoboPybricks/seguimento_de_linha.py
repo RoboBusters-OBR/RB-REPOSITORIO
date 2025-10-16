@@ -153,7 +153,7 @@ def curvabrusca():
         right_Motor.dc(80)
         wait(300)"""
     
-    if (sensor_CorE.reflection() >= 0 and sensor_CorE.reflection() <= 22) and (sensor_CorD.reflection() >= 0 and sensor_CorD.reflection() <= 40 )and (sensor_CorE.color()!= Color.GREEN and sensor_CorD.color()!= Color.GREEN) and hub.imu.tilt()[0] > -1 and hub.imu.tilt()[0] < 2 :
+    if (sensor_CorE.reflection() >= 0 and sensor_CorE.reflection() <= 22) and (sensor_CorD.reflection() >= 0 and sensor_CorD.reflection() <= 40 )and (sensor_CorE.color()!= Color.GREEN and sensor_CorD.color()!= Color.GREEN) and hub.imu.tilt()[0] > -1 and hub.imu.tilt()[0] < 2 and (sensor_CorE.color()!= Color.RED and sensor_CorD.color()!= Color.RED):
         wait(50)
         if sensor_CorD.color()== Color.GREEN or sensor_CorE.color()== Color.GREEN:
             return 0
@@ -189,7 +189,7 @@ def curvabrusca():
             
                
                 
-    if (sensor_CorD.reflection() >= 0 and sensor_CorD.reflection() <= 22) and (sensor_CorE.reflection() >= 20 and sensor_CorE.reflection() <= 40) and (sensor_CorD.color()!= Color.GREEN and sensor_CorE.color()!= Color.GREEN) and hub.imu.tilt()[0] > -1 and hub.imu.tilt()[0] < 2  :
+    if (sensor_CorD.reflection() >= 0 and sensor_CorD.reflection() <= 22) and (sensor_CorE.reflection() >= 20 and sensor_CorE.reflection() <= 40) and (sensor_CorD.color()!= Color.GREEN and sensor_CorE.color()!= Color.GREEN) and hub.imu.tilt()[0] > -1 and hub.imu.tilt()[0] < 2 and (sensor_CorE.color()!= Color.RED and sensor_CorD.color()!= Color.RED) :
         wait(50)
         if sensor_CorD.color()== Color.GREEN or sensor_CorE.color()== Color.GREEN:
             return 0
