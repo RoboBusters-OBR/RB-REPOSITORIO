@@ -10,7 +10,7 @@ from pybricks.parameters import Stop
 
 Garra.run_target(500, 0,then = Stop.BRAKE,wait = False )
 Drive.stop()
-wait(200)
+wait(500)
 
 while True:
   seguir_Linha(5, 80)#5, 8

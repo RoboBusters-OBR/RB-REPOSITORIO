@@ -62,7 +62,7 @@ while True:
                 cancelaE.stop()
                 cancela == 0 
             print("ultra")
-
+            wait(200)
             if hub.ble.observe(11) == "COR" :
                 while True:
                     if hub.ble.observe(11) == "PARAR" :
@@ -71,6 +71,7 @@ while True:
                     hub.ble.broadcast(tuplacor)
                     print("so cor")
                     print(tuplacor)
+                    wait(200)
                     
 
 
@@ -90,6 +91,7 @@ while True:
 
         print(tuplaultraa)
         hub.ble.broadcast(tuplaultraa)
+        wait(200)
         #print(CorD.color(),CorD.hsv())
        
     

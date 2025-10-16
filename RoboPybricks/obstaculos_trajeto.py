@@ -254,7 +254,11 @@ def Obstaculo():
 
     from resgate_de_vitimas import identifica_sala
     from seguimento_de_linha import seguir_Linha
-    if UltrassonicoF.distance() <= 70:
+    if UltrassonicoF.distance() <= 60:
+        Drive.brake()
+        wait(6500)
+        hub.speaker.beep(500,400)
+        Drive.straight(-10)
         guinada('E', 35, 80)
         while True:
             left_Motor.dc(70) 
