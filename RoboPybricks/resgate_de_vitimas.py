@@ -426,7 +426,7 @@ def fazer_resgate():
                     wait(1100)
                     Garra.dc(-100)
                     wait(900)'''
-                    Drive.straight(20)
+                    Drive.straight(50)
                     Garra.dc(100)
                     wait(1200)
                     guinada("E", 90, 100)

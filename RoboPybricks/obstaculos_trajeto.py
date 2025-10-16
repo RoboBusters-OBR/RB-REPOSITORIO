@@ -248,14 +248,14 @@ def Obstaculo():
             right_Motor.dc(-70) 
             if UltrassonicoF.distance() <= 70:
               break
-        guinada('E', 70, 60)     
+        guinada('E', 70, 80)     
         movimentoobs()
 
 def movimentoobs():
     hub.imu.reset_heading(0)
     while True :  
         left_Motor.dc(100) 
-        right_Motor.dc(50)
+        right_Motor.dc(30)
         
         if hub.imu.heading()>90:
             Drive.brake()
@@ -281,8 +281,8 @@ def movimentoobs():
                         Drive.straight(40)
                         guinada("E",150,90)
                         while True:
-                            left_Motor.dc(60) 
-                            right_Motor.dc(-60)
+                            left_Motor.dc(80) 
+                            right_Motor.dc(-80)
                             if sensor_CorE.reflection()<15 or sensor_CorD.reflection()<15 :
                                 Drive.straight(-20)
                                 return 0
@@ -299,8 +299,8 @@ def movimentoobs():
                         Drive.straight(40)
                         guinada("E",150,90)
                         while True:
-                            left_Motor.dc(60) 
-                            right_Motor.dc(-60)
+                            left_Motor.dc(80) 
+                            right_Motor.dc(-80)
                             if sensor_CorE.reflection()<15 or sensor_CorD.reflection()<15 :
                                 Drive.straight(-20)
                                 return 0
