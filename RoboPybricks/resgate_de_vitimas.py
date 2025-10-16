@@ -28,7 +28,7 @@ async def sobe():
 def identifica_sala():
     from seguimento_de_linha import seguir_Linha, FitaRED, curvabrusca, verifica_verde
     from obstaculos_trajeto import Obstaculo, separar_dados
-    if any(numero < 260 for numero in separar_dados('I')) or sensor_CorD.reflection() > 85 and sensor_CorE.reflection() > 85  :
+    if any(numero < 260 for numero in separar_dados('I')) or sensor_CorD.reflection() > 85 or sensor_CorE.reflection() > 85  :
         Drive.brake()
         if any(numero < 260 for numero in separar_dados('I')) :
             Drive.brake()
@@ -59,7 +59,7 @@ def identifica_sala():
                 Drive.brake()
                 
                 fazer_resgate()
-        elif sensor_CorD.reflection() > 85 and sensor_CorE.reflection() > 85:
+        elif sensor_CorD.reflection() > 86 or sensor_CorE.reflection() > 86:
             left_Motor.dc(80)
             right_Motor.dc(80)
             wait(600)

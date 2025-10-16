@@ -13,13 +13,26 @@ def rampa():
         wait(200)
         print('RAMPA')
         Garra.run_angle(90, -170)
-
+        contador = 0
         timer.reset()
         while True:
             # 5, 72 # CURVA  > 5 < 19 AND > 20 < 42 4.2 , 75
             seguir_Linha(0.9, 100)
 
             FitaRED()
+            """if hub.imu.tilt()[0] < -45 and contador== 0:
+                Drive.brake()
+                wait(500)
+                Garra.dc(-100)
+                wait(800)
+                right_Motor.dc(100)
+                left_Motor.dc(100)
+                wait(800)
+                contador += 1
+"""
+
+                
+            
             if hub.imu.tilt()[0] >-1 and timer.time() > 500:
                 if hub.imu.tilt()[0] > 6 and hub.imu.tilt()[0] < 40 :
                     Drive.straight(-30)
@@ -138,7 +151,7 @@ def rampa():
             print(hub.imu.tilt()[0])   
             seguir_Linha(3, 55)
             identifica_sala()  # 5, 72 # CURVA  > 5 < 19 AND > 20 < 42 4.2 , 75
-            verifica_verde()
+            #verifica_verde()
             Obstaculo()
             FitaRED()
             #curvalombada()
@@ -253,12 +266,31 @@ def Obstaculo():
 
 def movimentoobs():
     hub.imu.reset_heading(0)
-    while True :  
+    Drive.straight(200)
+    guinada("D",89,100)
+    Drive.straight(350)
+    guinada("D",89,100)
+    Drive.straight(200)
+    """while True :  
         left_Motor.dc(100) 
         right_Motor.dc(30)
         
-        if hub.imu.heading()>90:
-            Drive.brake()
+        if hub.imu.heading()>175:
+            guinada("E",110,90)
+            Drive.straiight(-40)"""
+    while True:
+        left_Motor.dc(-80) 
+        right_Motor.dc(80)
+        if sensor_CorD.reflection()<25 :
+            Drive.straight(-20)
+            return 0
+            """Drive.brake()
+            Drive.straight(20)
+            guinada("D",89,100)
+            Drive.sttraight(400)
+            guinada("D",89,100)
+            Drive.straight(20)
+            
             while True :
                 print(separar_dados("I"))
                 left_Motor.dc(-60) 
@@ -278,7 +310,7 @@ def movimentoobs():
                 right_Motor.dc(60)
                 if any(numero < 250 for numero in separar_dados('I')) or  sensor_CorD.reflection()<15:
                     if sensor_CorE.reflection()<15 or sensor_CorD.reflection()<15:
-                        Drive.straight(40)
+                        Drive.straight(60)
                         guinada("E",150,90)
                         while True:
                             left_Motor.dc(80) 
@@ -296,13 +328,13 @@ def movimentoobs():
                 right_Motor.dc(60)
                 if any(numero > 250 for numero in separar_dados('I')) or  sensor_CorD.reflection()<15:
                     if sensor_CorE.reflection()<15 or sensor_CorD.reflection()<15:
-                        Drive.straight(40)
+                        Drive.straight(60)
                         guinada("E",150,90)
                         while True:
                             left_Motor.dc(80) 
                             right_Motor.dc(-80)
                             if sensor_CorE.reflection()<15 or sensor_CorD.reflection()<15 :
-                                Drive.straight(-20)
+                                Drive.straight(-30)
                                 return 0
                 
                     else :
@@ -310,7 +342,7 @@ def movimentoobs():
                         Drive.straight(-30)
                         hub.imu.reset_heading(0)
                         break               
-
+"""
 def separar_dados(tipo):
     inteiros = []
     strings = []

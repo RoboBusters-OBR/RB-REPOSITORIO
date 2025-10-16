@@ -21,6 +21,6 @@ while True:
   rampa()
   identifica_sala()
   identificanada()
-  print(separar_dados("I"))
+  #print(separar_dados("I"))
   #print(hub.imu.tilt()[0])
   
