@@ -65,7 +65,7 @@ def fazer_resgate():
             break
     if leitura_ultra == 50:  # verifica se esta encostado na parede
         Drive.straight(70)
-        guinada("E", 90, 90)
+        guinada("E", 90, 100)
         left_Motor.dc(-100)
         right_Motor.dc(-100)
         wait(1800)
@@ -82,7 +82,7 @@ def fazer_resgate():
         right_Motor.dc(80)
         wait(300)
         Drive.brake()
-        guinada("D", 89, 70)
+        guinada("D", 89, 90)
         Drive.brake()
         Garra.dc(-90)
         wait(1200)
@@ -102,7 +102,7 @@ def fazer_resgate():
 
         print(canto_verde)
 
-        if canto_verde == 0:
+        if canto_verde == 2:
             break
         Drive.straight(30,wait = False )
         print(separar_dados('I'))
@@ -474,7 +474,7 @@ def fazer_resgate():
             Drive.stop()
             wait(200)
             if any(numero < 350 for numero in separar_dados('I')):
-                if varrer_meio == quant_meio and any(numero < 350 for numero in separar_dados('I')):
+                if varrer_meio == quant_meio:
                     Drive.straight(40)
                     guinada("E", 85, 100)
                     left_Motor.dc(-100)
@@ -490,7 +490,7 @@ def fazer_resgate():
                     guinada("D", 89, 100)
                     hub.imu.reset_heading(0)
                     varrer_meio += 1
-                elif any(numero < 350 for numero in separar_dados('I')) :
+                else :
                     Drive.straight(40)
                     guinada("E", 85, 100)
                     left_Motor.dc(-100)
@@ -542,11 +542,12 @@ def fazer_resgate():
                         print("saiu")
                         Garra.dc(100)
                         wait(1900)
+                        timer.reset()
                         while True:
                             print(separar_dados('I'))
                             right_Motor.dc(-60)
                             left_Motor.dc(-60)
-                            if any(numero <= 200 for numero in separar_dados('I')):
+                            if any(numero <= 200 for numero in separar_dados('I')) or timer.time()>6000:
                                 Drive.brake()
                                 Drive.straight(100)
                                 break
@@ -557,16 +558,17 @@ def fazer_resgate():
                                 Drive.brake()
                                 Drive.straight(-100)
                                 break
+                        timer.reset()
                         while True:
                             right_Motor.dc(-60)
                             left_Motor.dc(-60)
-                            if any(numero <= 170 for numero in separar_dados('I')):
+                            if any(numero <= 170 for numero in separar_dados('I')) or timer.time()>6000:
                                 Drive.brake()
                                 Drive.straight(70)
                                 break
                         left_Motor.dc(80)
                         right_Motor.dc(80)
-                        wait(550)
+                        wait(700)
                         guinada("D", 85, 80)
                         timer.reset()
                         while True:
