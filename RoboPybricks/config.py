@@ -37,8 +37,9 @@ Color.WHITE = Color(h=200, s=15, v=98)
 Color.CINZA = Color(h=0, s=24, v=55)
 Color.RED = Color(h=340, s=80, v=55)
 Color.SILVER = Color(h=210, s=27, v=70)
+Color.BLUE = Color(h=211,s=88,v=60)
 # Lista de cores detectáveis
-my_colors = (Color.GREEN, Color.RED, Color.WHITE, Color.BLACK, Color.CINZA,Color.SILVER)
+my_colors = (Color.GREEN, Color.RED, Color.WHITE, Color.BLACK, Color.CINZA,Color.SILVER, Color.BLUE)
 sensor_CorD.detectable_colors(my_colors)
 sensor_CorE.detectable_colors(my_colors)
 

@@ -2,6 +2,7 @@
 from config import hub, left_Motor, right_Motor, Drive, UltrassonicoF, timer, Garra, my_colors, sensor_CorD, sensor_CorE, Color
 from movimentos_bases import guinada, mover
 from pybricks.tools import wait
+from deixar_vitimas import fita_prata
 
 
 
@@ -61,6 +62,7 @@ def rampa():
         
                 seguir_Linha(5, 60)
                 verifica_verde()
+                fita_prata()
                 FitaRED()
                 Obstaculo()
                 #curvabrusca()
@@ -152,7 +154,7 @@ def rampa():
             print(hub.imu.tilt()[0])   
             seguir_Linha(3, 55)
             print(sensor_CorE.reflection(),sensor_CorD.reflection())
-            identifica_sala()  # 5, 72 # CURVA  > 5 < 19 AND > 20 < 42 4.2 , 75
+            #identifica_sala()  # 5, 72 # CURVA  > 5 < 19 AND > 20 < 42 4.2 , 75
             #verifica_verde()
             Obstaculo()
             FitaRED()
@@ -278,7 +280,7 @@ def movimentoobs():
         left_Motor.dc(100) 
         right_Motor.dc(30)
         
-        if hub.imu.heading()>175:
+        if hub.imu.heading()>90:
             guinada("E",110,90)
             Drive.straiight(-40)"""
     while True:

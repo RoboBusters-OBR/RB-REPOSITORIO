@@ -12,10 +12,6 @@ from movimentos_bases import guinada
 Garra.run_target(500, 0,then = Stop.BRAKE,wait = False )
 Drive.stop()
 wait(1000)
-while True :
-  Drive.brake()
-  if sensor_CorE.color() != Color.GREEN and sensor_CorD.color() != Color.GREEN :
-    break
 while True:
   seguir_Linha(5, 80)#5, 8
   verifica_verde()
@@ -25,6 +21,6 @@ while True:
   rampa()
   identifica_sala()
   #identificanada()
-  print(sensor_CorE.reflection(),sensor_CorD.reflection())
+  print(sensor_CorE.hsv(),sensor_CorD.hsv())
   #print(hub.imu.tilt()[0])
   

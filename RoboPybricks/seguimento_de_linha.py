@@ -24,6 +24,35 @@ def seguir_Linha(KP, velocidade_base):
     right_Motor.dc(direita_power)
        
 def verifica_verde():
+    if sensor_CorD.color() == Color.BLUE or sensor_CorE.color() == Color.BLUE :
+        print("viu azul")
+        if sensor_CorD.color() == Color.BLUE and sensor_CorE.color() != Color.BLUE :
+                hub.speaker.beep(500,100)
+                left_Motor.dc(90) 
+                right_Motor.dc(90) 
+                wait(350)
+                guinada('D', 95, 80)
+                while True:
+                    mover(-80)
+                    if sensor_CorD.reflection() < 28:
+                        Drive.straight(10)
+                        Drive.brake()
+                        wait(100)
+                        break
+        if sensor_CorD.color() != Color.BLUE and sensor_CorE.color() == Color.BLUE :
+                hub.speaker.beep(500,100)
+                left_Motor.dc(90) 
+                right_Motor.dc(90) 
+                wait(350)
+                guinada('E', 95, 80)
+                while True:
+                    mover(80)
+                    if sensor_CorE.reflection() < 28:
+                        Drive.straight(10)
+                        Drive.brake()
+                        wait(100)
+                        break            
+                    
     if sensor_CorE.color() == Color.GREEN or sensor_CorD.color() == Color.GREEN:
         timer.reset()
         while timer.time() < 100 :

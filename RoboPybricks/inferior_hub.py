@@ -29,6 +29,7 @@ cancelaE.run_target(700, 100)
 
 while True:
     cancela = hub.ble.observe(11)
+    wait(300)
     if cancela == 3 : #Abrir verde
         cancelaE.run_target(700, 100)     
         cancela == 0 
@@ -45,6 +46,7 @@ while True:
 
             tuplaultra = UltrassonicoL.distance()
             hub.ble.broadcast(tuplaultra)
+            wait(300)
             
             cancela = hub.ble.observe(11)
             cancelaE.dc(-60)
@@ -62,7 +64,7 @@ while True:
                 cancelaE.stop()
                 cancela == 0 
             print("ultra")
-            wait(200)
+            wait(300)
             if hub.ble.observe(11) == "COR" :
                 while True:
                     if hub.ble.observe(11) == "PARAR" :
@@ -71,7 +73,7 @@ while True:
                     hub.ble.broadcast(tuplacor)
                     print("so cor")
                     print(tuplacor)
-                    wait(200)
+                    wait(300)
                     
 
 
@@ -91,7 +93,7 @@ while True:
 
         print(tuplaultraa)
         hub.ble.broadcast(tuplaultraa)
-        wait(200)
+        wait(30)
         #print(CorD.color(),CorD.hsv())
        
     
